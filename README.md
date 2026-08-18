@@ -41,7 +41,8 @@ To check it works without waiting: **Actions → refurbed watch → Run workflow
 
 New listings and price drops are highlighted in the report. Every run also
 posts the complete current standings to the permanent results issue, even when
-nothing changed.
+nothing changed. Results and multi-listing alerts are sorted from the lowest
+price to the highest, with unknown prices shown last.
 
 ## How it works, and why it works this way
 
