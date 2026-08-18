@@ -1,0 +1,61 @@
+name: refurbed watch
+
+on:
+  schedule:
+    # Every 15 minutes, offset off the hour. GitHub queues a lot of jobs at
+    # :00 and delays them, so odd minutes get picked up more promptly.
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:        # lets you run it on demand from the Actions tab
+
+permissions:
+  contents: write           # commit state.json back to the repo
+  issues: write             # open an issue when something is found
+
+concurrency:
+  group: refurbed-watch
+  cancel-in-progress: false # never cut a run short mid-write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tests
+        # Hermetic and instant. If refurbed changes their markup badly enough
+        # to break the parser, this fails loudly instead of silently reporting
+        # "no change" forever.
+        run: python3 -m unittest discover -q
+
+      - name: Check refurbed.se
+        id: watch
+        run: python3 refurbed_watch.py --notify github --state state.json
+
+      - name: Open an issue
+        if: steps.watch.outputs.has_alerts == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "${{ steps.watch.outputs.alert_title }}" \
+            --body-file alert.md \
+            --label "alert"
+
+      - name: Save state
+        run: |
+          if git diff --quiet -- state.json; then
+            echo "No state change."
+            exit 0
+          fi
+          git config user.name  "refurbed-watch[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git commit -m "state: refurbed check $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
+          # Another run may have pushed while we were working; rebase and retry.
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase --autostash || true
+          done
+          echo "::warning::Could not push state after 3 attempts"
