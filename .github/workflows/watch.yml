@@ -37,23 +37,10 @@ jobs:
         id: watch
         run: python3 refurbed_watch.py --notify github --state state.json
 
-      - name: Open an issue
-        if: steps.watch.outputs.has_alerts == 'true'
+      - name: Post results to the watch issue
         env:
           GH_TOKEN: ${{ github.token }}
-          # Via the environment, never inlined into the script. The title is
-          # built from text scraped off refurbed.se, so treating it as shell
-          # source would hand a third party a command prompt on this runner.
-          ALERT_TITLE: ${{ steps.watch.outputs.alert_title }}
-        run: |
-          # gh validates --label client-side and hard-fails if the label is
-          # missing, which would swallow the alert. Make sure it exists first.
-          gh label create alert \
-            --color d73a4a \
-            --description "refurbed.se stock alert" >/dev/null 2>&1 || true
-
-          gh issue create --title "$ALERT_TITLE" --body-file alert.md --label alert \
-            || gh issue create --title "$ALERT_TITLE" --body-file alert.md
+        run: gh issue comment 2 --body-file alert.md
 
       - name: Save state
         run: |

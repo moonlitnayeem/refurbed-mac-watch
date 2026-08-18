@@ -1,7 +1,7 @@
 # refurbed-mac-watch
 
-Watches [refurbed.se](https://www.refurbed.se) on a schedule and opens a GitHub
-issue when a machine you care about appears or drops in price.
+Watches [refurbed.se](https://www.refurbed.se) on a schedule and posts the full
+current results to a permanent GitHub issue after every run.
 
 | Watch | What it looks for |
 |---|---|
@@ -24,15 +24,14 @@ third-party service, no API keys. Standard library Python only.
 3. **Settings → Actions → General → Workflow permissions** → select
    *Read and write permissions*. Without this the workflow cannot commit
    `state.json` or open issues.
-4. Optional but recommended: create a label called `alert`, and make sure
-   you're **Watching** the repo (Watch → All Activity) so new issues email you.
-   The GitHub mobile app will also push them.
+4. Create a permanent results issue, subscribe to it, and put its number in the
+   `gh issue comment` command in `.github/workflows/watch.yml`. The GitHub mobile
+   app will push each new results comment when issue notifications are enabled.
 
-That's it. The first scheduled run establishes a baseline **silently** — you
-start getting alerts from the second run onward.
+That's it. The first scheduled run establishes the change-detection baseline,
+but every run—including the first—posts its complete current standings.
 
 To check it works without waiting: **Actions → refurbed watch → Run workflow**.
-Run it twice; the first run baselines, the second reports.
 
 ## What triggers an alert
 
@@ -40,10 +39,9 @@ Run it twice; the first run baselines, the second reports.
   watch's filter.
 - **Price drop** — a known variant is cheaper than last time.
 
-Deliberately silent on: price increases, listings disappearing, result
-reordering, rating changes, and promo banners. Every run writes its full
-standings to the job summary whether or not anything fired, so you can always
-see current state in the Actions tab without an issue being opened.
+New listings and price drops are highlighted in the report. Every run also
+posts the complete current standings to the permanent results issue, even when
+nothing changed.
 
 ## How it works, and why it works this way
 
