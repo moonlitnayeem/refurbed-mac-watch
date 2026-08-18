@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "refurbed-watch-scheduler",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-18",
+  "triggers": {
+    "crons": ["*/15 * * * *"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}

@@ -8,8 +8,9 @@ current results to a permanent GitHub issue after every run.
 | `mac-studio` | Any purchasable Mac Studio |
 | `mbp-max-64` | MacBook Pro with a **Max chip and 64 GB RAM** |
 
-Runs entirely on GitHub Actions. Nothing installed locally, no server, no
-third-party service, no API keys. Standard library Python only.
+The watcher runs on GitHub Actions. A free Cloudflare Worker triggers it every
+15 minutes because GitHub's native scheduled events can be delayed or dropped.
+The watcher itself uses only the Python standard library.
 
 ## Setup
 
@@ -28,10 +29,29 @@ third-party service, no API keys. Standard library Python only.
    `gh issue comment` command in `.github/workflows/watch.yml`. The GitHub mobile
    app will push each new results comment when issue notifications are enabled.
 
-That's it. The first scheduled run establishes the change-detection baseline,
+The first run establishes the change-detection baseline,
 but every run—including the first—posts its complete current standings.
 
 To check it works without waiting: **Actions → refurbed watch → Run workflow**.
+
+## Cloudflare scheduler
+
+The deployed `refurbed-watch-scheduler` Worker runs `*/15 * * * *` and calls
+GitHub's `workflow_dispatch` API. Its source and deployment configuration live
+in `cloudflare-scheduler/`.
+
+```bash
+cd cloudflare-scheduler
+npm install
+npm test
+npx wrangler deploy
+gh auth token | npx wrangler secret put GITHUB_TOKEN
+```
+
+`GITHUB_TOKEN` is stored as an encrypted Cloudflare Worker secret and is never
+committed. The current deployment is available at
+`https://refurbed-watch-scheduler.moonlitnayeem.workers.dev`; it intentionally
+has no public HTTP handler because it only responds to its Cron Trigger.
 
 ## What triggers an alert
 
@@ -89,12 +109,8 @@ count — the Studio Display is the trap the name-based filter would fall into.
 `state.json` is committed back to the repo after each run. That does two jobs:
 
 1. It's the memory. Without it every run would look like a first run.
-2. GitHub disables scheduled workflows after **60 days of no activity on the
-   default branch** — and the workflow's own commits count as activity, so it
-   keeps itself alive as long as listings keep changing.
-
-If refurbed goes completely static for two months, GitHub will email you before
-disabling it; re-enable from the Actions tab, or just hit *Run workflow*.
+2. The workflow's state commits keep the default branch active while the
+   external Cloudflare scheduler triggers `workflow_dispatch`.
 
 ## Everyday use
 
@@ -102,7 +118,7 @@ disabling it; re-enable from the Actions tab, or just hit *Run workflow*.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 39 tests, no network needed
+python3 -m unittest discover -v       # 41 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
@@ -110,11 +126,9 @@ The script also runs locally on macOS with native notifications
 
 ## Tuning
 
-**Check more or less often** — edit the `cron` line in
-`.github/workflows/watch.yml`. GitHub's floor is 5 minutes, and scheduled runs
-can be delayed by a few minutes under load, so 15 is a sensible practical
-minimum. Note that `schedule` events don't fire while a repo is disabled or
-archived.
+**Check more or less often** — edit `triggers.crons` in
+`cloudflare-scheduler/wrangler.jsonc`, then run `npx wrangler deploy` from that
+directory. Cron Triggers use UTC.
 
 **Add a watch** — append to `WATCHES` in `refurbed_watch.py`:
 
@@ -143,13 +157,13 @@ matches=lambda o: is_max_or_ultra_64gb(o) and (o.price or 0) < 32000,
 `robots.txt` on refurbed.se permits general crawling. This script identifies
 itself honestly in its `User-Agent`, leaves 3 seconds between requests, caches
 variant configs so it doesn't re-read pages it already knows, and backs off
-exponentially on errors. Steady state is 2 requests per run.
+exponentially on errors. Steady state is 3 search requests per run.
 
 ## Troubleshooting
 
-**Workflow doesn't run on schedule** — check Actions isn't disabled for the
-repo, and that the workflow hasn't been auto-disabled for inactivity. Manual
-*Run workflow* always works.
+**Workflow doesn't run on schedule** — check the Cloudflare Worker's Cron
+Trigger and logs, verify its `GITHUB_TOKEN` secret still exists, and confirm the
+GitHub workflow is active. Manual *Run workflow* always works.
 
 **"Permission denied" pushing state or creating an issue** — Settings → Actions
 → General → Workflow permissions → *Read and write permissions*.

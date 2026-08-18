@@ -1,0 +1,12 @@
+{
+  "name": "refurbed-watch-cloudflare-scheduler",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test index.test.js",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.32.0"
+  }
+}
