@@ -50,6 +50,13 @@ a product page but does not appear in search results. So "a variant URL we
 haven't seen before" cleanly covers both a brand-new listing and a restock,
 with no need to poll product pages and parse Swedish availability strings.
 
+**Search cards collapse alternate configurations.** Refurbed can show one
+representative variant for a whole product family, hiding other storage,
+keyboard, and merchant configurations behind selectors. The Max/64 GB watch
+therefore merges its broad search with a targeted M1 Max/64 GB/1 TB/DK search.
+This exposes the requested Danish 1 TB configuration and other qualifying
+alternate variants while adding only one steady-state search request per run.
+
 **Identity is the variant URL, not the product name.** Result cards link to
 `/p/<product-slug>/<variant-id>/`. The card title is useless for filtering — it
 reads `Apple MacBook Pro 2023 M3 | 16.2"` whether that's an M3 Pro with 18 GB

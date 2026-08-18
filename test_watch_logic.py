@@ -23,6 +23,7 @@ STUDIO_ULTRA_TITLE = ('<title>Apple Mac Studio 2025 Apple M3 Ultra 28 Core '
 P_M3 = "/p/apple-macbook-pro-2023-m3-16-2/258184c/"
 P_M4 = "/p/apple-macbook-pro-2024-m4-14/282199c/"   # M4 Max but only 36 GB
 P_M2 = "/p/apple-macbook-pro-2023-m2-14/167837c/"
+P_M1_DK = "/p/apple-macbook-pro-2021-m1-14/209635c/"
 P_STUDIO = "/p/apple-mac-studio-2022-m1-max/72461aa/"
 P_ULTRA = "/p/apple-mac-studio-2025-m3-ultra/99001a/"
 P_MINI = "/p/apple-mac-mini-2024-m4/273548aa/"      # fuzzy match, not a Mac Studio
@@ -111,6 +112,34 @@ class MacBookProWatchTest(BaseWatchTest):
         self.notes.clear()
         self.run_once(site)
         self.assertEqual(self.notes, [], "must not re-alert on the following run")
+
+    def test_extra_query_discovers_collapsed_alternate_configuration(self):
+        """Refurbed search cards hide alternate storage/keyboard variants."""
+        self.watch.extra_queries = (
+            "Apple MacBook Pro 2021 M1 Max 64 GB 1 TB DK",
+        )
+        exact_query = rw.search_url(self.watch.extra_queries[0])
+        title = ('<title>Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core '
+                 '64.0 GB 1000 GB 14.2 " silver DK (Dansk) – refurbed</title>')
+
+        def fetch(url):
+            if url == exact_query:
+                return search_html([(P_M1_DK, "25 325 kr")])
+            if "/search/" in url:
+                return search_html([(P_M3, "39 499 kr")])
+            if url.endswith(P_M1_DK):
+                return title
+            if url.endswith(P_M3):
+                return TITLE_M3_MAX_64
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False,
+                         notifications_left=[rw.MAX_NOTIFICATIONS_PER_RUN])
+
+        offers = self.state["watches"]["mbp"]["offers"]
+        self.assertIn(P_M1_DK, offers)
+        self.assertTrue(offers[P_M1_DK]["matched"])
 
     def test_new_non_matching_listing_is_silent(self):
         """A 36 GB M4 Max appearing must not wake anyone up."""

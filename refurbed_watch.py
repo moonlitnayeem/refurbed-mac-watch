@@ -215,6 +215,9 @@ class Watch:
     matches: Callable[[Offer], bool] = lambda o: True
     # If True, fetch the variant page to fill in chip/RAM before deciding.
     needs_config: bool = False
+    # Refurbed collapses alternate configurations into one search card. Extra
+    # targeted searches expose variants hidden behind the card's selectors.
+    extra_queries: tuple[str, ...] = ()
 
 
 def is_mac_studio(o: Offer) -> bool:
@@ -246,6 +249,11 @@ WATCHES: list[Watch] = [
         query="MacBook Pro Max 64 GB",
         matches=is_max_or_ultra_64gb,
         needs_config=True,   # required: search returns 36 GB and 48 GB machines too
+        extra_queries=(
+            # The broad result card points at a 512 GB / Italian-keyboard M1.
+            # This targeted query exposes the purchasable 1 TB / Danish variant.
+            "Apple MacBook Pro 2021 M1 Max 64 GB 1 TB DK",
+        ),
     ),
 ]
 
@@ -400,13 +408,23 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
               notifications_left: list[int]) -> list[str]:
     """Check one watch. Returns human-readable lines describing what happened."""
     lines: list[str] = []
-    page = fetch(search_url(watch.query))
-    if page is None:
-        logging.error("[%s] search fetch failed; skipping this run", watch.key)
-        return [f"{watch.label}: fetch failed, skipped"]
+    offers_by_path: dict[str, Offer] = {}
+    for index, query in enumerate((watch.query, *watch.extra_queries)):
+        page = fetch(search_url(query))
+        if page is None:
+            if index == 0:
+                logging.error("[%s] search fetch failed; skipping this run", watch.key)
+                return [f"{watch.label}: fetch failed, skipped"]
+            logging.warning("[%s] extra search fetch failed for %r; continuing",
+                            watch.key, query)
+            continue
 
-    offers = parse_search_page(page)
-    logging.info("[%s] %d cards on search page", watch.key, len(offers))
+        query_offers = parse_search_page(page)
+        logging.info("[%s] %d cards for query %r", watch.key, len(query_offers), query)
+        for offer in query_offers:
+            offers_by_path.setdefault(offer.path, offer)
+
+    offers = list(offers_by_path.values())
 
     prev = state["watches"].get(watch.key, {})
     prev_offers: dict = prev.get("offers", {})
