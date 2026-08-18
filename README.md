@@ -5,6 +5,7 @@ current results to a permanent GitHub issue after every run.
 
 | Watch | What it looks for |
 |---|---|
+| `best-value-macs` | Any priced Mac with an **Apple M-series chip and at least 32 GB RAM**, ranked cheapest first |
 | `mac-studio` | Any purchasable Mac Studio |
 | `mbp-max-64` | MacBook Pro with a **Max chip and 64 GB RAM** |
 
@@ -65,6 +66,13 @@ posts the complete current standings to the permanent results issue, even when
 nothing changed. Results and multi-listing alerts are sorted from the lowest
 price to the highest, with unknown prices shown last.
 
+The **Best-value Macs** category is always shown first. It covers MacBook Air,
+MacBook Pro, Mac mini, Mac Studio, iMac, and Mac Pro listings, but strictly
+rejects Intel models, non-Mac Apple devices, machines below 32 GB RAM, and
+listings without a known price. “Best value” is intentionally objective here:
+the lowest current price among machines meeting those requirements gets the
+highest priority, rather than relying on a speculative benchmark score.
+
 ## How it works, and why it works this way
 
 **Search only lists purchasable offers.** A Mac Studio that's out of stock has
@@ -119,7 +127,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 41 tests, no network needed
+python3 -m unittest discover -v       # 44 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
@@ -158,7 +166,9 @@ matches=lambda o: is_max_or_ultra_64gb(o) and (o.price or 0) < 32000,
 `robots.txt` on refurbed.se permits general crawling. This script identifies
 itself honestly in its `User-Agent`, leaves 3 seconds between requests, caches
 variant configs so it doesn't re-read pages it already knows, and backs off
-exponentially on errors. Steady state is 3 search requests per run.
+exponentially on errors. Steady state is 9 search requests per run; variant
+pages are cached and only fetched when a newly discovered configuration needs
+verification.
 
 ## Troubleshooting
 

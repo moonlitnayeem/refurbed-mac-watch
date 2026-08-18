@@ -144,6 +144,12 @@ class TestVariantTitleParsing(unittest.TestCase):
         _, chip, ram, _ = parse_variant_title(TITLE_MAC_STUDIO)
         self.assertEqual((chip, ram), ("M1 Max", 32.0))
 
+    def test_apple_silicon_title_without_core_count(self):
+        page = ('<title>Apple MacBook Air 2025 Apple M4 32.0 GB 1000 GB '
+                '13.6 &quot; himmelsblå SE (Svensk) – refurbed</title>')
+        _, chip, ram, ssd = parse_variant_title(page)
+        self.assertEqual((chip, ram, ssd), ("M4", 32.0, 1000.0))
+
     def test_missing_title_is_safe(self):
         self.assertEqual(parse_variant_title("<html>no title</html>"), ("", "", None, None))
 

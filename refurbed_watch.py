@@ -2,7 +2,8 @@
 """
 refurbed_watch.py — watch refurbed.se for specific Apple hardware.
 
-Two watches ship by default:
+Three watches ship by default:
+  * best-value-macs : cheapest Apple-silicon Macs with at least 32 GB RAM
   * mac-studio  : any purchasable Mac Studio
   * mbp-max-64  : MacBook Pro with a Max chip and 64 GB RAM
 
@@ -98,7 +99,9 @@ TITLE_RE = re.compile(r"<title>([^<]*)</title>", re.IGNORECASE)
 
 # From a variant page <title>:
 #   "Apple MacBook Pro 2023 M3 Apple M3 Max 16 Core 64.0 GB 2000 GB 16.2 " ..."
-CHIP_RE = re.compile(r"Apple\s+(M\d+)(?:\s+(Pro|Max|Ultra))?\s+(\d+)\s+Core")
+CHIP_RE = re.compile(
+    r"Apple\s+(M\d+)(?:\s+(Pro|Max|Ultra))?(?:\s+\d+\s+Core)?"
+)
 GB_RE = re.compile(r"(\d+(?:\.\d+)?)\s*GB")
 
 
@@ -218,6 +221,8 @@ class Watch:
     # Refurbed collapses alternate configurations into one search card. Extra
     # targeted searches expose variants hidden behind the card's selectors.
     extra_queries: tuple[str, ...] = ()
+    # A broad watch may need the product family in addition to the config.
+    offer_label: Callable[[Offer], str] = lambda o: o.label
 
 
 def is_mac_studio(o: Offer) -> bool:
@@ -235,7 +240,50 @@ def is_max_or_ultra_64gb(o: Offer) -> bool:
     return bool(re.search(r"\b(Max|Ultra)\b", o.chip))
 
 
+def is_best_value_mac(o: Offer) -> bool:
+    """A priced Mac with Apple silicon and at least 32 GB RAM."""
+    mac_slugs = (
+        "/p/apple-macbook-",
+        "/p/apple-mac-mini-",
+        "/p/apple-mac-studio-",
+        "/p/apple-imac-",
+        "/p/apple-mac-pro-",
+    )
+    is_mac = o.path.startswith(mac_slugs)
+    is_apple_silicon = bool(re.fullmatch(r"M[1-9]\d*(?: (?:Pro|Max|Ultra))?", o.chip))
+    return bool(is_mac and is_apple_silicon and (o.ram_gb or 0) >= 32 and o.price)
+
+
+def best_value_offer_label(o: Offer) -> str:
+    """Identify the Mac family as well as its hardware configuration."""
+    families = (
+        ("apple-macbook-pro-", "MacBook Pro"),
+        ("apple-macbook-air-", "MacBook Air"),
+        ("apple-mac-mini-", "Mac mini"),
+        ("apple-mac-studio-", "Mac Studio"),
+        ("apple-imac-", "iMac"),
+        ("apple-mac-pro-", "Mac Pro"),
+    )
+    family = next((name for slug, name in families if slug in o.path), "Mac")
+    return f"{family} · {o.label}"
+
+
 WATCHES: list[Watch] = [
+    Watch(
+        key="best-value-macs",
+        label="Best-value Macs · Apple silicon · 32 GB+",
+        query="Apple Mac 32 GB",
+        matches=is_best_value_mac,
+        needs_config=True,
+        offer_label=best_value_offer_label,
+        extra_queries=(
+            "Apple MacBook 32 GB",
+            "Apple Mac mini 32 GB",
+            "Apple Mac Studio 32 GB",
+            "Apple iMac 32 GB",
+            "Apple Mac Pro 32 GB",
+        ),
+    ),
     Watch(
         key="mac-studio",
         label="Mac Studio",
@@ -482,20 +530,21 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     events.sort(key=lambda event: (event[1].price is None, event[1].price or 0))
 
     for kind, o, old_price in events:
+        offer_label = watch.offer_label(o)
         if kind == "NEW":
             title = f"New: {watch.label}"
             message = fmt_kr(o.price) + (f" · {o.badge}" if o.badge else "")
-            line = f"NEW  {o.label} — {fmt_kr(o.price)} — {o.url}"
+            line = f"NEW  {offer_label} — {fmt_kr(o.price)} — {o.url}"
         else:
             title = f"Price drop: {watch.label}"
             message = f"{fmt_kr(old_price)} → {fmt_kr(o.price)}"
-            line = f"DROP {o.label} — {fmt_kr(old_price)} → {fmt_kr(o.price)} — {o.url}"
+            line = f"DROP {offer_label} — {fmt_kr(old_price)} → {fmt_kr(o.price)} — {o.url}"
 
         lines.append(line)
         logging.info("[%s] %s", watch.key, line)
 
         if not dry_run and notifications_left[0] > 0:
-            notify(title, o.label, message, url=o.url)
+            notify(title, offer_label, message, url=o.url)
             notifications_left[0] -= 1
 
     # Persist every offer we saw, matched or not, so rejected variants are not
@@ -527,7 +576,7 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     if matched:
         lines.append(f"__STANDINGS__{watch.label} ({len(matched)})")
         for o in sorted(matched.values(), key=lambda x: (x.price is None, x.price or 0)):
-            lines.append(f"__ITEM__[{o.label}]({o.url}) — {fmt_kr(o.price)}"
+            lines.append(f"__ITEM__[{watch.offer_label(o)}]({o.url}) — {fmt_kr(o.price)}"
                          + (f" · {o.badge}" if o.badge else ""))
     else:
         lines.append(f"__STANDINGS__{watch.label} (0)")

@@ -27,6 +27,9 @@ P_M1_DK = "/p/apple-macbook-pro-2021-m1-14/209635c/"
 P_STUDIO = "/p/apple-mac-studio-2022-m1-max/72461aa/"
 P_ULTRA = "/p/apple-mac-studio-2025-m3-ultra/99001a/"
 P_MINI = "/p/apple-mac-mini-2024-m4/273548aa/"      # fuzzy match, not a Mac Studio
+P_MACBOOK_32 = "/p/apple-macbook-air-2024-m3-15/300001a/"
+P_IMAC_INTEL = "/p/apple-imac-2020-intel/300002a/"
+P_IPAD_32 = "/p/apple-ipad-pro-2024-m4/300003a/"
 
 
 def search_html(entries):
@@ -73,6 +76,53 @@ class BaseWatchTest(unittest.TestCase):
                                side_effect=lambda t, s, m, url=None: self.notes.append((t, s, m, url))):
             return rw.run_watch(self.watch, self.state, dry_run=False,
                                 notifications_left=[budget or rw.MAX_NOTIFICATIONS_PER_RUN])
+
+
+class BestValueMacWatchTest(BaseWatchTest):
+    watch_kwargs = dict(key="best-value-macs", label="Best-value Macs · 32 GB+",
+                        query="Apple Mac 32 GB", matches=rw.is_best_value_mac,
+                        needs_config=True, offer_label=rw.best_value_offer_label)
+
+    def test_only_priced_apple_silicon_macs_with_at_least_32gb_qualify(self):
+        mini_32 = rw.Offer(P_MINI, price=12_000, chip="M4", ram_gb=32)
+        macbook_64 = rw.Offer(P_MACBOOK_32, price=18_000, chip="M3 Pro", ram_gb=64)
+        cases = [
+            (mini_32, True),
+            (macbook_64, True),
+            (rw.Offer(P_MINI, price=9_000, chip="M4", ram_gb=16), False),
+            (rw.Offer(P_IMAC_INTEL, price=8_000, chip="", ram_gb=32), False),
+            (rw.Offer(P_IPAD_32, price=7_000, chip="M4", ram_gb=32), False),
+            (rw.Offer(P_MINI, price=None, chip="M4", ram_gb=32), False),
+        ]
+
+        for offer, expected in cases:
+            with self.subTest(path=offer.path, chip=offer.chip, ram=offer.ram_gb):
+                self.assertEqual(rw.is_best_value_mac(offer), expected)
+
+    def test_category_is_first_and_standings_prioritize_lowest_price(self):
+        self.assertEqual(rw.WATCHES[0].key, "best-value-macs")
+        titles = {
+            P_MINI: ('<title>Apple Mac mini 2024 Apple M4 10 Core '
+                     '32.0 GB 512 GB – refurbed</title>'),
+            P_MACBOOK_32: ('<title>Apple MacBook Air 2024 Apple M3 8 Core '
+                           '32.0 GB 512 GB – refurbed</title>'),
+            P_IMAC_INTEL: ('<title>Apple iMac 2020 Intel Core i7 '
+                           '32.0 GB 512 GB – refurbed</title>'),
+        }
+        site = FakeSite(
+            [(P_MACBOOK_32, "18 000 kr"), (P_IMAC_INTEL, "8 000 kr"),
+             (P_MINI, "12 000 kr")],
+            titles=titles,
+        )
+
+        lines = self.run_once(site)
+        items = [line for line in lines if line.startswith("__ITEM__[")]
+
+        self.assertEqual(len(items), 2)
+        self.assertIn("Mac mini", items[0])
+        self.assertIn("12 000 kr", items[0])
+        self.assertIn("MacBook Air", items[1])
+        self.assertIn("18 000 kr", items[1])
 
 
 class MacBookProWatchTest(BaseWatchTest):
