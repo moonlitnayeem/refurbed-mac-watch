@@ -38,7 +38,8 @@ To check it works without waiting: **Actions → refurbed watch → Run workflow
 
 The deployed `refurbed-watch-scheduler` Worker runs `*/15 * * * *` and calls
 GitHub's `workflow_dispatch` API. Its source and deployment configuration live
-in `cloudflare-scheduler/`.
+in `cloudflare-scheduler/`. GitHub's native `schedule` trigger is intentionally
+disabled to prevent duplicate runs.
 
 ```bash
 cd cloudflare-scheduler
