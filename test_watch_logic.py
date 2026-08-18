@@ -7,6 +7,8 @@ behaviour that matters -- that the watcher is quiet when it should be quiet,
 and loud exactly once when something real happens.
 """
 
+import json
+import time
 import unittest
 from unittest import mock
 
@@ -273,3 +275,95 @@ class ReportTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+class EmptyStartTest(BaseWatchTest):
+    """
+    The regression that motivated `is_first_run = not prev`.
+
+    A Mac Studio being out of stock is the normal state of the world, so the
+    very first run routinely sees zero matches. Treating "no offers stored"
+    as "never checked" made every subsequent run a first run too, and the
+    first Studio to appear was baselined away instead of alerting.
+    """
+
+    watch_kwargs = dict(key="mac-studio", label="Mac Studio", query="Mac Studio",
+                        matches=rw.is_mac_studio, needs_config=True)
+
+    def test_listing_after_a_completely_empty_first_run_notifies(self):
+        self.run_once(FakeSite([]))                       # nothing listed at all
+        self.assertIn("mac-studio", self.state["watches"],
+                      "an empty check still counts as a check")
+        self.notes.clear()
+
+        self.run_once(FakeSite([(P_STUDIO, "19 845 kr")]))
+        self.assertEqual(len(self.notes), 1,
+                         "the first Studio to appear must alert, not re-baseline")
+        self.assertIn("M1 Max", self.notes[0][1])
+
+    def test_second_empty_run_is_not_another_baseline(self):
+        lines = self.run_once(FakeSite([]))
+        self.assertIn("baseline", " ".join(lines).lower())
+        lines = self.run_once(FakeSite([]))
+        self.assertIn("no change", " ".join(lines).lower())
+
+
+class StateStampTest(BaseWatchTest):
+    """state.json must be byte-stable across idle runs -- see stamp_is_stale."""
+
+    watch_kwargs = dict(key="mbp", label="MacBook Pro Max 64 GB",
+                        query="MacBook Pro Max 64 GB",
+                        matches=rw.is_max_or_ultra_64gb, needs_config=True)
+
+    def serialized(self):
+        return json.dumps(self.state, sort_keys=True, ensure_ascii=False)
+
+    def backdate(self, hours):
+        """A stamp old enough to be visibly different, young enough to be fresh."""
+        stamp = time.strftime(rw.STAMP_FMT, time.gmtime(time.time() - hours * 3600))
+        self.state["watches"]["mbp"]["updated_at"] = stamp
+        return stamp
+
+    def test_idle_run_leaves_state_unchanged(self):
+        site = FakeSite([(P_M3, "39 499 kr"), (P_M4, "36 405 kr")])
+        self.run_once(site)
+        self.backdate(hours=1)
+        before = self.serialized()
+
+        self.run_once(site)
+        self.assertEqual(self.serialized(), before,
+                         "nothing moved, so there must be nothing to commit")
+
+    def test_price_change_refreshes_the_stamp(self):
+        site = FakeSite([(P_M3, "39 499 kr")])
+        self.run_once(site)
+        stamp = self.backdate(hours=1)
+
+        site.entries = [(P_M3, "35 000 kr")]
+        self.run_once(site)
+        self.assertNotEqual(self.state["watches"]["mbp"]["updated_at"], stamp)
+
+    def test_stale_stamp_is_refreshed_even_when_idle(self):
+        """Keeps the scheduled workflow inside GitHub's 60-day activity window."""
+        site = FakeSite([(P_M3, "39 499 kr")])
+        self.run_once(site)
+        old = time.strftime(rw.STAMP_FMT,
+                            time.gmtime(time.time() - (rw.KEEPALIVE_DAYS + 1) * 86400))
+        self.state["watches"]["mbp"]["updated_at"] = old
+
+        self.run_once(site)
+        self.assertNotEqual(self.state["watches"]["mbp"]["updated_at"], old)
+
+
+class StampStalenessTest(unittest.TestCase):
+    def test_missing_or_unparseable_is_stale(self):
+        self.assertTrue(rw.stamp_is_stale(None))
+        self.assertTrue(rw.stamp_is_stale(""))
+        self.assertTrue(rw.stamp_is_stale("last tuesday"))
+
+    def test_fresh_is_not_stale(self):
+        now = time.strftime(rw.STAMP_FMT, time.gmtime())
+        self.assertFalse(rw.stamp_is_stale(now))
+
+    def test_old_is_stale(self):
+        old = time.strftime(rw.STAMP_FMT, time.gmtime(time.time() - 40 * 86400))
+        self.assertTrue(rw.stamp_is_stale(old))

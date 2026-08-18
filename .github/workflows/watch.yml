@@ -21,7 +21,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # A few commits of history so the push-retry rebase below has a merge
           # base to work with. Depth 1 leaves nothing to rebase onto.

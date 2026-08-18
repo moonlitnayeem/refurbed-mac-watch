@@ -80,15 +80,26 @@ count — the Studio Display is the trap the name-based filter would fall into.
 
 ## State, and the 60-day rule
 
-`state.json` is committed back to the repo after each run. That does two jobs:
+`state.json` is committed back to the repo whenever the listings move. That does
+two jobs:
 
 1. It's the memory. Without it every run would look like a first run.
 2. GitHub disables scheduled workflows after **60 days of no activity on the
    default branch** — and the workflow's own commits count as activity, so it
    keeps itself alive as long as listings keep changing.
 
+Idle runs write a byte-identical file on purpose, so there is nothing to commit
+and the history stays readable — at four runs an hour, a timestamp that ticked
+every run would be ~35 000 commits a year saying nothing. To keep job 2 honest
+the stamp is refreshed anyway if it is more than `KEEPALIVE_DAYS` (7) old, so
+the repo is never quiet for more than a week.
+
 If refurbed goes completely static for two months, GitHub will email you before
 disabling it; re-enable from the Actions tab, or just hit *Run workflow*.
+
+A watch whose search legitimately returns nothing — no Mac Studio in stock, the
+normal case — still records the check. That is what makes the *first* Studio to
+appear an alert rather than a fresh baseline.
 
 ## Everyday use
 
@@ -96,7 +107,7 @@ disabling it; re-enable from the Actions tab, or just hit *Run workflow*.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 39 tests, no network needed
+python3 -m unittest discover -v       # 47 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
