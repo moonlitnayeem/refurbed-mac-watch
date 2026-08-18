@@ -33,6 +33,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import calendar
 import html as html_mod
 import json
 import logging
@@ -67,6 +68,13 @@ NOTIFY_SOUND = "Glass"
 
 # Cap on alerts per run, so a site-wide change cannot produce a burst.
 MAX_NOTIFICATIONS_PER_RUN = 8
+
+# State timestamps. The stamp is only refreshed when listings actually change,
+# so an idle run leaves state.json byte-identical and the workflow has nothing
+# to commit -- but never let it go longer than this, or the scheduled workflow
+# ages out of GitHub's 60-day inactivity window.
+STAMP_FMT = "%Y-%m-%dT%H:%M:%SZ"
+KEEPALIVE_DAYS = 7
 
 # Filled by notify(); main() turns this into the GitHub issue body.
 COLLECTED_ALERTS: list[dict] = []
@@ -378,6 +386,23 @@ def save_state(path: Path, state: dict) -> None:
     tmp.replace(path)  # atomic: never leave a half-written state file
 
 
+def stamp_is_stale(stamp: str | None, days: int = KEEPALIVE_DAYS) -> bool:
+    """
+    True if `stamp` is missing, unreadable, or older than `days`.
+
+    Used to force an occasional state write even when nothing changed: GitHub
+    disables a scheduled workflow after 60 days with no commit on the default
+    branch, and this watcher's own state commits are what keep it enabled.
+    """
+    if not stamp:
+        return True
+    try:
+        then = calendar.timegm(time.strptime(stamp, STAMP_FMT))
+    except (ValueError, TypeError):
+        return True
+    return (time.time() - then) > days * 86400
+
+
 def fmt_kr(n: int | None) -> str:
     if n is None:
         return "?"
@@ -410,7 +435,12 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
 
     prev = state["watches"].get(watch.key, {})
     prev_offers: dict = prev.get("offers", {})
-    is_first_run = not prev_offers
+    # "Have we ever completed a check for this watch?" -- deliberately not
+    # "did we see anything last time?". A search that legitimately returns
+    # nothing (no Mac Studio in stock, which is the normal case) stores an
+    # empty offer set, and keying off that would make the next run a first
+    # run as well -- silently baselining the very listing this exists to catch.
+    is_first_run = not prev
 
     # A zero-result page almost always means the site hiccuped or changed its
     # markup, not that every listing vanished. Refuse to diff against it.
@@ -494,10 +524,19 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     }
 
     if not dry_run:
+        # Only re-stamp the clock when something actually moved. The workflow
+        # commits state.json whenever it differs from HEAD, so a timestamp that
+        # ticks on every run means a commit every 15 minutes forever, carrying
+        # no information. Byte-identical state => nothing to commit.
+        # stamp_is_stale() still forces a weekly write so the keep-alive holds.
+        stamp = prev.get("updated_at")
+        if new_offers != prev.get("offers") or stamp_is_stale(stamp):
+            stamp = time.strftime(STAMP_FMT, time.gmtime())
+
         state["watches"][watch.key] = {
             "label": watch.label,
             "query": watch.query,
-            "checked_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "updated_at": stamp,
             "offers": new_offers,
         }
 
