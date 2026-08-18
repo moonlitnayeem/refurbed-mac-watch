@@ -477,6 +477,10 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         tail = f", cheapest {fmt_kr(cheapest.price)}" if cheapest else ""
         lines.append(f"{watch.label}: no change ({len(matched)} matches{tail})")
 
+    # Keep alerts and the issue report consistent with the standings: cheapest
+    # first, unknown prices last.
+    events.sort(key=lambda event: (event[1].price is None, event[1].price or 0))
+
     for kind, o, old_price in events:
         if kind == "NEW":
             title = f"New: {watch.label}"

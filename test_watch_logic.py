@@ -169,6 +169,23 @@ class MacBookProWatchTest(BaseWatchTest):
         self.run_once(site)
         self.assertEqual(self.notes, [])
 
+    def test_multiple_alerts_are_sorted_lowest_price_first(self):
+        site = FakeSite([(P_M3, "39 499 kr")])
+        self.run_once(site)
+        self.notes.clear()
+        site.titles[P_M1_DK] = (
+            '<title>Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core '
+            '64.0 GB 1000 GB 14.2 " silver DK (Dansk) – refurbed</title>'
+        )
+        # Deliberately return the expensive listing first.
+        site.entries = [(P_M3, "39 499 kr"), (P_M2, "31 999 kr"),
+                        (P_M1_DK, "25 325 kr")]
+
+        self.run_once(site)
+
+        self.assertEqual([note[2].split(" ·")[0] for note in self.notes],
+                         ["25 325 kr", "31 999 kr"])
+
     def test_listing_disappearing_is_silent(self):
         site = FakeSite([(P_M3, "39 499 kr"), (P_M2, "31 999 kr")])
         self.run_once(site)
