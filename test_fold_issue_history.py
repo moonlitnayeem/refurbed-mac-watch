@@ -17,8 +17,11 @@ def comment(comment_id, created_at, body="### Current standings\nreport", user="
 class FoldIssueHistoryTest(unittest.TestCase):
     def test_keeps_latest_four_reports_expanded_and_folds_older_reports(self):
         comments = [
-            comment(i, f"2026-08-19T0{i}:00:00Z")
-            for i in range(1, 7)
+            comment(1, "2026-08-19T01:00:20Z"),
+            *[
+                comment(i, f"2026-08-19T0{i}:00:00Z")
+                for i in range(2, 7)
+            ],
         ]
 
         updates = fh.updates_to_fold(comments, keep=4)

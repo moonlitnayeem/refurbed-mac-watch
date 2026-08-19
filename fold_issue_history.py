@@ -8,6 +8,7 @@ import json
 import os
 import urllib.parse
 import urllib.request
+from datetime import datetime
 
 API_BASE = "https://api.github.com"
 REPORT_MARKER = "<!-- refurbed-watch-report -->"
@@ -26,7 +27,12 @@ def is_expanded_report(comment: dict) -> bool:
 def folded_body(comment: dict) -> str:
     body = (comment.get("body") or "").strip()
     created = comment.get("created_at") or "unknown time"
-    stamp = created.replace("T", " ").replace(":00Z", " UTC")
+    try:
+        stamp = datetime.fromisoformat(created.replace("Z", "+00:00")).strftime(
+            "%Y-%m-%d %H:%M UTC"
+        )
+    except ValueError:
+        stamp = created
     return (
         f"{FOLDED_MARKER}\n"
         f"<details>\n"
