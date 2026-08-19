@@ -2,7 +2,7 @@
   "version": 2,
   "watches": {
     "best-value-macs": {
-      "checked_at": "2026-08-19T07:16:07Z",
+      "checked_at": "2026-08-19T07:31:12Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182506/": {
@@ -126,10 +126,10 @@
           "ssd_gb": null,
           "was_price": 67324
         },
-        "/p/apple-ipad-2017/957/": {
+        "/p/apple-ipad-2017/949c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple iPad 5 (2017) 32 GB 9.7 \" silver 2.0 GB",
+          "config": "Apple iPad 5 (2017) 32 GB 9.7 \" guld 2.0 GB",
           "matched": false,
           "name": "iPad 5 (2017) | 9.7",
           "price": 3852,
@@ -511,15 +511,15 @@
           "ssd_gb": 2.0,
           "was_price": 8819
         },
-        "/p/macbook-pro-2019-133-tb/22216c/": {
-          "badge": null,
+        "/p/macbook-pro-2019-133-tb/13241c/": {
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8257U 8.0 GB 256 GB 13.3 \" silver FR (Fransk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8257U 8.0 GB 128 GB 13.3 \" silver FR (Fransk)",
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 3839,
+          "price": 3699,
           "ram_gb": 8.0,
-          "ssd_gb": 256.0,
+          "ssd_gb": 128.0,
           "was_price": 15443
         },
         "/p/macbook-pro-2019-154-tb/208514c/": {
@@ -548,7 +548,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-08-19T07:16:11Z",
+      "checked_at": "2026-08-19T07:31:16Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387b/": {
@@ -731,19 +731,19 @@
       "query": "Mac Studio"
     },
     "mbp-max-64": {
-      "checked_at": "2026-08-19T07:16:24Z",
+      "checked_at": "2026-08-19T07:31:36Z",
       "label": "MacBook Pro Max 64 GB",
       "offers": {
-        "/p/apple-macbook-pro-2021-m1-14/74790/": {
+        "/p/apple-macbook-pro-2021-m1-14/114370c/": {
           "badge": "Bästsäljare",
           "chip": "M1 Max",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 2000 GB 14.2 \" rymdgrå DK (Dansk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 14.2 \" rymdgrå DK (Dansk)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 28275,
+          "price": 26335,
           "ram_gb": 64.0,
-          "ssd_gb": 2000.0,
-          "was_price": 46240
+          "ssd_gb": 1000.0,
+          "was_price": 45137
         },
         "/p/apple-macbook-pro-2021-m1-14/75706/": {
           "badge": "Bästsäljare",
@@ -778,17 +778,6 @@
           "ssd_gb": 2000.0,
           "was_price": 46240
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/109520/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M2 Max",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 64.0 GB 2000 GB 16.2 \" rymdgrå SE (Svensk)",
-          "matched": true,
-          "name": "Apple MacBook Pro 2023 M2 | 16.2",
-          "price": 27799,
-          "ram_gb": 64.0,
-          "ssd_gb": 2000.0,
-          "was_price": 52422
-        },
         "/p/apple-macbook-pro-2023-m2-16-2/129241b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2 Max",
@@ -796,6 +785,17 @@
           "matched": true,
           "name": "Apple MacBook Pro 2023 M2 | 16.2",
           "price": 30495,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "was_price": 50877
+        },
+        "/p/apple-macbook-pro-2023-m2-16-2/129242b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2 Max",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 64.0 GB 1000 GB 16.2 \" rymdgrå SE (Svensk)",
+          "matched": true,
+          "name": "Apple MacBook Pro 2023 M2 | 16.2",
+          "price": 30355,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": 50877
