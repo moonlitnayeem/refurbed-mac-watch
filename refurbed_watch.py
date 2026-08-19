@@ -622,7 +622,7 @@ def write_github_outputs(alert_md: str, standings_md: str, status: list[str]) ->
     """Expose results to the workflow via GITHUB_OUTPUT and an issue body file."""
     has_alerts = bool(alert_md)
 
-    body_parts = []
+    body_parts = ["<!-- refurbed-watch-report -->"]
     if has_alerts:
         body_parts.append("## 🔔 New on refurbed.se\n")
         body_parts.append(alert_md)

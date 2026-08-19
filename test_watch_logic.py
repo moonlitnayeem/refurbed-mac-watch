@@ -7,7 +7,10 @@ behaviour that matters -- that the watcher is quiet when it should be quiet,
 and loud exactly once when something real happens.
 """
 
+import os
 import unittest
+import tempfile
+from pathlib import Path
 from unittest import mock
 
 import refurbed_watch as rw
@@ -365,6 +368,17 @@ class ReportTest(unittest.TestCase):
              "message": "19 845 kr → 17 500 kr", "url": "https://example.com/x"})
         alert, _ = rw.build_report([])
         self.assertIn("**PRICE DROP**", alert)
+
+    def test_github_report_has_history_marker(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.dict(os.environ, {}, clear=True):
+            old_cwd = Path.cwd()
+            try:
+                os.chdir(tmp)
+                rw.write_github_outputs("", "standings", [])
+                body = Path("alert.md").read_text(encoding="utf-8")
+            finally:
+                os.chdir(old_cwd)
+        self.assertTrue(body.startswith("<!-- refurbed-watch-report -->"))
 
 
 if __name__ == "__main__":

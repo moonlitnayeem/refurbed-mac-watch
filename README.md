@@ -33,6 +33,11 @@ The watcher itself uses only the Python standard library.
 The first run establishes the change-detection baseline,
 but every run—including the first—posts its complete current standings.
 
+The permanent issue keeps its latest four updates fully visible (about one
+hour at the 15-minute schedule). Every older bot report is automatically folded
+behind an **Archived update** disclosure that can still be expanded with one
+click. No history is deleted, and unrelated human comments are never folded.
+
 To check it works without waiting: **Actions → refurbed watch → Run workflow**.
 
 ## Cloudflare scheduler
@@ -127,7 +132,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 44 tests, no network needed
+python3 -m unittest discover -v       # 48 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

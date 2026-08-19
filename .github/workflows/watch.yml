@@ -40,6 +40,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh issue comment 2 --body-file alert.md
 
+      - name: Fold older issue updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 fold_issue_history.py --issue 2 --keep 4
+
       - name: Save state
         run: |
           # Stage first: on the very first run state.json is untracked, and
