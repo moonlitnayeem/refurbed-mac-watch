@@ -630,6 +630,13 @@ def write_github_outputs(alert_md: str, standings_md: str, status: list[str]) ->
     body_parts.append("### Current standings\n")
     body_parts.append(standings_md or "_nothing listed_")
     body_parts.append("")
+    archive_repo = os.environ.get(
+        "GITHUB_REPOSITORY", "moonlitnayeem/refurbed-mac-watch"
+    )
+    body_parts.append(
+        f"[View older updates](https://github.com/{archive_repo}/tree/main/history)"
+    )
+    body_parts.append("")
     stamp = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     run_url = ""
     server, repo, run_id = (os.environ.get("GITHUB_SERVER_URL"),

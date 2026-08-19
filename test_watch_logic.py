@@ -379,6 +379,8 @@ class ReportTest(unittest.TestCase):
             finally:
                 os.chdir(old_cwd)
         self.assertTrue(body.startswith("<!-- refurbed-watch-report -->"))
+        self.assertIn("View older updates", body)
+        self.assertIn("/tree/main/history", body)
 
 
 if __name__ == "__main__":

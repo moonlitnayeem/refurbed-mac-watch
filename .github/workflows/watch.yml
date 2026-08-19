@@ -40,10 +40,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh issue comment 2 --body-file alert.md
 
-      - name: Fold older issue updates
+      - name: Prepare older updates for archival
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 fold_issue_history.py --issue 2 --keep 4
+        run: python3 archive_issue_history.py prepare --issue 2 --keep 4
 
       - name: Save state
         run: |
@@ -52,7 +52,8 @@ jobs:
           # worktree directly would report "no change" forever and the baseline
           # would never be committed.
           git add state.json
-          if git diff --cached --quiet -- state.json; then
+          if [[ -d history ]]; then git add history; fi
+          if git diff --cached --quiet -- state.json history; then
             echo "No state change."
             exit 0
           fi
@@ -64,4 +65,10 @@ jobs:
             git push && exit 0
             git pull --rebase --autostash || true
           done
-          echo "::warning::Could not push state after 3 attempts"
+          echo "::error::Could not push state and archive after 3 attempts"
+          exit 1
+
+      - name: Remove safely archived comment cards
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 archive_issue_history.py delete --issue 2 --ref main
