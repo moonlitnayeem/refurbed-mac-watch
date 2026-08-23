@@ -10,6 +10,7 @@ and loud exactly once when something real happens.
 import os
 import unittest
 import tempfile
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -188,6 +189,68 @@ class AppleSilicon64PlusWatchTest(BaseWatchTest):
         self.assertEqual(offers[P_M2_96]["price"], 41459)
         self.assertNotIn(P_M2_ALT_CONFIG, offers)
         self.assertIn("96 GB", "\n".join(lines))
+
+
+class PriceHistoryTest(BaseWatchTest):
+    watch_kwargs = dict(
+        key="history-test", label="History test", query="MacBook Pro",
+        matches=lambda o: True, needs_config=True,
+    )
+
+    def test_standings_link_to_previous_low_for_same_model(self):
+        now = datetime(2026, 8, 23, 12, 0, tzinfo=timezone.utc)
+        previous_seen = now - timedelta(days=5)
+        current = rw.Offer(P_M2, price=30_355, chip="M2 Max", ram_gb=64, ssd_gb=1000)
+        key = rw.price_history_key(current)
+        previous_url = "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/old123/"
+        self.state["price_lows"] = {
+            key: {"price": 22_100, "url": previous_url,
+                  "seen_at": previous_seen.strftime("%Y-%m-%dT%H:%M:%SZ")}
+        }
+        site = FakeSite(
+            [(P_M2, "30 355 kr")],
+            titles={P_M2: ('<title>Apple MacBook Pro 2023 Apple M2 Max 12 Core '
+                           '64.0 GB 1000 GB – refurbed</title>')},
+        )
+
+        with mock.patch.object(rw.time, "time", return_value=now.timestamp()):
+            lines = self.run_once(site)
+
+        item = next(line for line in lines if line.startswith("__ITEM__"))
+        self.assertIn("Previous low for same model", item)
+        self.assertIn("[22 100 kr]", item)
+        self.assertIn(previous_url, item)
+        self.assertIn("5 days ago", item)
+
+    def test_price_history_update_keeps_all_time_lowest_observation(self):
+        old = rw.Offer(P_M2, price=22_100, chip="M2 Max", ram_gb=64, ssd_gb=1000)
+        key = rw.price_history_key(old)
+        state = {"price_lows": {
+            key: {"price": 22_100, "url": old.url, "seen_at": "2026-08-18T12:00:00Z"}
+        }, "watches": {"x": {"offers": {
+            P_M2: {"price": 30_355, "chip": "M2 Max", "ram_gb": 64,
+                   "ssd_gb": 1000, "matched": True}
+        }}}}
+
+        rw.update_price_lows(state, "2026-08-23T12:00:00Z")
+
+        self.assertEqual(state["price_lows"][key]["price"], 22_100)
+        self.assertEqual(state["price_lows"][key]["seen_at"], "2026-08-18T12:00:00Z")
+
+    def test_archive_backfill_finds_lowest_price_and_timestamp(self):
+        markdown = '''
+        <summary>Update — 2026-08-18 12:00 UTC</summary>
+        - [MacBook Pro · M2 Max · 64 GB · 1000 GB SSD](https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/a1/) — 22 100 kr
+        <summary>Update — 2026-08-19 12:00 UTC</summary>
+        - [MacBook Pro · M2 Max · 64 GB · 1000 GB SSD](https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/a2/) — 30 355 kr
+        '''
+
+        lows = rw.parse_archived_price_lows(markdown)
+        key = "apple-macbook-pro-2023-m2-14|M2 Max|64|1000"
+
+        self.assertEqual(lows[key]["price"], 22_100)
+        self.assertTrue(lows[key]["url"].endswith("/a1/"))
+        self.assertEqual(lows[key]["seen_at"], "2026-08-18T12:00:00Z")
 
 
 class MacBookProWatchTest(BaseWatchTest):

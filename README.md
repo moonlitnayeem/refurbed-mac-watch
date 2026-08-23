@@ -79,6 +79,14 @@ listings without a known price. “Best value” is intentionally objective here
 the lowest current price among machines meeting those requirements gets the
 highest priority, rather than relying on a speculative benchmark score.
 
+Every current listing also shows the **previous recorded low for the same
+model** as a linked price with its age. “Same model” means the same Refurbed
+product family/generation plus chip, RAM, and SSD capacity; keyboard, color,
+condition, and merchant variants are compared together. Historical lows are
+backfilled from the repository's archived reports and then maintained in
+`state.json`, giving a practical target-buy price based on prices this watcher
+actually observed.
+
 ## How it works, and why it works this way
 
 **Search only lists purchasable offers.** A Mac Studio that's out of stock has
@@ -131,7 +139,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 51 tests, no network needed
+python3 -m unittest discover -v       # 54 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

@@ -48,6 +48,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
@@ -546,6 +547,113 @@ def fmt_kr(n: int | None) -> str:
     return f"{n:,}".replace(",", " ") + " kr"
 
 
+def price_history_key(offer: Offer) -> str | None:
+    """Group variants that share model, chip, RAM, and storage."""
+    if not offer.chip or offer.ram_gb is None or offer.ssd_gb is None:
+        return None
+    parts = offer.path.strip("/").split("/")
+    if len(parts) < 3:
+        return None
+    slug = parts[1]
+    return f"{slug}|{offer.chip}|{offer.ram_gb:g}|{offer.ssd_gb:g}"
+
+
+def parse_archived_price_lows(markdown: str) -> dict[str, dict]:
+    """Extract all-time model lows from archived issue-report Markdown."""
+    lows: dict[str, dict] = {}
+    seen_at = ""
+    item_re = re.compile(
+        r"\[([^\]]+)\]\((https://www\.refurbed\.se(/p/[^)]+))\)\s+—\s+"
+        r"(\d[\d\s  ]*)\s*kr"
+    )
+    for line in markdown.splitlines():
+        summary = re.search(r"<summary>Update — ([^<]+)</summary>", line)
+        if summary:
+            try:
+                parsed = datetime.strptime(summary.group(1), "%Y-%m-%d %H:%M UTC")
+                seen_at = parsed.strftime("%Y-%m-%dT%H:%M:00Z")
+            except ValueError:
+                seen_at = ""
+            continue
+
+        item = item_re.search(line)
+        if not item or not seen_at:
+            continue
+        label, url, path, price_text = item.groups()
+        chip_m = re.search(r"\b(M\d+(?: (?:Pro|Max|Ultra))?)\b", label)
+        ram_m = re.search(r"·\s*(\d+(?:\.\d+)?)\s*GB(?:\s*·|\s*$)", label)
+        ssd_m = re.search(r"·\s*(\d+(?:\.\d+)?)\s*GB SSD", label)
+        if not (chip_m and ram_m and ssd_m):
+            continue
+        offer = Offer(
+            path=urllib.parse.urlsplit(path).path,
+            chip=chip_m.group(1),
+            ram_gb=float(ram_m.group(1)),
+            ssd_gb=float(ssd_m.group(1)),
+        )
+        key = price_history_key(offer)
+        if key is None:
+            continue
+        price = int(re.sub(r"[\s  ]", "", price_text))
+        previous = lows.get(key)
+        if previous is None or price < previous["price"]:
+            lows[key] = {"price": price, "url": url, "seen_at": seen_at}
+    return lows
+
+
+def load_archived_price_lows(history_dir: Path = Path("history")) -> dict[str, dict]:
+    lows: dict[str, dict] = {}
+    if not history_dir.exists():
+        return lows
+    for path in sorted(history_dir.rglob("*.md")):
+        for key, record in parse_archived_price_lows(
+            path.read_text(encoding="utf-8")
+        ).items():
+            previous = lows.get(key)
+            if previous is None or record["price"] < previous["price"]:
+                lows[key] = record
+    return lows
+
+
+def previous_low_suffix(offer: Offer, state: dict) -> str:
+    key = price_history_key(offer)
+    record = state.get("price_lows", {}).get(key) if key else None
+    if not record:
+        return ""
+    try:
+        seen = datetime.strptime(record["seen_at"], "%Y-%m-%dT%H:%M:%SZ")
+        age_days = max(0, int((time.time() - seen.replace(tzinfo=timezone.utc).timestamp()) // 86400))
+        age = "today" if age_days == 0 else f"{age_days} day{'s' if age_days != 1 else ''} ago"
+    except (KeyError, TypeError, ValueError):
+        age = "previously"
+    return (
+        f" · Previous low for same model: [{fmt_kr(record['price'])}]"
+        f"({record['url']}) ({age})"
+    )
+
+
+def update_price_lows(state: dict, seen_at: str) -> None:
+    lows = dict(state.get("price_lows", {}))
+    for watch in state.get("watches", {}).values():
+        for path, data in watch.get("offers", {}).items():
+            if not data.get("matched") or data.get("price") is None:
+                continue
+            offer = Offer(
+                path=path,
+                price=data["price"],
+                chip=data.get("chip", ""),
+                ram_gb=data.get("ram_gb"),
+                ssd_gb=data.get("ssd_gb"),
+            )
+            key = price_history_key(offer)
+            if key is None:
+                continue
+            previous = lows.get(key)
+            if previous is None or offer.price < previous["price"]:
+                lows[key] = {"price": offer.price, "url": offer.url, "seen_at": seen_at}
+    state["price_lows"] = lows
+
+
 # --------------------------------------------------------------------------
 # Core
 # --------------------------------------------------------------------------
@@ -736,7 +844,8 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         lines.append(f"__STANDINGS__{watch.label} ({len(matched)})")
         for o in sorted(matched.values(), key=lambda x: (x.price is None, x.price or 0)):
             lines.append(f"__ITEM__[{watch.offer_label(o)}]({o.url}) — {fmt_kr(o.price)}"
-                         + (f" · {o.badge}" if o.badge else ""))
+                         + (f" · {o.badge}" if o.badge else "")
+                         + previous_low_suffix(o, state))
     else:
         lines.append(f"__STANDINGS__{watch.label} (0)")
         lines.append("__ITEM___none currently listed_")
@@ -890,6 +999,8 @@ def main() -> int:
         return 0
 
     state = load_state(state_path)
+    if "price_lows" not in state:
+        state["price_lows"] = load_archived_price_lows()
     notifications_left = [MAX_NOTIFICATIONS_PER_RUN]
     all_lines: list[str] = []
 
@@ -901,6 +1012,9 @@ def main() -> int:
             all_lines.append(f"{w.label}: error ({e})")
 
     if not args.dry_run:
+        update_price_lows(
+            state, time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        )
         save_state(state_path, state)
 
     alert_md, standings_md = build_report(all_lines)
