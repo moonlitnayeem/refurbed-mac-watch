@@ -20,6 +20,8 @@ from refurbed_watch import (
     Offer,
     is_mac_studio,
     is_max_or_ultra_64gb,
+    parse_product_price,
+    parse_ram_variant_paths,
     parse_search_page,
     parse_variant_title,
 )
@@ -152,6 +154,27 @@ class TestVariantTitleParsing(unittest.TestCase):
 
     def test_missing_title_is_safe(self):
         self.assertEqual(parse_variant_title("<html>no title</html>"), ("", "", None, None))
+
+    def test_ram_dropdown_exposes_hidden_variant_paths(self):
+        page = '''
+        <select data-test="ram-selector">
+          <option value="/p/apple-macbook-pro-2023-m2-16-2/92650b/?offer=1">64.0 GB</option>
+          <option value="/p/apple-macbook-pro-2023-m2-16-2/302400b/?offer=19862087">96.0 GB</option>
+        </select>
+        <select data-test="product-storage">
+          <option value="/p/apple-macbook-pro-2023-m2-16-2/storage/?offer=2">4000 GB</option>
+        </select>
+        '''
+        self.assertEqual(
+            parse_ram_variant_paths(page),
+            ["/p/apple-macbook-pro-2023-m2-16-2/92650b/",
+             "/p/apple-macbook-pro-2023-m2-16-2/302400b/"],
+        )
+
+    def test_product_page_price(self):
+        page = ('<p data-test="product-price" data-test-displayed-price>'
+                '<span>41 459 kr</span></p>')
+        self.assertEqual(parse_product_price(page), 41459)
 
 
 class TestMacStudioFilter(unittest.TestCase):

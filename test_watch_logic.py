@@ -33,6 +33,10 @@ P_MINI = "/p/apple-mac-mini-2024-m4/273548aa/"      # fuzzy match, not a Mac Stu
 P_MACBOOK_32 = "/p/apple-macbook-air-2024-m3-15/300001a/"
 P_IMAC_INTEL = "/p/apple-imac-2020-intel/300002a/"
 P_IPAD_32 = "/p/apple-ipad-pro-2024-m4/300003a/"
+P_M2_96 = "/p/apple-macbook-pro-2023-m2-16-2/302400b/"
+P_M2_96_BASE = "/p/apple-macbook-pro-2023-m2-16-2/75335b/"
+P_M2_ALT_CONFIG = "/p/apple-macbook-pro-2023-m2-16-2/92672b/"
+P_IMAC_64 = "/p/apple-imac-2026-m5/300004a/"
 
 
 def search_html(entries):
@@ -126,6 +130,64 @@ class BestValueMacWatchTest(BaseWatchTest):
         self.assertIn("12 000 kr", items[0])
         self.assertIn("MacBook Air", items[1])
         self.assertIn("18 000 kr", items[1])
+
+
+class AppleSilicon64PlusWatchTest(BaseWatchTest):
+    watch_kwargs = dict(
+        key="apple-silicon-64-plus",
+        label="Apple silicon Macs · 64 GB+",
+        query="Apple Mac 64 GB",
+        matches=rw.is_apple_silicon_64gb_or_more,
+        needs_config=True,
+        discover_ram_variants=True,
+        offer_label=rw.best_value_offer_label,
+    )
+
+    def test_accepts_any_apple_silicon_mac_with_64gb_or_more(self):
+        self.assertTrue(rw.is_apple_silicon_64gb_or_more(
+            rw.Offer(P_M2_96, price=41_459, chip="M2 Max", ram_gb=96)))
+        self.assertTrue(rw.is_apple_silicon_64gb_or_more(
+            rw.Offer(P_IMAC_64, price=30_000, chip="M5", ram_gb=64)))
+        self.assertFalse(rw.is_apple_silicon_64gb_or_more(
+            rw.Offer(P_M2_96, price=20_000, chip="M2 Max", ram_gb=32)))
+        self.assertFalse(rw.is_apple_silicon_64gb_or_more(
+            rw.Offer(P_IMAC_64, price=20_000, chip="", ram_gb=128)))
+
+    def test_discovers_96gb_variant_hidden_in_ram_dropdown(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        hidden = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>41 305 kr</span></p>'
+            '<select data-test="keyboard">'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/75335b/'
+            '?offer=19861870" selected data-price="">EN (QWERTY)</option>'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/302400b/'
+            '?offer=19862087" data-price="more,+154 kr">US (QWERTY)</option>'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/92672b/'
+            '?offer=15407428" data-type="optgroup-option" '
+            'data-price="less,-23 054 kr">UK (QWERTY)</option>'
+            '</select>'
+        )
+        site = FakeSite(
+            [(P_M2, "30 000 kr")],
+            titles={P_M2: representative, P_M2_96_BASE: hidden},
+        )
+
+        lines = self.run_once(site)
+        offers = self.state["watches"]["apple-silicon-64-plus"]["offers"]
+
+        self.assertTrue(offers[P_M2_96]["matched"])
+        self.assertEqual(offers[P_M2_96]["ram_gb"], 96.0)
+        self.assertEqual(offers[P_M2_96]["price"], 41459)
+        self.assertNotIn(P_M2_ALT_CONFIG, offers)
+        self.assertIn("96 GB", "\n".join(lines))
 
 
 class MacBookProWatchTest(BaseWatchTest):

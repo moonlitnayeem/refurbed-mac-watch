@@ -5,7 +5,7 @@ refurbed_watch.py — watch refurbed.se for specific Apple hardware.
 Three watches ship by default:
   * best-value-macs : cheapest Apple-silicon Macs with at least 32 GB RAM
   * mac-studio  : any purchasable Mac Studio
-  * mbp-max-64  : MacBook Pro with a Max chip and 64 GB RAM
+  * apple-silicon-64-plus : any Apple-silicon Mac with at least 64 GB RAM
 
 Why this works: refurbed.se renders search results server-side, and its search
 listing only ever contains *purchasable* offers. A model that is out of stock
@@ -205,6 +205,95 @@ def parse_variant_title(page_html: str) -> tuple[str, str, float | None, float |
     return config, chip, ram, ssd
 
 
+def parse_ram_variant_paths(page_html: str) -> list[str]:
+    """Return variant paths exposed by a product page's RAM selector."""
+    paths: list[str] = []
+    seen: set[str] = set()
+    for select in re.findall(r"<select\b[^>]*>.*?</select>", page_html,
+                             flags=re.IGNORECASE | re.DOTALL):
+        # RAM choices use decimal values (for example 64.0 GB), while the
+        # storage selector uses whole values such as 1000 GB.
+        if not re.search(r">\s*\d+(?:\.\d+)?\s*GB\s*</option>", select,
+                         flags=re.IGNORECASE):
+            continue
+        if not re.search(r">\s*\d+\.\d+\s*GB\s*</option>", select,
+                         flags=re.IGNORECASE):
+            continue
+        for value in re.findall(r'value="(/p/[^"]+)"', select, flags=re.IGNORECASE):
+            path = urllib.parse.urlsplit(value).path
+            if VARIANT_HREF_RE.fullmatch(f'href="{path}"') and path not in seen:
+                seen.add(path)
+                paths.append(path)
+    return paths
+
+
+def parse_product_price(page_html: str) -> int | None:
+    """Read the currently selected offer price from a product page."""
+    match = re.search(
+        r'data-test="product-price"[^>]*>(.{0,300})',
+        page_html,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    if not match:
+        return None
+    price = PRICE_RE.search(strip_tags(match.group(1)))
+    if not price:
+        return None
+    return int(re.sub(r"[\s  ]", "", price.group(1)))
+
+
+def parse_configuration_variant_offers(page_html: str, selected: Offer) -> list[Offer]:
+    """Clone a high-RAM config across its storage/color/keyboard selectors."""
+    variants: list[Offer] = []
+    seen: set[str] = set()
+    for select in re.findall(r"<select\b[^>]*>.*?</select>", page_html,
+                             flags=re.IGNORECASE | re.DOTALL):
+        # RAM options may switch the processor too, so those are fetched and
+        # verified separately rather than cloned from the selected config.
+        if re.search(r">\s*\d+\.\d+\s*GB\s*</option>", select,
+                     flags=re.IGNORECASE):
+            continue
+        is_storage = bool(re.search(r">\s*\d+\s*GB\s*</option>", select,
+                                    flags=re.IGNORECASE))
+        for attrs, option_html in re.findall(
+            r"<option\b([^>]*)>(.*?)</option>", select,
+            flags=re.IGNORECASE | re.DOTALL,
+        ):
+            if re.search(r'data-type="optgroup-option"', attrs, flags=re.IGNORECASE):
+                continue
+            value_m = re.search(r'value="(/p/[^"]+)"', attrs, flags=re.IGNORECASE)
+            if not value_m:
+                continue
+            path = urllib.parse.urlsplit(value_m.group(1)).path
+            if not VARIANT_HREF_RE.fullmatch(f'href="{path}"') or path in seen:
+                continue
+            seen.add(path)
+
+            delta = 0
+            delta_m = re.search(r'data-price="[^"]*?([+-])\s*([\d\s  ]+)\s*kr"',
+                                attrs, flags=re.IGNORECASE)
+            if delta_m:
+                amount = int(re.sub(r"[\s  ]", "", delta_m.group(2)))
+                delta = amount if delta_m.group(1) == "+" else -amount
+
+            ssd_gb = selected.ssd_gb
+            if is_storage:
+                storage_m = re.search(r"(\d+)\s*GB", strip_tags(option_html),
+                                      flags=re.IGNORECASE)
+                if storage_m:
+                    ssd_gb = float(storage_m.group(1))
+
+            variants.append(Offer(
+                path=path,
+                price=(selected.price + delta) if selected.price is not None else None,
+                config=selected.config,
+                chip=selected.chip,
+                ram_gb=selected.ram_gb,
+                ssd_gb=ssd_gb,
+            ))
+    return variants
+
+
 # --------------------------------------------------------------------------
 # Watches
 # --------------------------------------------------------------------------
@@ -221,6 +310,9 @@ class Watch:
     # Refurbed collapses alternate configurations into one search card. Extra
     # targeted searches expose variants hidden behind the card's selectors.
     extra_queries: tuple[str, ...] = ()
+    # If True, inspect one representative page per product family and follow
+    # the RAM selector to variants hidden from search-result cards.
+    discover_ram_variants: bool = False
     # A broad watch may need the product family in addition to the config.
     offer_label: Callable[[Offer], str] = lambda o: o.label
 
@@ -242,6 +334,11 @@ def is_max_or_ultra_64gb(o: Offer) -> bool:
 
 def is_best_value_mac(o: Offer) -> bool:
     """A priced Mac with Apple silicon and at least 32 GB RAM."""
+    return bool(is_apple_silicon_mac(o, min_ram_gb=32) and o.price)
+
+
+def is_apple_silicon_mac(o: Offer, min_ram_gb: float) -> bool:
+    """A Mac-family product with an M-series chip and the requested RAM."""
     mac_slugs = (
         "/p/apple-macbook-",
         "/p/apple-mac-mini-",
@@ -251,7 +348,12 @@ def is_best_value_mac(o: Offer) -> bool:
     )
     is_mac = o.path.startswith(mac_slugs)
     is_apple_silicon = bool(re.fullmatch(r"M[1-9]\d*(?: (?:Pro|Max|Ultra))?", o.chip))
-    return bool(is_mac and is_apple_silicon and (o.ram_gb or 0) >= 32 and o.price)
+    return bool(is_mac and is_apple_silicon and (o.ram_gb or 0) >= min_ram_gb)
+
+
+def is_apple_silicon_64gb_or_more(o: Offer) -> bool:
+    """Any Apple-silicon Mac with at least 64 GB RAM."""
+    return is_apple_silicon_mac(o, min_ram_gb=64)
 
 
 def best_value_offer_label(o: Offer) -> str:
@@ -292,15 +394,19 @@ WATCHES: list[Watch] = [
         needs_config=True,   # enriches the alert text; filter is URL-based
     ),
     Watch(
-        key="mbp-max-64",
-        label="MacBook Pro Max 64 GB",
-        query="MacBook Pro Max 64 GB",
-        matches=is_max_or_ultra_64gb,
-        needs_config=True,   # required: search returns 36 GB and 48 GB machines too
+        key="apple-silicon-64-plus",
+        label="Apple silicon Macs · 64 GB+",
+        query="Apple Mac 64 GB",
+        matches=is_apple_silicon_64gb_or_more,
+        needs_config=True,
+        discover_ram_variants=True,
+        offer_label=best_value_offer_label,
         extra_queries=(
-            # The broad result card points at a 512 GB / Italian-keyboard M1.
-            # This targeted query exposes the purchasable 1 TB / Danish variant.
-            "Apple MacBook Pro 2021 M1 Max 64 GB 1 TB DK",
+            "Apple MacBook 64 GB",
+            "Apple Mac mini 64 GB",
+            "Apple Mac Studio 64 GB",
+            "Apple iMac 64 GB",
+            "Apple Mac Pro 64 GB",
         ),
     ),
 ]
@@ -444,12 +550,57 @@ def fmt_kr(n: int | None) -> str:
 # Core
 # --------------------------------------------------------------------------
 
+def enrich_from_page(offer: Offer, page: str) -> None:
+    """Fill configuration and selected-offer price from a product page."""
+    offer.config, offer.chip, offer.ram_gb, offer.ssd_gb = parse_variant_title(page)
+    product_price = parse_product_price(page)
+    if product_price is not None:
+        offer.price = product_price
+
+
 def enrich(offer: Offer) -> None:
     """Fill in chip / RAM / SSD from the variant page."""
     page = fetch(offer.url)
-    if page is None:
-        return
-    offer.config, offer.chip, offer.ram_gb, offer.ssd_gb = parse_variant_title(page)
+    if page is not None:
+        enrich_from_page(offer, page)
+
+
+def discover_hidden_ram_variants(offers_by_path: dict[str, Offer]) -> None:
+    """Follow RAM dropdowns from one search result per product family."""
+    representatives: dict[str, Offer] = {}
+    for offer in offers_by_path.values():
+        parts = offer.path.strip("/").split("/")
+        if len(parts) >= 3:
+            representatives.setdefault(parts[1], offer)
+
+    pages: dict[str, str] = {}
+    hidden_paths: set[str] = set()
+
+    def add_sibling_configurations(offer: Offer, page: str) -> None:
+        if (offer.ram_gb or 0) < 64:
+            return
+        for variant in parse_configuration_variant_offers(page, offer):
+            existing = offers_by_path.get(variant.path)
+            if existing is None or not existing.config:
+                offers_by_path[variant.path] = variant
+
+    for offer in representatives.values():
+        page = fetch(offer.url)
+        if page is None:
+            continue
+        pages[offer.path] = page
+        enrich_from_page(offer, page)
+        hidden_paths.update(parse_ram_variant_paths(page))
+        add_sibling_configurations(offer, page)
+
+    for path in sorted(hidden_paths):
+        offer = offers_by_path.setdefault(path, Offer(path=path))
+        page = pages.get(path)
+        if page is None:
+            page = fetch(offer.url)
+        if page is not None:
+            enrich_from_page(offer, page)
+            add_sibling_configurations(offer, page)
 
 
 def run_watch(watch: Watch, state: dict, dry_run: bool,
@@ -474,6 +625,10 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
 
     offers = list(offers_by_path.values())
 
+    if watch.discover_ram_variants:
+        discover_hidden_ram_variants(offers_by_path)
+        offers = list(offers_by_path.values())
+
     prev = state["watches"].get(watch.key, {})
     prev_offers: dict = prev.get("offers", {})
     is_first_run = not prev_offers
@@ -489,11 +644,15 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     matched: dict[str, Offer] = {}
     for o in offers:
         cached = prev_offers.get(o.path)
-        if cached and cached.get("config"):
+        if o.config:
+            pass
+        elif cached and cached.get("config"):
             o.config = cached.get("config", "")
             o.chip = cached.get("chip", "")
             o.ram_gb = cached.get("ram_gb")
             o.ssd_gb = cached.get("ssd_gb")
+            if o.price is None:
+                o.price = cached.get("price")
         elif watch.needs_config:
             enrich(o)
 

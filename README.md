@@ -7,7 +7,7 @@ current results to a permanent GitHub issue after every run.
 |---|---|
 | `best-value-macs` | Any priced Mac with an **Apple M-series chip and at least 32 GB RAM**, ranked cheapest first |
 | `mac-studio` | Any purchasable Mac Studio |
-| `mbp-max-64` | MacBook Pro with a **Max chip and 64 GB RAM** |
+| `apple-silicon-64-plus` | Any Apple-silicon Mac with **64 GB RAM or more**, including hidden RAM-selector configurations |
 
 The watcher runs on GitHub Actions. A free Cloudflare Worker triggers it every
 15 minutes because GitHub's native scheduled events can be delayed or dropped.
@@ -87,11 +87,12 @@ haven't seen before" cleanly covers both a brand-new listing and a restock,
 with no need to poll product pages and parse Swedish availability strings.
 
 **Search cards collapse alternate configurations.** Refurbed can show one
-representative variant for a whole product family, hiding other storage,
-keyboard, and merchant configurations behind selectors. The Max/64 GB watch
-therefore merges its broad search with a targeted M1 Max/64 GB/1 TB/DK search.
-This exposes the requested Danish 1 TB configuration and other qualifying
-alternate variants while adding only one steady-state search request per run.
+representative variant for a whole product family while RAM, storage, color,
+keyboard, and merchant configurations remain behind selectors. The 64 GB+
+watch searches every Mac family, opens one representative page per product,
+follows its RAM selector, verifies each RAM choice, and includes the compatible
+storage/color/keyboard variants. This is how configurations such as a 96 GB,
+4 TB M2 Max become visible even when the search card points somewhere else.
 
 **Identity is the variant URL, not the product name.** Result cards link to
 `/p/<product-slug>/<variant-id>/`. The card title is useless for filtering — it
@@ -106,14 +107,11 @@ Apple MacBook Pro 2023 M3 Apple M3 Max 16 Core 64.0 GB 2000 GB 16.2 " rymdsvart 
                           chip                 RAM     SSD
 ```
 
-This verification isn't optional. Searching `MacBook Pro Max 64 GB` returns an
-**M4 Max with 36 GB** among the results — a real false positive the filter
-catches. Verified configs are cached in `state.json`, so each variant page is
-fetched once, not every run.
-
-**64 GB implies a Max chip.** On Apple Silicon MacBook Pros, Pro chips top out
-at 32 GB (M1/M2 Pro), 36 GB (M3 Pro) and 48 GB (M4 Pro). Only Max chips offer
-64 GB, so the RAM check does the chip filtering for free.
+This verification isn't optional. Fuzzy searches return Intel Macs, iPads, and
+Apple-silicon machines below the requested RAM. The filter therefore requires
+both a Mac-family URL, a parsed M-series chip, and RAM of at least 64 GB. It is
+not limited to MacBooks or exactly 64 GB: iMac, Mac mini, Mac Studio, and Mac
+Pro configurations qualify too whenever Refurbed lists compatible hardware.
 
 **The Mac Studio search is mostly noise.** It returns Mac minis, a Mac Pro, an
 iMac and a Studio Display. Only results whose URL contains `apple-mac-studio`
@@ -133,7 +131,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 47 tests, no network needed
+python3 -m unittest discover -v       # 51 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
@@ -171,10 +169,9 @@ matches=lambda o: is_max_or_ultra_64gb(o) and (o.price or 0) < 32000,
 
 `robots.txt` on refurbed.se permits general crawling. This script identifies
 itself honestly in its `User-Agent`, leaves 3 seconds between requests, caches
-variant configs so it doesn't re-read pages it already knows, and backs off
-exponentially on errors. Steady state is 9 search requests per run; variant
-pages are cached and only fetched when a newly discovered configuration needs
-verification.
+verified configuration data, and backs off exponentially on errors. The 64 GB+
+watch intentionally revisits representative and RAM-selector pages so newly
+available hidden configurations and their current prices can be discovered.
 
 ## Troubleshooting
 
