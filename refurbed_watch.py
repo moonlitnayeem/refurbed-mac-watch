@@ -693,7 +693,7 @@ def build_buy_now_lines(state: dict, tolerance_kr: int = DEAL_PRICE_TOLERANCE_KR
     candidates.sort(key=lambda item: (item[0].price is None, item[0].price or 0))
 
     title = (
-        f"🔔 Buy-now prices · at/below or within {fmt_kr(tolerance_kr)} "
+        f"🔔 At or Near Historical Lows Right Now · within {fmt_kr(tolerance_kr)} "
         f"of historical low ({len(candidates)})"
     )
     lines = [f"__STANDINGS__{title}"]

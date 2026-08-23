@@ -282,7 +282,9 @@ class BuyNowSectionTest(unittest.TestCase):
 
         lines = rw.build_buy_now_lines(state, tolerance_kr=1_000)
 
-        self.assertTrue(lines[0].startswith("__STANDINGS__🔔"))
+        self.assertTrue(
+            lines[0].startswith("__STANDINGS__🔔 At or Near Historical Lows Right Now")
+        )
         items = [line for line in lines if line.startswith("__ITEM__[")]
         self.assertEqual(len(items), 1)
         self.assertIn(cheaper, items[0])
@@ -310,7 +312,7 @@ class BuyNowSectionTest(unittest.TestCase):
 
     def test_buy_now_section_renders_before_existing_categories(self):
         lines = [
-            "__STANDINGS__🔔 Buy-now prices (0)",
+            "__STANDINGS__🔔 At or Near Historical Lows Right Now (0)",
             "__ITEM___none currently available_",
             "__STANDINGS__Best-value Macs (1)",
             "__ITEM__[Mac](https://example.com) — 1 kr",
@@ -318,7 +320,10 @@ class BuyNowSectionTest(unittest.TestCase):
 
         _, standings = rw.build_report(lines)
 
-        self.assertLess(standings.index("🔔 Buy-now"), standings.index("Best-value Macs"))
+        self.assertLess(
+            standings.index("🔔 At or Near Historical Lows Right Now"),
+            standings.index("Best-value Macs"),
+        )
 
 
 class MacBookProWatchTest(BaseWatchTest):

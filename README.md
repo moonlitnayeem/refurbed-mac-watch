@@ -87,7 +87,8 @@ backfilled from the repository's archived reports and then maintained in
 `state.json`, giving a practical target-buy price based on prices this watcher
 actually observed.
 
-The report begins with a **🔔 Buy-now prices** section. A model remains there
+The report begins with a **🔔 At or Near Historical Lows Right Now** section.
+A model remains there
 for as long as its cheapest currently purchasable variant is at or below its
 historical low, or no more than **1,000 kr above** it. Models are deduplicated by
 the same hardware-comparison key used for price history, and candidates are
