@@ -70,6 +70,11 @@ NOTIFY_SOUND = "Glass"
 # Cap on alerts per run, so a site-wide change cannot produce a burst.
 MAX_NOTIFICATIONS_PER_RUN = 8
 
+# A current listing is a buy-now candidate when it is no more than this much
+# above the all-time low observed by the watcher. Anything below the low also
+# qualifies automatically.
+DEAL_PRICE_TOLERANCE_KR = 1000
+
 # Filled by notify(); main() turns this into the GitHub issue body.
 COLLECTED_ALERTS: list[dict] = []
 
@@ -654,6 +659,67 @@ def update_price_lows(state: dict, seen_at: str) -> None:
     state["price_lows"] = lows
 
 
+def build_buy_now_lines(state: dict, tolerance_kr: int = DEAL_PRICE_TOLERANCE_KR,
+                        active_watch_keys: list[str] | None = None) -> list[str]:
+    """Build the top section for currently available near-record-low Macs."""
+    cheapest_by_model: dict[str, Offer] = {}
+    active = set(active_watch_keys) if active_watch_keys is not None else None
+    for watch_key, watch in state.get("watches", {}).items():
+        if active is not None and watch_key not in active:
+            continue
+        for path, data in watch.get("offers", {}).items():
+            price = data.get("price")
+            if not data.get("matched") or not isinstance(price, int):
+                continue
+            offer = Offer(
+                path=path,
+                price=price,
+                chip=data.get("chip", ""),
+                ram_gb=data.get("ram_gb"),
+                ssd_gb=data.get("ssd_gb"),
+            )
+            key = price_history_key(offer)
+            if key is None or key not in state.get("price_lows", {}):
+                continue
+            current = cheapest_by_model.get(key)
+            if current is None or current.price is None or offer.price < current.price:
+                cheapest_by_model[key] = offer
+
+    candidates: list[tuple[Offer, dict]] = []
+    for key, offer in cheapest_by_model.items():
+        record = state["price_lows"][key]
+        if offer.price <= record["price"] + tolerance_kr:
+            candidates.append((offer, record))
+    candidates.sort(key=lambda item: (item[0].price is None, item[0].price or 0))
+
+    title = (
+        f"🔔 Buy-now prices · at/below or within {fmt_kr(tolerance_kr)} "
+        f"of historical low ({len(candidates)})"
+    )
+    lines = [f"__STANDINGS__{title}"]
+    if not candidates:
+        lines.append(
+            f"__ITEM___none currently available within {fmt_kr(tolerance_kr)} "
+            "of its historical low_"
+        )
+        return lines
+
+    for offer, record in candidates:
+        difference = offer.price - record["price"]
+        if difference < 0:
+            comparison = f"{fmt_kr(abs(difference))} below historical low"
+        elif difference == 0:
+            comparison = "matches historical low"
+        else:
+            comparison = f"{fmt_kr(difference)} above historical low"
+        lines.append(
+            f"__ITEM__[{best_value_offer_label(offer)}]({offer.url}) — "
+            f"{fmt_kr(offer.price)} · Historical low: "
+            f"[{fmt_kr(record['price'])}]({record['url']}) · {comparison}"
+        )
+    return lines
+
+
 # --------------------------------------------------------------------------
 # Core
 # --------------------------------------------------------------------------
@@ -1003,13 +1069,23 @@ def main() -> int:
         state["price_lows"] = load_archived_price_lows()
     notifications_left = [MAX_NOTIFICATIONS_PER_RUN]
     all_lines: list[str] = []
+    active_watch_keys: list[str] = []
 
     for w in WATCHES:
         try:
+            previous_check = state["watches"].get(w.key, {}).get("checked_at")
             all_lines += run_watch(w, state, args.dry_run, notifications_left)
+            current_check = state["watches"].get(w.key, {}).get("checked_at")
+            if not args.dry_run and current_check and current_check != previous_check:
+                active_watch_keys.append(w.key)
         except Exception as e:  # noqa: BLE001 - one broken watch must not stop the others
             logging.exception("[%s] unhandled error: %s", w.key, e)
             all_lines.append(f"{w.label}: error ({e})")
+
+    all_lines = build_buy_now_lines(
+        state,
+        active_watch_keys=active_watch_keys if not args.dry_run else None,
+    ) + all_lines
 
     if not args.dry_run:
         update_price_lows(

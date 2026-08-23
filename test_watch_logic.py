@@ -253,6 +253,74 @@ class PriceHistoryTest(BaseWatchTest):
         self.assertEqual(lows[key]["seen_at"], "2026-08-18T12:00:00Z")
 
 
+class BuyNowSectionTest(unittest.TestCase):
+    def _state(self, offers, low=22_100):
+        sample = rw.Offer(P_M2, chip="M2 Max", ram_gb=64, ssd_gb=1000)
+        return {
+            "price_lows": {
+                rw.price_history_key(sample): {
+                    "price": low,
+                    "url": "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/old123/",
+                    "seen_at": "2026-08-18T12:00:00Z",
+                }
+            },
+            "watches": {"x": {"offers": offers}},
+        }
+
+    def test_near_low_section_deduplicates_models_and_uses_cheapest_available_variant(self):
+        cheaper = "/p/apple-macbook-pro-2023-m2-14/cheap1/"
+        other = "/p/apple-macbook-pro-2023-m2-14/other2/"
+        fields = {"chip": "M2 Max", "ram_gb": 64, "ssd_gb": 1000,
+                  "matched": True}
+        state = self._state({
+            other: {**fields, "price": 22_900},
+            cheaper: {**fields, "price": 22_800},
+            "/p/apple-macbook-pro-2023-m2-14/gone3/": {
+                **fields, "price": 21_000, "matched": False,
+            },
+        })
+
+        lines = rw.build_buy_now_lines(state, tolerance_kr=1_000)
+
+        self.assertTrue(lines[0].startswith("__STANDINGS__🔔"))
+        items = [line for line in lines if line.startswith("__ITEM__[")]
+        self.assertEqual(len(items), 1)
+        self.assertIn(cheaper, items[0])
+        self.assertIn("700 kr above historical low", items[0])
+        self.assertIn("old123", items[0])
+
+    def test_below_historical_low_stays_in_section(self):
+        fields = {"chip": "M2 Max", "ram_gb": 64, "ssd_gb": 1000,
+                  "matched": True, "price": 21_500}
+        state = self._state({P_M2: fields})
+
+        lines = rw.build_buy_now_lines(state, tolerance_kr=1_000)
+
+        self.assertIn("600 kr below historical low", "\n".join(lines))
+
+    def test_more_than_tolerance_above_low_is_excluded(self):
+        fields = {"chip": "M2 Max", "ram_gb": 64, "ssd_gb": 1000,
+                  "matched": True, "price": 23_101}
+        state = self._state({P_M2: fields})
+
+        lines = rw.build_buy_now_lines(state, tolerance_kr=1_000)
+
+        self.assertIn("(0)", lines[0])
+        self.assertIn("none currently available", lines[1])
+
+    def test_buy_now_section_renders_before_existing_categories(self):
+        lines = [
+            "__STANDINGS__🔔 Buy-now prices (0)",
+            "__ITEM___none currently available_",
+            "__STANDINGS__Best-value Macs (1)",
+            "__ITEM__[Mac](https://example.com) — 1 kr",
+        ]
+
+        _, standings = rw.build_report(lines)
+
+        self.assertLess(standings.index("🔔 Buy-now"), standings.index("Best-value Macs"))
+
+
 class MacBookProWatchTest(BaseWatchTest):
     watch_kwargs = dict(key="mbp", label="MacBook Pro Max 64 GB",
                         query="MacBook Pro Max 64 GB",

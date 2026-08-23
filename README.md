@@ -87,6 +87,14 @@ backfilled from the repository's archived reports and then maintained in
 `state.json`, giving a practical target-buy price based on prices this watcher
 actually observed.
 
+The report begins with a **🔔 Buy-now prices** section. A model remains there
+for as long as its cheapest currently purchasable variant is at or below its
+historical low, or no more than **1,000 kr above** it. Models are deduplicated by
+the same hardware-comparison key used for price history, and candidates are
+sorted by current price. When the qualifying listing is no longer available,
+it disappears from this section automatically while its historical low remains
+saved for future comparisons.
+
 ## How it works, and why it works this way
 
 **Search only lists purchasable offers.** A Mac Studio that's out of stock has
@@ -139,7 +147,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 54 tests, no network needed
+python3 -m unittest discover -v       # 58 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
@@ -150,6 +158,10 @@ The script also runs locally on macOS with native notifications
 **Check more or less often** — edit `triggers.crons` in
 `cloudflare-scheduler/wrangler.jsonc`, then run `npx wrangler deploy` from that
 directory. Cron Triggers use UTC.
+
+**Change the buy-now tolerance** — edit `DEAL_PRICE_TOLERANCE_KR` in
+`refurbed_watch.py`. The default is `1000`, meaning historical-low prices and
+prices up to 1,000 kr above them qualify.
 
 **Add a watch** — append to `WATCHES` in `refurbed_watch.py`:
 
