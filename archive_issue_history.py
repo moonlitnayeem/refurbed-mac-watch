@@ -156,7 +156,18 @@ def get_remote_archive_files(repo: str, ref: str, manifest: list[dict],
         result = api_request(
             f"/repos/{repo}/contents/{encoded_path}?ref={encoded_ref}", token
         )
-        files[path] = base64.b64decode(result["content"]).decode("utf-8")
+        if result.get("encoding") == "base64" and result.get("content"):
+            encoded_content = result["content"]
+        else:
+            # GitHub's Contents API omits inline content for files over 1 MB.
+            # The linked Git Blob API still returns the full file (up to 100 MB).
+            git_url = result.get("git_url")
+            if not git_url:
+                raise RuntimeError(f"No downloadable content for {path}")
+            blob_path = urllib.parse.urlsplit(git_url).path
+            blob = api_request(blob_path, token)
+            encoded_content = blob["content"]
+        files[path] = base64.b64decode(encoded_content).decode("utf-8")
     return files
 
 

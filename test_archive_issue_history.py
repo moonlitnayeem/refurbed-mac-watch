@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 import json
+import base64
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import archive_issue_history as ah
 
@@ -67,6 +69,29 @@ class ArchiveIssueHistoryTest(unittest.TestCase):
 
         remote["history/2026-08/19.md"] += "\n<!-- github-comment-id:2 -->"
         self.assertEqual(ah.verify_manifest(manifest, remote), [1, 2])
+
+    def test_large_remote_archive_is_loaded_through_git_blob_api(self):
+        marker = "<!-- github-comment-id:1 -->"
+        manifest = [{"comment_id": 1, "archive_path": "history/2026-08/24.md",
+                     "marker": marker}]
+        contents_result = {
+            "encoding": "none",
+            "content": "",
+            "git_url": "https://api.github.com/repos/owner/repo/git/blobs/abc123",
+        }
+        blob_result = {
+            "encoding": "base64",
+            "content": base64.b64encode(marker.encode()).decode(),
+        }
+
+        with mock.patch.object(ah, "api_request",
+                               side_effect=[contents_result, blob_result]) as request:
+            files = ah.get_remote_archive_files(
+                "owner/repo", "main", manifest, "secret-token"
+            )
+
+        self.assertEqual(files["history/2026-08/24.md"], marker)
+        self.assertIn("/repos/owner/repo/git/blobs/abc123", request.call_args_list[1].args[0])
 
 
 if __name__ == "__main__":
