@@ -54,25 +54,34 @@ jobs:
         run: python3 archive_issue_history.py prepare --issue 2 --keep 4
 
       - name: Save state
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          # Stage first: on the very first run state.json is untracked, and
-          # `git diff` does not look at untracked files -- so testing the
-          # worktree directly would report "no change" forever and the baseline
-          # would never be committed.
-          git add state.json
-          if [[ -d history ]]; then git add history; fi
-          if git diff --cached --quiet -- state.json history; then
-            echo "No state change."
-            exit 0
-          fi
+          # Preserve this run's newer observation, then rebuild the commit on
+          # the latest remote main. Re-running archive preparation after every
+          # reset merges concurrent report comments without JSON/Markdown
+          # rebase conflicts.
+          cp state.json /tmp/refurbed-watch-state.json
           git config user.name  "refurbed-watch[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "state: refurbed check $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
-          # Another run may have pushed while we were working; rebase and retry.
+
           for i in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/refurbed-watch-state.json state.json
+            python3 archive_issue_history.py prepare --issue 2 --keep 4
+
+            git add state.json
+            if [[ -d history ]]; then git add history; fi
+            if git diff --cached --quiet -- state.json history; then
+              echo "No state or archive change."
+              exit 0
+            fi
+
+            git commit -m "state: refurbed check $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
             git push && exit 0
-            git pull --rebase --autostash || true
           done
+
           echo "::error::Could not push state and archive after 3 attempts"
           exit 1
 
