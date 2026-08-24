@@ -74,6 +74,8 @@ class BaseWatchTest(unittest.TestCase):
 
     def setUp(self):
         rw.COLLECTED_ALERTS.clear()
+        if hasattr(rw, "WHATSAPP_ALERTS"):
+            rw.WHATSAPP_ALERTS.clear()
         self.watch = rw.Watch(**self.watch_kwargs)
         self.state = {"version": 2, "watches": {}}
         self.notes = []
@@ -527,6 +529,16 @@ class MacStudioWatchTest(BaseWatchTest):
         self.run_once(site)
         self.assertEqual(len(self.notes), 1)
         self.assertIn("M3 Ultra", self.notes[0][1])
+        self.assertEqual(len(rw.WHATSAPP_ALERTS), 1)
+        self.assertEqual(rw.WHATSAPP_ALERTS[0]["price"], 54_900)
+        self.assertTrue(rw.WHATSAPP_ALERTS[0]["url"].endswith(P_ULTRA))
+
+    def test_first_run_baseline_does_not_send_whatsapp(self):
+        site = FakeSite([(P_STUDIO, "19 845 kr")])
+
+        self.run_once(site)
+
+        self.assertEqual(rw.WHATSAPP_ALERTS, [])
 
     def test_first_studio_after_empty_period_notifies(self):
         """Today's real state: zero available. One appearing is the whole point."""

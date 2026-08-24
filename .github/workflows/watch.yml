@@ -35,6 +35,14 @@ jobs:
         id: watch
         run: python3 refurbed_watch.py --notify github --state state.json
 
+      - name: Send WhatsApp alerts for new Mac Studio listings
+        env:
+          META_WHATSAPP_TOKEN: ${{ secrets.META_WHATSAPP_TOKEN }}
+          META_WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.META_WHATSAPP_PHONE_NUMBER_ID }}
+          META_WHATSAPP_TO: ${{ secrets.META_WHATSAPP_TO }}
+          META_WHATSAPP_TEMPLATE_NAME: ${{ secrets.META_WHATSAPP_TEMPLATE_NAME }}
+        run: python3 send_whatsapp.py
+
       - name: Post results to the watch issue
         env:
           GH_TOKEN: ${{ github.token }}

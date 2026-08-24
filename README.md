@@ -72,6 +72,30 @@ posts the complete current standings to the permanent results issue, even when
 nothing changed. Results and multi-listing alerts are sorted from the lowest
 price to the highest, with unknown prices shown last.
 
+### WhatsApp Mac Studio alerts
+
+When a new or restocked Mac Studio first enters the `mac-studio` category, the
+workflow can send a Meta WhatsApp Cloud API template message. The first run is
+still a silent baseline, and an unchanged listing is not messaged repeatedly.
+Create an approved `mac_studio_alert` template with three body variables:
+
+```text
+Mac Studio available: {{1}}
+Price: {{2}}
+Product: {{3}}
+```
+
+Configure these GitHub Actions secrets before a Mac Studio appears:
+
+- `META_WHATSAPP_TOKEN` — permanent Meta system-user token
+- `META_WHATSAPP_PHONE_NUMBER_ID` — sender's WhatsApp phone-number ID
+- `META_WHATSAPP_TO` — recipient number in international digits, without `+`
+- `META_WHATSAPP_TEMPLATE_NAME` — normally `mac_studio_alert`
+
+The alert file is generated only for a real new/restock event. If an event
+exists but the Meta credentials are missing or rejected, the workflow fails
+before committing state so the alert can be retried rather than silently lost.
+
 The **Best-value Macs** category is always shown first. It covers MacBook Air,
 MacBook Pro, Mac mini, Mac Studio, iMac, and Mac Pro listings, but strictly
 rejects Intel models, non-Mac Apple devices, machines below 32 GB RAM, and
@@ -148,7 +172,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 59 tests, no network needed
+python3 -m unittest discover -v       # 61 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
