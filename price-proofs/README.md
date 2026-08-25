@@ -11,6 +11,5 @@ record stores the screenshot path, observed price, source URL, and UTC time.
 Screenshots are intentionally created **only for new all-time lows**, not every
 15-minute observation. This preserves the evidence needed by previous-low links
 without growing the repository with duplicate images of unchanged prices.
-Historical lows that predate screenshot capture remain plain text and are
-labelled as lacking screenshot proof; their mutable Refurbed URLs are not used
-as evidence links.
+Historical lows that predate screenshot capture remain unlinked plain text;
+their mutable Refurbed URLs are not used as evidence links.

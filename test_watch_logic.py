@@ -288,8 +288,7 @@ class PriceHistoryTest(BaseWatchTest):
             "seen_at": "2026-08-18T12:00:00Z",
         })
 
-        self.assertIn("22 100 kr", markdown)
-        self.assertIn("screenshot unavailable", markdown)
+        self.assertEqual(markdown, "22 100 kr")
         self.assertNotIn("http", markdown)
 
     def test_price_history_update_keeps_all_time_lowest_observation(self):

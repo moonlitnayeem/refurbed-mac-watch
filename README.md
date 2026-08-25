@@ -125,9 +125,8 @@ and SSD capacity; keyboard, color, condition, and merchant variants are
 compared together. Historical lows are backfilled from the repository's
 archived reports and then maintained in `state.json`, giving a practical
 target-buy price based on prices this watcher actually observed. Older lows
-that predate screenshot capture remain visible as plain text marked
-**screenshot unavailable**; their mutable Refurbed URLs are deliberately not
-presented as proof.
+that predate screenshot capture remain visible as unlinked plain text; their
+mutable Refurbed URLs are deliberately not presented as proof.
 
 The report begins with a **🔔 At or Near Historical Lows Right Now** section.
 A model remains there

@@ -644,7 +644,7 @@ def historical_low_markdown(record: dict) -> str:
     price = fmt_kr(record.get("price"))
     screenshot = record.get("screenshot")
     if not isinstance(screenshot, str) or not screenshot.startswith("price-proofs/"):
-        return f"{price} (screenshot unavailable; recorded before proof capture)"
+        return price
     repo = os.environ.get("GITHUB_REPOSITORY", "moonlitnayeem/refurbed-mac-watch")
     proof_path = urllib.parse.quote(screenshot, safe="/")
     return f"[{price}](https://github.com/{repo}/blob/main/{proof_path})"
