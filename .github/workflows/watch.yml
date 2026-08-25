@@ -35,7 +35,7 @@ jobs:
         id: watch
         run: python3 refurbed_watch.py --notify github --state state.json
 
-      - name: Send Telegram alerts for new Mac Studio listings
+      - name: Send actionable Telegram alerts
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

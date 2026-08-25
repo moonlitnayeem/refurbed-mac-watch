@@ -156,6 +156,56 @@ class AppleSilicon64PlusWatchTest(BaseWatchTest):
         self.assertFalse(rw.is_apple_silicon_64gb_or_more(
             rw.Offer(P_IMAC_64, price=20_000, chip="", ram_gb=128)))
 
+    def test_threshold_target_is_exact_m2_max_64gb_macbook_pro_below_23000(self):
+        self.assertTrue(rw.is_m2_max_64gb_under_threshold(
+            rw.Offer(P_M2, price=22_999, chip="M2 Max", ram_gb=64)))
+
+        rejected = [
+            rw.Offer(P_M2, price=23_000, chip="M2 Max", ram_gb=64),
+            rw.Offer(P_M2, price=22_999, chip="M2 Max", ram_gb=96),
+            rw.Offer(P_M2, price=22_999, chip="M2 Pro", ram_gb=64),
+            rw.Offer(P_STUDIO, price=22_999, chip="M2 Max", ram_gb=64),
+        ]
+        for offer in rejected:
+            with self.subTest(path=offer.path, price=offer.price,
+                              chip=offer.chip, ram=offer.ram_gb):
+                self.assertFalse(rw.is_m2_max_64gb_under_threshold(offer))
+
+    def test_qualifying_offer_reappearance_sends_one_threshold_phone_alert(self):
+        site = FakeSite([(P_M3, "39 499 kr"), (P_M2, "22 999 kr")])
+        self.run_once(site)
+        self.assertEqual(rw.PHONE_ALERTS, [], "initial baseline must stay silent")
+
+        site.entries = [(P_M3, "39 499 kr")]
+        self.run_once(site)
+        self.assertEqual(rw.PHONE_ALERTS, [])
+
+        site.entries = [(P_M3, "39 499 kr"), (P_M2, "22 999 kr")]
+        self.run_once(site)
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        alert = rw.PHONE_ALERTS[0]
+        self.assertEqual(alert["title"], "M2 Max 64 GB below 23 000 kr")
+        self.assertEqual(alert["model"], "MacBook Pro · M2 Max · 64 GB · 2000 GB SSD")
+        self.assertEqual(alert["price"], 22_999)
+        self.assertTrue(alert["url"].endswith(P_M2))
+
+    def test_crossing_below_threshold_sends_once_while_further_drops_stay_silent(self):
+        site = FakeSite([(P_M2, "23 000 kr")])
+        self.run_once(site)
+
+        site.entries = [(P_M2, "22 999 kr")]
+        self.run_once(site)
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(rw.PHONE_ALERTS[0]["price"], 22_999)
+
+        site.entries = [(P_M2, "22 500 kr")]
+        self.run_once(site)
+        self.assertEqual(
+            len(rw.PHONE_ALERTS), 1,
+            "an unchanged below-threshold state must not repeat every run",
+        )
+
     def test_discovers_96gb_variant_hidden_in_ram_dropdown(self):
         representative = (
             '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Send new Mac Studio alerts through the Telegram Bot API."""
+"""Send actionable Refurbed alerts through the Telegram Bot API."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ def message_payload(alert: dict, chat_id: str) -> dict:
     url = html.escape(str(alert["url"]), quote=True)
     custom_title = alert.get("title")
     title = html.escape(str(custom_title or "Mac Studio available"))
-    icon = "🧪" if custom_title else "🔔"
+    icon = "🧪" if alert.get("test") else "🔔"
     text = (
         f"{icon} <b>{title}</b>\n"
         f"{model}\n"
@@ -57,9 +57,9 @@ def telegram_request(token: str, payload: dict) -> dict:
 
 
 def main() -> int:
-    alert_path = Path(os.environ.get("PHONE_ALERT_FILE", "mac_studio_alerts.json"))
+    alert_path = Path(os.environ.get("PHONE_ALERT_FILE", "phone_alerts.json"))
     if not alert_path.exists():
-        print("No new Mac Studio alert to send.")
+        print("No Telegram alert to send.")
         return 0
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
@@ -73,7 +73,7 @@ def main() -> int:
     for alert in alerts:
         result = telegram_request(token, message_payload(alert, chat_id))
         print(
-            "Sent Telegram Mac Studio alert: "
+            "Sent Telegram alert: "
             f"message {result['message_id']}"
         )
     return 0

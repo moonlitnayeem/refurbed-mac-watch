@@ -35,6 +35,7 @@ class TelegramPayloadTest(unittest.TestCase):
     def test_payload_can_be_labelled_as_a_delivery_test(self):
         alert = {
             "title": "Telegram delivery test",
+            "test": True,
             "model": "Integration check",
             "price": 0,
             "url": "https://example.com/status",
@@ -45,6 +46,21 @@ class TelegramPayloadTest(unittest.TestCase):
         self.assertTrue(payload["text"].startswith(
             "🧪 <b>Telegram delivery test</b>\n"
         ))
+
+    def test_threshold_alert_keeps_bell_icon_with_custom_title(self):
+        alert = {
+            "title": "M2 Max 64 GB below 23 000 kr",
+            "model": "MacBook Pro · M2 Max · 64 GB · 1 TB SSD",
+            "price": 22_899,
+            "url": "https://www.refurbed.se/p/apple-macbook-pro/x/",
+        }
+
+        payload = st.message_payload(alert, chat_id="123456")
+
+        self.assertTrue(payload["text"].startswith(
+            "🔔 <b>M2 Max 64 GB below 23 000 kr</b>\n"
+        ))
+        self.assertIn("<b>Price:</b> 22 899 kr", payload["text"])
 
     @mock.patch("send_telegram.urllib.request.urlopen")
     def test_send_message_posts_json_to_bot_api(self, urlopen_mock):
@@ -94,7 +110,7 @@ class TelegramPayloadTest(unittest.TestCase):
                 os.chdir(old_cwd)
 
         self.assertEqual(result, 0)
-        print_mock.assert_called_once_with("No new Mac Studio alert to send.")
+        print_mock.assert_called_once_with("No Telegram alert to send.")
 
     @mock.patch("send_telegram.telegram_request")
     def test_main_sends_every_pending_alert(self, request_mock):

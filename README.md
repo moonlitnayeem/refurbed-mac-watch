@@ -72,12 +72,23 @@ posts the complete current standings to the permanent results issue, even when
 nothing changed. Results and multi-listing alerts are sorted from the lowest
 price to the highest, with unknown prices shown last.
 
-### Telegram Mac Studio alerts
+### Actionable Telegram alerts
 
-When a new or restocked Mac Studio first enters the `mac-studio` category, the
-workflow sends an actionable Telegram message containing the verified model,
-current price, and a clickable Refurbed link. The first run is still a silent
-baseline, and an unchanged listing is not messaged repeatedly.
+The workflow sends Telegram messages containing the verified model, current
+price, and a clickable Refurbed link for two event types:
+
+- A Mac Studio newly appears or reappears in the `mac-studio` category.
+- An exact **MacBook Pro · M2 Max · 64 GB RAM** offer becomes purchasable below
+  **23,000 kr**. “Below” is strict: 22,999 kr qualifies, while 23,000 kr does
+  not. A message is sent when an offer first appears below the threshold,
+  reappears there after being unavailable, or crosses down from 23,000 kr or
+  higher. Remaining below the threshold—even after another price drop—does not
+  repeat the same phone alert every 15 minutes. This dedicated alert is exact
+  to 64 GB; the broader report still includes every Apple-silicon Mac with
+  64 GB or more.
+
+The first watcher run remains a silent baseline, and unchanged listings are not
+messaged repeatedly.
 
 Telegram setup requires no business verification, registered sender, or message
 template. Create a bot with Telegram's `@BotFather`, open the bot conversation,
@@ -169,7 +180,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 66 tests, no network needed
+python3 -m unittest discover -v       # 70 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

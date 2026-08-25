@@ -75,10 +75,13 @@ MAX_NOTIFICATIONS_PER_RUN = 8
 # qualifies automatically.
 DEAL_PRICE_TOLERANCE_KR = 1000
 
+# Dedicated Telegram threshold requested for an exact MacBook Pro config.
+M2_MAX_64GB_ALERT_THRESHOLD_KR = 23_000
+
 # Filled by notify(); main() turns this into the GitHub issue body.
 COLLECTED_ALERTS: list[dict] = []
 
-# New/restocked Mac Studio offers waiting for the workflow's phone-alert step.
+# Actionable offers waiting for the workflow's Telegram step.
 PHONE_ALERTS: list[dict] = []
 
 
@@ -363,6 +366,18 @@ def is_apple_silicon_mac(o: Offer, min_ram_gb: float) -> bool:
 def is_apple_silicon_64gb_or_more(o: Offer) -> bool:
     """Any Apple-silicon Mac with at least 64 GB RAM."""
     return is_apple_silicon_mac(o, min_ram_gb=64)
+
+
+def is_m2_max_64gb_under_threshold(o: Offer) -> bool:
+    """Exact 64 GB M2 Max MacBook Pro priced strictly below the alert level."""
+    return bool(
+        "/p/apple-macbook-pro-" in o.path
+        and o.chip == "M2 Max"
+        and o.ram_gb is not None
+        and abs(o.ram_gb - 64.0) <= 0.01
+        and o.price is not None
+        and o.price < M2_MAX_64GB_ALERT_THRESHOLD_KR
+    )
 
 
 def best_value_offer_label(o: Offer) -> str:
@@ -861,6 +876,29 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         tail = f", cheapest {fmt_kr(cheapest.price)}" if cheapest else ""
         lines.append(f"{watch.label}: no change ({len(matched)} matches{tail})")
 
+    if (watch.key == "apple-silicon-64-plus" and not is_first_run
+            and not dry_run):
+        for path, o in matched.items():
+            if not is_m2_max_64gb_under_threshold(o):
+                continue
+            old = prev_offers.get(path)
+            old_qualified = bool(
+                old
+                and old.get("matched")
+                and old.get("chip") == "M2 Max"
+                and old.get("ram_gb") is not None
+                and abs(old["ram_gb"] - 64.0) <= 0.01
+                and old.get("price") is not None
+                and old["price"] < M2_MAX_64GB_ALERT_THRESHOLD_KR
+            )
+            if not old_qualified:
+                PHONE_ALERTS.append({
+                    "title": "M2 Max 64 GB below 23 000 kr",
+                    "model": best_value_offer_label(o),
+                    "price": o.price,
+                    "url": o.url,
+                })
+
     # Keep alerts and the issue report consistent with the standings: cheapest
     # first, unknown prices last.
     events.sort(key=lambda event: (event[1].price is None, event[1].price or 0))
@@ -1017,8 +1055,8 @@ def write_github_outputs(alert_md: str, standings_md: str, status: list[str]) ->
                         + "\n".join(status) + "\n```\n</details>\n")
 
 
-def write_phone_alert_file(path: Path = Path("mac_studio_alerts.json")) -> None:
-    """Write pending Mac Studio alerts for the workflow, or remove stale output."""
+def write_phone_alert_file(path: Path = Path("phone_alerts.json")) -> None:
+    """Write pending Telegram alerts for the workflow, or remove stale output."""
     if PHONE_ALERTS:
         path.write_text(
             json.dumps(PHONE_ALERTS, ensure_ascii=False, indent=2) + "\n",
