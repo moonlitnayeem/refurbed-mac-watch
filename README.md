@@ -115,9 +115,11 @@ The alert file is generated only for a real new/restock event. If an event
 exists but the Twilio credentials are missing or rejected, the workflow fails
 before committing state so the alert can be retried rather than silently lost.
 The manual **WhatsApp delivery test** workflow exercises the same sender and
-secrets without changing watcher state or posting another report comment. Both
-workflows poll Twilio after sending and fail unless the final status becomes
-`delivered` or `read`.
+secrets without changing watcher state or posting another report comment. The
+trial account accepts outbound sends through the API but blocks message-status
+reads; delivery can be verified in Twilio's **Try out WhatsApp → Logs** view.
+After upgrading, set `TWILIO_VERIFY_DELIVERY=1` to make the sender poll and fail
+unless the final status becomes `delivered` or `read`.
 
 The **Best-value Macs** category is always shown first. It covers MacBook Air,
 MacBook Pro, Mac mini, Mac Studio, iMac, and Mac Pro listings, but strictly
