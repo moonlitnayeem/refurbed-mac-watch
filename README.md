@@ -75,9 +75,17 @@ price to the highest, with unknown prices shown last.
 ### WhatsApp Mac Studio alerts
 
 When a new or restocked Mac Studio first enters the `mac-studio` category, the
-workflow can send a Meta WhatsApp Cloud API template message. The first run is
-still a silent baseline, and an unchanged listing is not messaged repeatedly.
-Create an approved `mac_studio_alert` template with three body variables:
+workflow sends a WhatsApp message through Twilio. The first run is still a
+silent baseline, and an unchanged listing is not messaged repeatedly.
+
+The Twilio Sandbox can be used to prove delivery without a registered sender.
+The recipient must first send the displayed `join ...` phrase to the Sandbox.
+Sandbox membership expires after three days, and free-form messages work only
+inside the 24-hour customer-service window opened by the recipient's message.
+It is therefore suitable for testing, not unattended production monitoring.
+
+For durable alerts, register a WhatsApp sender in Twilio and create an approved
+Content Template with three variables:
 
 ```text
 Mac Studio available: {{1}}
@@ -87,14 +95,24 @@ Product: {{3}}
 
 Configure these GitHub Actions secrets before a Mac Studio appears:
 
-- `META_WHATSAPP_TOKEN` — permanent Meta system-user token
-- `META_WHATSAPP_PHONE_NUMBER_ID` — sender's WhatsApp phone-number ID
-- `META_WHATSAPP_TO` — recipient number in international digits, without `+`
-- `META_WHATSAPP_TEMPLATE_NAME` — normally `mac_studio_alert`
+- `TWILIO_ACCOUNT_SID` — Twilio Account SID
+- `TWILIO_API_KEY_SID` and `TWILIO_API_KEY_SECRET` — preferred, revokable API
+  key credentials
+- `TWILIO_AUTH_TOKEN` — optional fallback; grants broader account access
+- `TWILIO_WHATSAPP_FROM` — Sandbox or registered sender in E.164 format
+- `META_WHATSAPP_TO` — existing encrypted recipient number, reused by Twilio
+- `TWILIO_CONTENT_SID` — optional approved template SID beginning with `HX`
+
+When `TWILIO_CONTENT_SID` is absent, the script sends a free-form Sandbox
+message and therefore depends on an open 24-hour customer-service window.
+When it is present, the script sends the three template variables and can work
+outside that window with an approved production sender.
 
 The alert file is generated only for a real new/restock event. If an event
-exists but the Meta credentials are missing or rejected, the workflow fails
+exists but the Twilio credentials are missing or rejected, the workflow fails
 before committing state so the alert can be retried rather than silently lost.
+The manual **WhatsApp delivery test** workflow exercises the same sender and
+secrets without changing watcher state or posting another report comment.
 
 The **Best-value Macs** category is always shown first. It covers MacBook Air,
 MacBook Pro, Mac mini, Mac Studio, iMac, and Mac Pro listings, but strictly
@@ -172,7 +190,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 61 tests, no network needed
+python3 -m unittest discover -v       # 64 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

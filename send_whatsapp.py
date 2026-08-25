@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Send new Mac Studio alerts through Meta's WhatsApp Cloud API."""
+"""Send new Mac Studio alerts through Twilio's WhatsApp API."""
 
 from __future__ import annotations
 
+import base64
 import json
 import os
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -14,50 +16,82 @@ def fmt_kr(price: int) -> str:
     return f"{price:,}".replace(",", " ") + " kr"
 
 
-def template_payload(alert: dict, to: str, template_name: str,
-                     language: str = "en_US") -> dict:
-    return {
-        "messaging_product": "whatsapp",
-        "recipient_type": "individual",
-        "to": to.lstrip("+"),
-        "type": "template",
-        "template": {
-            "name": template_name,
-            "language": {"code": language},
-            "components": [{
-                "type": "body",
-                "parameters": [
-                    {"type": "text", "text": alert["model"]},
-                    {"type": "text", "text": fmt_kr(alert["price"])},
-                    {"type": "text", "text": alert["url"]},
-                ],
-            }],
-        },
+def whatsapp_address(number: str) -> str:
+    number = number.removeprefix("whatsapp:")
+    if not number.startswith("+"):
+        number = "+" + number
+    return "whatsapp:" + number
+
+
+def message_form(alert: dict, to: str, sender: str,
+                 content_sid: str | None = None) -> dict[str, str]:
+    form = {
+        "To": whatsapp_address(to),
+        "From": whatsapp_address(sender),
     }
+    if content_sid:
+        form.update({
+            "ContentSid": content_sid,
+            "ContentVariables": json.dumps({
+                "1": alert["model"],
+                "2": fmt_kr(alert["price"]),
+                "3": alert["url"],
+            }, ensure_ascii=False),
+        })
+    else:
+        form["Body"] = (
+            f"Mac Studio available: {alert['model']}\n"
+            f"Price: {fmt_kr(alert['price'])}\n"
+            f"{alert['url']}"
+        )
+    return form
 
 
-def send_template(phone_number_id: str, token: str, payload: dict,
-                  api_version: str = "v25.0") -> str:
-    url = f"https://graph.facebook.com/{api_version}/{phone_number_id}/messages"
-    request = urllib.request.Request(
-        url,
-        data=json.dumps(payload).encode(),
-        method="POST",
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-        },
+def basic_auth(username: str, password: str) -> str:
+    token = base64.b64encode(f"{username}:{password}".encode()).decode()
+    return "Basic " + token
+
+
+def auth_credentials(account_sid: str, auth_token: str | None = None,
+                     api_key_sid: str | None = None,
+                     api_key_secret: str | None = None) -> tuple[str, str]:
+    if api_key_sid and api_key_secret:
+        return api_key_sid, api_key_secret
+    if auth_token:
+        return account_sid, auth_token
+    raise RuntimeError(
+        "Set TWILIO_API_KEY_SID and TWILIO_API_KEY_SECRET, or TWILIO_AUTH_TOKEN"
     )
+
+
+def twilio_request(url: str, auth_username: str, auth_secret: str,
+                   *, method: str = "GET", form: dict[str, str] | None = None) -> dict:
+    data = None
+    headers = {
+        "Authorization": basic_auth(auth_username, auth_secret),
+        "Accept": "application/json",
+    }
+    if form is not None:
+        data = urllib.parse.urlencode(form).encode()
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+    request = urllib.request.Request(url, data=data, method=method, headers=headers)
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
-            result = json.load(response)
+            return json.load(response)
     except urllib.error.HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"WhatsApp API returned HTTP {error.code}: {detail}") from error
-    messages = result.get("messages") or []
-    if not messages or not messages[0].get("id"):
-        raise RuntimeError(f"WhatsApp API response had no message id: {result}")
-    return messages[0]["id"]
+        raise RuntimeError(f"Twilio API returned HTTP {error.code}: {detail}") from error
+
+
+def send_message(account_sid: str, auth_username: str, auth_secret: str,
+                 form: dict[str, str]) -> dict:
+    url = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Messages.json"
+    result = twilio_request(
+        url, auth_username, auth_secret, method="POST", form=form
+    )
+    if not result.get("sid"):
+        raise RuntimeError(f"Twilio API response had no message SID: {result}")
+    return result
 
 
 def required_env(name: str) -> str:
@@ -73,18 +107,25 @@ def main() -> int:
         print("No new Mac Studio alert to send.")
         return 0
 
-    token = required_env("META_WHATSAPP_TOKEN")
-    phone_number_id = required_env("META_WHATSAPP_PHONE_NUMBER_ID")
-    to = required_env("META_WHATSAPP_TO")
-    template_name = os.environ.get("META_WHATSAPP_TEMPLATE_NAME", "mac_studio_alert")
-    language = os.environ.get("META_WHATSAPP_TEMPLATE_LANGUAGE", "en_US")
-    api_version = os.environ.get("META_GRAPH_API_VERSION", "v25.0")
+    account_sid = required_env("TWILIO_ACCOUNT_SID")
+    auth_username, auth_secret = auth_credentials(
+        account_sid,
+        auth_token=os.environ.get("TWILIO_AUTH_TOKEN"),
+        api_key_sid=os.environ.get("TWILIO_API_KEY_SID"),
+        api_key_secret=os.environ.get("TWILIO_API_KEY_SECRET"),
+    )
+    sender = required_env("TWILIO_WHATSAPP_FROM")
+    to = required_env("TWILIO_WHATSAPP_TO")
+    content_sid = os.environ.get("TWILIO_CONTENT_SID") or None
 
     alerts = json.loads(alert_path.read_text(encoding="utf-8"))
     for alert in alerts:
-        payload = template_payload(alert, to, template_name, language)
-        message_id = send_template(phone_number_id, token, payload, api_version)
-        print(f"Sent WhatsApp Mac Studio alert: {message_id}")
+        form = message_form(alert, to, sender, content_sid)
+        result = send_message(account_sid, auth_username, auth_secret, form)
+        print(
+            "Sent Twilio WhatsApp Mac Studio alert: "
+            f"{result['sid']} ({result.get('status', 'status unknown')})"
+        )
     return 0
 
 

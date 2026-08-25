@@ -6,25 +6,61 @@ import send_whatsapp as sw
 
 
 class WhatsAppPayloadTest(unittest.TestCase):
-    def test_mac_studio_template_payload(self):
-        alert = {
+    def setUp(self):
+        self.alert = {
             "model": "M3 Ultra · 256 GB · 1000 GB SSD",
             "price": 54_900,
             "url": "https://www.refurbed.se/p/apple-mac-studio-2025-m3-ultra/99001a/",
         }
 
-        payload = sw.template_payload(
-            alert, to="46737867931", template_name="mac_studio_alert"
+    def test_sandbox_freeform_payload(self):
+        payload = sw.message_form(
+            self.alert,
+            to="+46700000000",
+            sender="+14155238886",
         )
 
-        self.assertEqual(payload["to"], "46737867931")
-        self.assertEqual(payload["template"]["name"], "mac_studio_alert")
-        params = payload["template"]["components"][0]["parameters"]
-        self.assertEqual([item["text"] for item in params], [
-            "M3 Ultra · 256 GB · 1000 GB SSD",
-            "54 900 kr",
-            alert["url"],
-        ])
+        self.assertEqual(payload["To"], "whatsapp:+46700000000")
+        self.assertEqual(payload["From"], "whatsapp:+14155238886")
+        self.assertEqual(
+            payload["Body"],
+            "Mac Studio available: M3 Ultra · 256 GB · 1000 GB SSD\n"
+            "Price: 54 900 kr\n"
+            "https://www.refurbed.se/p/apple-mac-studio-2025-m3-ultra/99001a/",
+        )
+
+    def test_approved_content_template_payload(self):
+        payload = sw.message_form(
+            self.alert,
+            to="46700000000",
+            sender="whatsapp:+14155238886",
+            content_sid="HX123",
+        )
+
+        self.assertNotIn("Body", payload)
+        self.assertEqual(payload["ContentSid"], "HX123")
+        self.assertEqual(sw.json.loads(payload["ContentVariables"]), {
+            "1": "M3 Ultra · 256 GB · 1000 GB SSD",
+            "2": "54 900 kr",
+            "3": self.alert["url"],
+        })
+
+    def test_api_key_credentials_are_preferred(self):
+        self.assertEqual(
+            sw.auth_credentials(
+                "AC123",
+                auth_token="account-token",
+                api_key_sid="SK123",
+                api_key_secret="key-secret",
+            ),
+            ("SK123", "key-secret"),
+        )
+
+    def test_account_auth_token_is_the_fallback(self):
+        self.assertEqual(
+            sw.auth_credentials("AC123", auth_token="account-token"),
+            ("AC123", "account-token"),
+        )
 
 
 if __name__ == "__main__":
