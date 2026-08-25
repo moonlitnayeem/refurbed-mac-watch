@@ -37,4 +37,5 @@ jobs:
           TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
           TWILIO_WHATSAPP_TO: ${{ secrets.META_WHATSAPP_TO }}
           TWILIO_CONTENT_SID: ${{ secrets.TWILIO_CONTENT_SID }}
+          TWILIO_TEMPLATE_STYLE: appointment
         run: python3 send_whatsapp.py

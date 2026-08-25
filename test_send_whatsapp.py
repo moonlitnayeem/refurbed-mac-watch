@@ -45,6 +45,20 @@ class WhatsAppPayloadTest(unittest.TestCase):
             "3": self.alert["url"],
         })
 
+    def test_twilio_trial_appointment_template_uses_two_variables(self):
+        payload = sw.message_form(
+            self.alert,
+            to="46700000000",
+            sender="+4915000000000",
+            content_sid="HXTRIAL",
+            template_style="appointment",
+        )
+
+        self.assertEqual(sw.json.loads(payload["ContentVariables"]), {
+            "1": "Mac Studio available: M3 Ultra · 256 GB · 1000 GB SSD — 54 900 kr",
+            "2": self.alert["url"],
+        })
+
     def test_api_key_credentials_are_preferred(self):
         self.assertEqual(
             sw.auth_credentials(

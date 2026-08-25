@@ -24,19 +24,30 @@ def whatsapp_address(number: str) -> str:
 
 
 def message_form(alert: dict, to: str, sender: str,
-                 content_sid: str | None = None) -> dict[str, str]:
+                 content_sid: str | None = None,
+                 template_style: str = "mac_studio") -> dict[str, str]:
     form = {
         "To": whatsapp_address(to),
         "From": whatsapp_address(sender),
     }
     if content_sid:
-        form.update({
-            "ContentSid": content_sid,
-            "ContentVariables": json.dumps({
+        if template_style == "appointment":
+            variables = {
+                "1": (
+                    f"Mac Studio available: {alert['model']} — "
+                    f"{fmt_kr(alert['price'])}"
+                ),
+                "2": alert["url"],
+            }
+        else:
+            variables = {
                 "1": alert["model"],
                 "2": fmt_kr(alert["price"]),
                 "3": alert["url"],
-            }, ensure_ascii=False),
+            }
+        form.update({
+            "ContentSid": content_sid,
+            "ContentVariables": json.dumps(variables, ensure_ascii=False),
         })
     else:
         form["Body"] = (
@@ -117,10 +128,11 @@ def main() -> int:
     sender = required_env("TWILIO_WHATSAPP_FROM")
     to = required_env("TWILIO_WHATSAPP_TO")
     content_sid = os.environ.get("TWILIO_CONTENT_SID") or None
+    template_style = os.environ.get("TWILIO_TEMPLATE_STYLE", "mac_studio")
 
     alerts = json.loads(alert_path.read_text(encoding="utf-8"))
     for alert in alerts:
-        form = message_form(alert, to, sender, content_sid)
+        form = message_form(alert, to, sender, content_sid, template_style)
         result = send_message(account_sid, auth_username, auth_secret, form)
         print(
             "Sent Twilio WhatsApp Mac Studio alert: "

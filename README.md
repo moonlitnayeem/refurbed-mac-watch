@@ -78,14 +78,16 @@ When a new or restocked Mac Studio first enters the `mac-studio` category, the
 workflow sends a WhatsApp message through Twilio. The first run is still a
 silent baseline, and an unchanged listing is not messaged repeatedly.
 
-The Twilio Sandbox can be used to prove delivery without a registered sender.
-The recipient must first send the displayed `join ...` phrase to the Sandbox.
-Sandbox membership expires after three days, and free-form messages work only
-inside the 24-hour customer-service window opened by the recipient's message.
-It is therefore suitable for testing, not unattended production monitoring.
+The Twilio trial environment can be used to prove delivery without a registered
+sender. The recipient must first send the displayed `join ...` phrase. Trial
+messages require Twilio's pre-approved Appointment Reminder Content Template;
+the watcher places the Mac Studio model and price in `{{1}}` and the product
+link in `{{2}}`. The resulting wording is appointment-oriented, but the alert
+contains the actionable listing details. The trial expires after 30 days and
+is therefore a temporary bridge, not unattended production infrastructure.
 
-For durable alerts, register a WhatsApp sender in Twilio and create an approved
-Content Template with three variables:
+For durable, correctly branded alerts, register a WhatsApp sender in Twilio and
+create an approved Content Template with three variables:
 
 ```text
 Mac Studio available: {{1}}
@@ -101,12 +103,12 @@ Configure these GitHub Actions secrets before a Mac Studio appears:
 - `TWILIO_AUTH_TOKEN` — optional fallback; grants broader account access
 - `TWILIO_WHATSAPP_FROM` — Sandbox or registered sender in E.164 format
 - `META_WHATSAPP_TO` — existing encrypted recipient number, reused by Twilio
-- `TWILIO_CONTENT_SID` — optional approved template SID beginning with `HX`
+- `TWILIO_CONTENT_SID` — approved template SID beginning with `HX`
 
-When `TWILIO_CONTENT_SID` is absent, the script sends a free-form Sandbox
-message and therefore depends on an open 24-hour customer-service window.
-When it is present, the script sends the three template variables and can work
-outside that window with an approved production sender.
+The checked-in trial configuration uses `TWILIO_TEMPLATE_STYLE=appointment`,
+which sends the two variables supported by Twilio's trial template. After
+registering a production sender and approving the three-variable template,
+change that workflow value to `mac_studio` and replace `TWILIO_CONTENT_SID`.
 
 The alert file is generated only for a real new/restock event. If an event
 exists but the Twilio credentials are missing or rejected, the workflow fails
@@ -190,7 +192,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 64 tests, no network needed
+python3 -m unittest discover -v       # 65 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
