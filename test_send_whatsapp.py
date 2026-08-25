@@ -59,6 +59,18 @@ class WhatsAppPayloadTest(unittest.TestCase):
             "2": self.alert["url"],
         })
 
+    def test_twilio_trial_static_template_has_no_variables(self):
+        payload = sw.message_form(
+            self.alert,
+            to="46700000000",
+            sender="+4915000000000",
+            content_sid="HXSTATIC",
+            template_style="static",
+        )
+
+        self.assertEqual(payload["ContentSid"], "HXSTATIC")
+        self.assertNotIn("ContentVariables", payload)
+
     def test_api_key_credentials_are_preferred(self):
         self.assertEqual(
             sw.auth_credentials(

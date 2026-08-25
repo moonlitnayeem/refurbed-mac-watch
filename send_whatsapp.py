@@ -31,6 +31,9 @@ def message_form(alert: dict, to: str, sender: str,
         "From": whatsapp_address(sender),
     }
     if content_sid:
+        if template_style == "static":
+            form["ContentSid"] = content_sid
+            return form
         if template_style == "appointment":
             variables = {
                 "1": (

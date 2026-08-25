@@ -80,11 +80,12 @@ silent baseline, and an unchanged listing is not messaged repeatedly.
 
 The Twilio trial environment can be used to prove delivery without a registered
 sender. The recipient must first send the displayed `join ...` phrase. Trial
-messages require Twilio's pre-approved Appointment Reminder Content Template;
-the watcher places the Mac Studio model and price in `{{1}}` and the product
-link in `{{2}}`. The resulting wording is appointment-oriented, but the alert
-contains the actionable listing details. The trial expires after 30 days and
-is therefore a temporary bridge, not unattended production infrastructure.
+messages in this account require Twilio's fixed Appointment Reminder template.
+It has no variables, so during the trial the reminder acts only as a trigger:
+an unexpected Twilio appointment reminder means a new/restocked Mac Studio was
+detected, and the permanent GitHub issue contains the actionable model, price,
+and product link. The trial expires after 30 days and is therefore a temporary
+bridge, not unattended production infrastructure.
 
 For durable, correctly branded alerts, register a WhatsApp sender in Twilio and
 create an approved Content Template with three variables:
@@ -105,9 +106,9 @@ Configure these GitHub Actions secrets before a Mac Studio appears:
 - `META_WHATSAPP_TO` — existing encrypted recipient number, reused by Twilio
 - `TWILIO_CONTENT_SID` — approved template SID beginning with `HX`
 
-The checked-in trial configuration uses `TWILIO_TEMPLATE_STYLE=appointment`,
-which sends the two variables supported by Twilio's trial template. After
-registering a production sender and approving the three-variable template,
+The checked-in trial configuration uses `TWILIO_TEMPLATE_STYLE=static`, which
+sends the fixed Twilio trial template without variables. After registering a
+production sender and approving the three-variable template,
 change that workflow value to `mac_studio` and replace `TWILIO_CONTENT_SID`.
 
 The alert file is generated only for a real new/restock event. If an event
@@ -192,7 +193,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 65 tests, no network needed
+python3 -m unittest discover -v       # 66 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications
