@@ -78,8 +78,8 @@ DEAL_PRICE_TOLERANCE_KR = 1000
 # Filled by notify(); main() turns this into the GitHub issue body.
 COLLECTED_ALERTS: list[dict] = []
 
-# New/restocked Mac Studio offers waiting for the workflow's WhatsApp step.
-WHATSAPP_ALERTS: list[dict] = []
+# New/restocked Mac Studio offers waiting for the workflow's phone-alert step.
+PHONE_ALERTS: list[dict] = []
 
 
 # --------------------------------------------------------------------------
@@ -880,7 +880,7 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         logging.info("[%s] %s", watch.key, line)
 
         if kind == "NEW" and watch.key == "mac-studio" and not dry_run:
-            WHATSAPP_ALERTS.append({
+            PHONE_ALERTS.append({
                 "model": o.label,
                 "price": o.price,
                 "url": o.url,
@@ -1017,11 +1017,11 @@ def write_github_outputs(alert_md: str, standings_md: str, status: list[str]) ->
                         + "\n".join(status) + "\n```\n</details>\n")
 
 
-def write_whatsapp_alert_file(path: Path = Path("mac_studio_alerts.json")) -> None:
+def write_phone_alert_file(path: Path = Path("mac_studio_alerts.json")) -> None:
     """Write pending Mac Studio alerts for the workflow, or remove stale output."""
-    if WHATSAPP_ALERTS:
+    if PHONE_ALERTS:
         path.write_text(
-            json.dumps(WHATSAPP_ALERTS, ensure_ascii=False, indent=2) + "\n",
+            json.dumps(PHONE_ALERTS, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
     else:
@@ -1107,7 +1107,7 @@ def main() -> int:
         state,
         active_watch_keys=active_watch_keys if not args.dry_run else None,
     ) + all_lines
-    write_whatsapp_alert_file()
+    write_phone_alert_file()
 
     if not args.dry_run:
         update_price_lows(

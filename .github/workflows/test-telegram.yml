@@ -1,4 +1,4 @@
-name: WhatsApp delivery test
+name: Telegram delivery test
 
 on:
   workflow_dispatch:
@@ -21,7 +21,8 @@ jobs:
 
           Path("mac_studio_alerts.json").write_text(
               json.dumps([{
-                  "model": "Twilio integration test",
+                  "title": "Telegram delivery test",
+                  "model": "GitHub Actions integration check",
                   "price": 0,
                   "url": "https://github.com/moonlitnayeem/refurbed-mac-watch/issues/2",
               }], indent=2) + "\n",
@@ -29,13 +30,8 @@ jobs:
           )
           PY
 
-      - name: Send test through Twilio WhatsApp
+      - name: Send test through Telegram
         env:
-          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
-          TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
-          TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
-          TWILIO_WHATSAPP_TO: ${{ secrets.META_WHATSAPP_TO }}
-          TWILIO_CONTENT_SID: ${{ secrets.TWILIO_CONTENT_SID }}
-          TWILIO_TEMPLATE_STYLE: static
-        run: python3 send_whatsapp.py
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 send_telegram.py

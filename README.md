@@ -72,54 +72,26 @@ posts the complete current standings to the permanent results issue, even when
 nothing changed. Results and multi-listing alerts are sorted from the lowest
 price to the highest, with unknown prices shown last.
 
-### WhatsApp Mac Studio alerts
+### Telegram Mac Studio alerts
 
 When a new or restocked Mac Studio first enters the `mac-studio` category, the
-workflow sends a WhatsApp message through Twilio. The first run is still a
-silent baseline, and an unchanged listing is not messaged repeatedly.
+workflow sends an actionable Telegram message containing the verified model,
+current price, and a clickable Refurbed link. The first run is still a silent
+baseline, and an unchanged listing is not messaged repeatedly.
 
-The Twilio trial environment can be used to prove delivery without a registered
-sender. The recipient must first send the displayed `join ...` phrase. Trial
-messages in this account require Twilio's fixed Appointment Reminder template.
-It has no variables, so during the trial the reminder acts only as a trigger:
-an unexpected Twilio appointment reminder means a new/restocked Mac Studio was
-detected, and the permanent GitHub issue contains the actionable model, price,
-and product link. The trial expires after 30 days and is therefore a temporary
-bridge, not unattended production infrastructure.
+Telegram setup requires no business verification, registered sender, or message
+template. Create a bot with Telegram's `@BotFather`, open the bot conversation,
+and press **Start** so the bot is allowed to message the account. Configure two
+encrypted GitHub Actions secrets:
 
-For durable, correctly branded alerts, register a WhatsApp sender in Twilio and
-create an approved Content Template with three variables:
-
-```text
-Mac Studio available: {{1}}
-Price: {{2}}
-Product: {{3}}
-```
-
-Configure these GitHub Actions secrets before a Mac Studio appears:
-
-- `TWILIO_ACCOUNT_SID` — Twilio Account SID
-- `TWILIO_API_KEY_SID` and `TWILIO_API_KEY_SECRET` — preferred, revokable API
-  key credentials
-- `TWILIO_AUTH_TOKEN` — optional fallback; grants broader account access
-- `TWILIO_WHATSAPP_FROM` — Sandbox or registered sender in E.164 format
-- `META_WHATSAPP_TO` — existing encrypted recipient number, reused by Twilio
-- `TWILIO_CONTENT_SID` — approved template SID beginning with `HX`
-
-The checked-in trial configuration uses `TWILIO_TEMPLATE_STYLE=static`, which
-sends the fixed Twilio trial template without variables. After registering a
-production sender and approving the three-variable template,
-change that workflow value to `mac_studio` and replace `TWILIO_CONTENT_SID`.
+- `TELEGRAM_BOT_TOKEN` — the token issued by `@BotFather`
+- `TELEGRAM_CHAT_ID` — the destination private-chat ID
 
 The alert file is generated only for a real new/restock event. If an event
-exists but the Twilio credentials are missing or rejected, the workflow fails
+exists but Telegram credentials are missing or rejected, the workflow fails
 before committing state so the alert can be retried rather than silently lost.
-The manual **WhatsApp delivery test** workflow exercises the same sender and
-secrets without changing watcher state or posting another report comment. The
-trial account accepts outbound sends through the API but blocks message-status
-reads; delivery can be verified in Twilio's **Try out WhatsApp → Logs** view.
-After upgrading, set `TWILIO_VERIFY_DELIVERY=1` to make the sender poll and fail
-unless the final status becomes `delivered` or `read`.
+The manual **Telegram delivery test** workflow exercises the same sender and
+secrets without changing watcher state or posting another report comment.
 
 The **Best-value Macs** category is always shown first. It covers MacBook Air,
 MacBook Pro, Mac mini, Mac Studio, iMac, and Mac Pro listings, but strictly
@@ -197,7 +169,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 68 tests, no network needed
+python3 -m unittest discover -v       # 66 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

@@ -35,17 +35,11 @@ jobs:
         id: watch
         run: python3 refurbed_watch.py --notify github --state state.json
 
-      - name: Send WhatsApp alerts for new Mac Studio listings
+      - name: Send Telegram alerts for new Mac Studio listings
         env:
-          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
-          TWILIO_API_KEY_SID: ${{ secrets.TWILIO_API_KEY_SID }}
-          TWILIO_API_KEY_SECRET: ${{ secrets.TWILIO_API_KEY_SECRET }}
-          TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
-          TWILIO_WHATSAPP_TO: ${{ secrets.META_WHATSAPP_TO }}
-          TWILIO_CONTENT_SID: ${{ secrets.TWILIO_CONTENT_SID }}
-          TWILIO_TEMPLATE_STYLE: static
-        run: python3 send_whatsapp.py
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 send_telegram.py
 
       - name: Post results to the watch issue
         env:
