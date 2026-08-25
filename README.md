@@ -115,7 +115,9 @@ The alert file is generated only for a real new/restock event. If an event
 exists but the Twilio credentials are missing or rejected, the workflow fails
 before committing state so the alert can be retried rather than silently lost.
 The manual **WhatsApp delivery test** workflow exercises the same sender and
-secrets without changing watcher state or posting another report comment.
+secrets without changing watcher state or posting another report comment. Both
+workflows poll Twilio after sending and fail unless the final status becomes
+`delivered` or `read`.
 
 The **Best-value Macs** category is always shown first. It covers MacBook Air,
 MacBook Pro, Mac mini, Mac Studio, iMac, and Mac Pro listings, but strictly
@@ -193,7 +195,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 66 tests, no network needed
+python3 -m unittest discover -v       # 68 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

@@ -6,6 +6,7 @@ from __future__ import annotations
 import base64
 import json
 import os
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -108,6 +109,40 @@ def send_message(account_sid: str, auth_username: str, auth_secret: str,
     return result
 
 
+def twilio_get(account_sid: str, auth_username: str, auth_secret: str,
+               message_sid: str) -> dict:
+    url = (
+        f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}/"
+        f"Messages/{message_sid}.json"
+    )
+    return twilio_request(url, auth_username, auth_secret)
+
+
+def wait_for_delivery(account_sid: str, auth_username: str, auth_secret: str,
+                      message_sid: str, *, attempts: int = 15,
+                      delay: float = 2) -> dict:
+    success = {"delivered", "read"}
+    failure = {"failed", "undelivered", "canceled"}
+    last_result: dict = {}
+    for attempt in range(attempts):
+        last_result = twilio_get(
+            account_sid, auth_username, auth_secret, message_sid
+        )
+        status = str(last_result.get("status", "")).lower()
+        if status in success:
+            return last_result
+        if status in failure:
+            raise RuntimeError(
+                f"Twilio message {message_sid} delivery failed with status {status}"
+            )
+        if attempt < attempts - 1:
+            time.sleep(delay)
+    raise TimeoutError(
+        f"Twilio message {message_sid} was not delivered; "
+        f"last status was {last_result.get('status', 'unknown')}"
+    )
+
+
 def required_env(name: str) -> str:
     value = os.environ.get(name)
     if not value:
@@ -132,11 +167,16 @@ def main() -> int:
     to = required_env("TWILIO_WHATSAPP_TO")
     content_sid = os.environ.get("TWILIO_CONTENT_SID") or None
     template_style = os.environ.get("TWILIO_TEMPLATE_STYLE", "mac_studio")
+    verify_delivery = os.environ.get("TWILIO_VERIFY_DELIVERY") == "1"
 
     alerts = json.loads(alert_path.read_text(encoding="utf-8"))
     for alert in alerts:
         form = message_form(alert, to, sender, content_sid, template_style)
         result = send_message(account_sid, auth_username, auth_secret, form)
+        if verify_delivery:
+            result = wait_for_delivery(
+                account_sid, auth_username, auth_secret, result["sid"]
+            )
         print(
             "Sent Twilio WhatsApp Mac Studio alert: "
             f"{result['sid']} ({result.get('status', 'status unknown')})"

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
+from unittest import mock
 
 import send_whatsapp as sw
 
@@ -87,6 +88,25 @@ class WhatsAppPayloadTest(unittest.TestCase):
             sw.auth_credentials("AC123", auth_token="account-token"),
             ("AC123", "account-token"),
         )
+
+    @mock.patch("send_whatsapp.time.sleep", return_value=None)
+    @mock.patch(
+        "send_whatsapp.twilio_get",
+        side_effect=[{"status": "queued"}, {"status": "delivered"}],
+    )
+    def test_wait_for_delivery_polls_until_delivered(self, get_mock, _sleep_mock):
+        result = sw.wait_for_delivery(
+            "AC123", "SK123", "secret", "MM123", attempts=2, delay=0
+        )
+        self.assertEqual(result["status"], "delivered")
+        self.assertEqual(get_mock.call_count, 2)
+
+    @mock.patch("send_whatsapp.twilio_get", return_value={"status": "failed"})
+    def test_wait_for_delivery_raises_on_failure(self, _get_mock):
+        with self.assertRaisesRegex(RuntimeError, "failed"):
+            sw.wait_for_delivery(
+                "AC123", "SK123", "secret", "MM123", attempts=1, delay=0
+            )
 
 
 if __name__ == "__main__":
