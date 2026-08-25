@@ -7,6 +7,7 @@ behaviour that matters -- that the watcher is quiet when it should be quiet,
 and loud exactly once when something real happens.
 """
 
+import json
 import os
 import unittest
 import tempfile
@@ -257,7 +258,8 @@ class PriceHistoryTest(BaseWatchTest):
         previous_url = "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/old123/"
         self.state["price_lows"] = {
             key: {"price": 22_100, "url": previous_url,
-                  "seen_at": previous_seen.strftime("%Y-%m-%dT%H:%M:%SZ")}
+                  "seen_at": previous_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                  "screenshot": "price-proofs/2026-08-18/22100kr-proof.png"}
         }
         site = FakeSite(
             [(P_M2, "30 355 kr")],
@@ -271,23 +273,105 @@ class PriceHistoryTest(BaseWatchTest):
         item = next(line for line in lines if line.startswith("__ITEM__"))
         self.assertIn("Previous low for same model", item)
         self.assertIn("[22 100 kr]", item)
-        self.assertIn(previous_url, item)
+        self.assertIn(
+            "github.com/moonlitnayeem/refurbed-mac-watch/blob/main/"
+            "price-proofs/2026-08-18/22100kr-proof.png",
+            item,
+        )
+        self.assertNotIn(previous_url, item)
         self.assertIn("5 days ago", item)
+
+    def test_pre_screenshot_low_is_plain_text_not_a_mutable_product_link(self):
+        markdown = rw.historical_low_markdown({
+            "price": 22_100,
+            "url": "https://www.refurbed.se/p/apple-macbook-pro/changed/",
+            "seen_at": "2026-08-18T12:00:00Z",
+        })
+
+        self.assertIn("22 100 kr", markdown)
+        self.assertIn("screenshot unavailable", markdown)
+        self.assertNotIn("http", markdown)
 
     def test_price_history_update_keeps_all_time_lowest_observation(self):
         old = rw.Offer(P_M2, price=22_100, chip="M2 Max", ram_gb=64, ssd_gb=1000)
         key = rw.price_history_key(old)
         state = {"price_lows": {
-            key: {"price": 22_100, "url": old.url, "seen_at": "2026-08-18T12:00:00Z"}
+            key: {"price": 22_100, "url": old.url,
+                  "seen_at": "2026-08-18T12:00:00Z",
+                  "screenshot": "price-proofs/2026-08-18/22100kr-existing.png"}
         }, "watches": {"x": {"offers": {
             P_M2: {"price": 30_355, "chip": "M2 Max", "ram_gb": 64,
                    "ssd_gb": 1000, "matched": True}
         }}}}
 
-        rw.update_price_lows(state, "2026-08-23T12:00:00Z")
+        requests = rw.update_price_lows(state, "2026-08-23T12:00:00Z")
 
+        self.assertEqual(requests, [])
         self.assertEqual(state["price_lows"][key]["price"], 22_100)
         self.assertEqual(state["price_lows"][key]["seen_at"], "2026-08-18T12:00:00Z")
+        self.assertIn("screenshot", state["price_lows"][key])
+
+    def test_new_all_time_low_queues_immutable_screenshot_proof(self):
+        key = rw.price_history_key(
+            rw.Offer(P_M2, chip="M2 Max", ram_gb=64, ssd_gb=1000)
+        )
+        state = {
+            "price_lows": {
+                key: {"price": 22_100, "url": "https://example.com/old",
+                      "seen_at": "2026-08-18T12:00:00Z",
+                      "screenshot": "price-proofs/2026-08-18/old.png"}
+            },
+            "watches": {"x": {"offers": {
+                P_M2: {"price": 21_900, "chip": "M2 Max", "ram_gb": 64,
+                       "ssd_gb": 1000, "matched": True}
+            }}},
+        }
+
+        requests = rw.update_price_lows(state, "2026-08-25T10:30:00Z")
+
+        self.assertEqual(len(requests), 1)
+        request = requests[0]
+        self.assertEqual(request["key"], key)
+        self.assertEqual(request["price"], 21_900)
+        self.assertEqual(request["url"], rw.BASE + P_M2)
+        self.assertTrue(request["screenshot"].startswith("price-proofs/2026-08-25/"))
+        self.assertTrue(request["screenshot"].endswith(".png"))
+        self.assertEqual(state["price_lows"][key]["price"], 21_900)
+        self.assertNotIn("screenshot", state["price_lows"][key])
+
+    def test_one_run_queues_only_the_cheapest_observation_per_model(self):
+        other_path = "/p/apple-macbook-pro-2023-m2-14/other/"
+        fields = {"chip": "M2 Max", "ram_gb": 64, "ssd_gb": 1000,
+                  "matched": True}
+        key = rw.price_history_key(rw.Offer(P_M2, **{
+            "chip": "M2 Max", "ram_gb": 64, "ssd_gb": 1000
+        }))
+        state = {
+            "price_lows": {key: {"price": 25_000, "url": "https://example.com/old",
+                                  "seen_at": "2026-08-18T12:00:00Z"}},
+            "watches": {
+                "first": {"offers": {P_M2: {**fields, "price": 24_000}}},
+                "second": {"offers": {other_path: {**fields, "price": 23_000}}},
+            },
+        }
+
+        requests = rw.update_price_lows(state, "2026-08-25T10:30:00Z")
+
+        self.assertEqual(len(requests), 1)
+        self.assertEqual(requests[0]["price"], 23_000)
+        self.assertTrue(requests[0]["url"].endswith(other_path))
+        self.assertEqual(state["price_lows"][key]["price"], 23_000)
+
+    def test_price_proof_manifest_is_written_and_stale_file_is_removed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "requests.json"
+            requests = [{"key": "model", "price": 21_900}]
+
+            rw.write_price_proof_requests(requests, path)
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), requests)
+
+            rw.write_price_proof_requests([], path)
+            self.assertFalse(path.exists())
 
     def test_archive_backfill_finds_lowest_price_and_timestamp(self):
         markdown = '''
@@ -314,6 +398,7 @@ class BuyNowSectionTest(unittest.TestCase):
                     "price": low,
                     "url": "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/old123/",
                     "seen_at": "2026-08-18T12:00:00Z",
+                    "screenshot": "price-proofs/2026-08-18/22100kr-proof.png",
                 }
             },
             "watches": {"x": {"offers": offers}},
@@ -341,7 +426,8 @@ class BuyNowSectionTest(unittest.TestCase):
         self.assertEqual(len(items), 1)
         self.assertIn(cheaper, items[0])
         self.assertIn("700 kr above historical low", items[0])
-        self.assertIn("old123", items[0])
+        self.assertIn("price-proofs/2026-08-18/22100kr-proof.png", items[0])
+        self.assertNotIn("old123", items[0])
 
     def test_below_historical_low_stays_in_section(self):
         fields = {"chip": "M2 Max", "ram_gb": 64, "ssd_gb": 1000,

@@ -34,6 +34,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html as html_mod
 import json
 import logging
@@ -638,6 +639,17 @@ def load_archived_price_lows(history_dir: Path = Path("history")) -> dict[str, d
     return lows
 
 
+def historical_low_markdown(record: dict) -> str:
+    """Render a low price linked only to its immutable screenshot proof."""
+    price = fmt_kr(record.get("price"))
+    screenshot = record.get("screenshot")
+    if not isinstance(screenshot, str) or not screenshot.startswith("price-proofs/"):
+        return f"{price} (screenshot unavailable; recorded before proof capture)"
+    repo = os.environ.get("GITHUB_REPOSITORY", "moonlitnayeem/refurbed-mac-watch")
+    proof_path = urllib.parse.quote(screenshot, safe="/")
+    return f"[{price}](https://github.com/{repo}/blob/main/{proof_path})"
+
+
 def previous_low_suffix(offer: Offer, state: dict) -> str:
     key = price_history_key(offer)
     record = state.get("price_lows", {}).get(key) if key else None
@@ -649,14 +661,15 @@ def previous_low_suffix(offer: Offer, state: dict) -> str:
         age = "today" if age_days == 0 else f"{age_days} day{'s' if age_days != 1 else ''} ago"
     except (KeyError, TypeError, ValueError):
         age = "previously"
-    return (
-        f" · Previous low for same model: [{fmt_kr(record['price'])}]"
-        f"({record['url']}) ({age})"
-    )
+    return f" · Previous low for same model: {historical_low_markdown(record)} ({age})"
 
 
-def update_price_lows(state: dict, seen_at: str) -> None:
+def update_price_lows(state: dict, seen_at: str) -> list[dict]:
+    """Update permanent lows and return screenshot requests for new records."""
     lows = dict(state.get("price_lows", {}))
+    screenshot_requests: list[dict] = []
+    cheapest_by_model: dict[str, Offer] = {}
+
     for watch in state.get("watches", {}).values():
         for path, data in watch.get("offers", {}).items():
             if not data.get("matched") or data.get("price") is None:
@@ -668,13 +681,45 @@ def update_price_lows(state: dict, seen_at: str) -> None:
                 ram_gb=data.get("ram_gb"),
                 ssd_gb=data.get("ssd_gb"),
             )
+            assert offer.price is not None
             key = price_history_key(offer)
             if key is None:
                 continue
-            previous = lows.get(key)
-            if previous is None or offer.price < previous["price"]:
-                lows[key] = {"price": offer.price, "url": offer.url, "seen_at": seen_at}
+            current = cheapest_by_model.get(key)
+            if current is None or current.price is None or offer.price < current.price:
+                cheapest_by_model[key] = offer
+
+    for key, offer in cheapest_by_model.items():
+        previous = lows.get(key)
+        if previous is None or offer.price < previous["price"]:
+            lows[key] = {"price": offer.price, "url": offer.url, "seen_at": seen_at}
+            date = seen_at[:10] if re.fullmatch(r"\d{4}-\d{2}-\d{2}.*", seen_at) else "unknown-date"
+            digest = hashlib.sha256(
+                f"{key}|{offer.price}|{seen_at}".encode("utf-8")
+            ).hexdigest()[:16]
+            screenshot_requests.append({
+                "key": key,
+                "price": offer.price,
+                "url": offer.url,
+                "seen_at": seen_at,
+                "screenshot": f"price-proofs/{date}/{offer.price}kr-{digest}.png",
+            })
     state["price_lows"] = lows
+    return screenshot_requests
+
+
+def write_price_proof_requests(
+    requests: list[dict], path: Path = Path("price_proof_requests.json")
+) -> None:
+    """Write new-low screenshot work for the browser step, removing stale work."""
+    if not requests:
+        path.unlink(missing_ok=True)
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(requests, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def build_buy_now_lines(state: dict, tolerance_kr: int = DEAL_PRICE_TOLERANCE_KR,
@@ -733,7 +778,7 @@ def build_buy_now_lines(state: dict, tolerance_kr: int = DEAL_PRICE_TOLERANCE_KR
         lines.append(
             f"__ITEM__[{best_value_offer_label(offer)}]({offer.url}) — "
             f"{fmt_kr(offer.price)} · Historical low: "
-            f"[{fmt_kr(record['price'])}]({record['url']}) · {comparison}"
+            f"{historical_low_markdown(record)} · {comparison}"
         )
     return lines
 
@@ -1148,9 +1193,10 @@ def main() -> int:
     write_phone_alert_file()
 
     if not args.dry_run:
-        update_price_lows(
+        screenshot_requests = update_price_lows(
             state, time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         )
+        write_price_proof_requests(screenshot_requests)
         save_state(state_path, state)
 
     alert_md, standings_md = build_report(all_lines)

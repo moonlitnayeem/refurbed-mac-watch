@@ -16,7 +16,7 @@ concurrency:
 jobs:
   watch:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -34,6 +34,11 @@ jobs:
       - name: Check refurbed.se
         id: watch
         run: python3 refurbed_watch.py --notify github --state state.json
+
+      - name: Capture immutable screenshots for new historical lows
+        run: |
+          python3 -c "from capture_price_proofs import find_chrome; print('Price-proof browser:', find_chrome())"
+          python3 capture_price_proofs.py --state state.json
 
       - name: Send actionable Telegram alerts
         env:
@@ -71,7 +76,8 @@ jobs:
 
             git add state.json
             if [[ -d history ]]; then git add history; fi
-            if git diff --cached --quiet -- state.json history; then
+            if [[ -d price-proofs ]]; then git add price-proofs; fi
+            if git diff --cached --quiet -- state.json history price-proofs; then
               echo "No state or archive change."
               exit 0
             fi
