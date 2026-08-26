@@ -197,6 +197,11 @@ class TestVariantTitleParsing(unittest.TestCase):
         variants = parse_configuration_variant_offers(page, selected)
 
         self.assertEqual([offer.path for offer in variants], [selected.path])
+        self.assertTrue(variants[0].needs_verification)
+        self.assertEqual(
+            (variants[0].price, variants[0].chip, variants[0].ram_gb, variants[0].ssd_gb),
+            (None, "", None, None),
+        )
 
     def test_product_page_price(self):
         page = ('<p data-test="product-price" data-test-displayed-price>'

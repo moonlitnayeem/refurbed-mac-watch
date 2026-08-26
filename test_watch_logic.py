@@ -229,15 +229,22 @@ class AppleSilicon64PlusWatchTest(BaseWatchTest):
             'data-price="less,-23 054 kr">UK (QWERTY)</option>'
             '</select>'
         )
+        exact_sibling = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>41 459 kr</span></p>'
+        )
         site = FakeSite(
             [(P_M2, "30 000 kr")],
-            titles={P_M2: representative, P_M2_96_BASE: hidden},
+            titles={P_M2: representative, P_M2_96_BASE: hidden,
+                    P_M2_96: exact_sibling},
         )
 
         lines = self.run_once(site)
         offers = self.state["watches"]["apple-silicon-64-plus"]["offers"]
 
         self.assertTrue(offers[P_M2_96]["matched"])
+        self.assertIn(rw.BASE + P_M2_96, site.requests)
         self.assertEqual(offers[P_M2_96]["ram_gb"], 96.0)
         self.assertEqual(offers[P_M2_96]["price"], 41459)
         self.assertNotIn(P_M2_ALT_CONFIG, offers)

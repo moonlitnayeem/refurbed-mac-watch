@@ -130,6 +130,7 @@ class Offer:
     chip: str = ""                 # "M3 Max"
     ram_gb: float | None = None
     ssd_gb: float | None = None
+    needs_verification: bool = False  # selector-derived path; fetch exact page
 
     @property
     def url(self) -> str:
@@ -256,7 +257,7 @@ def parse_product_price(page_html: str) -> int | None:
 
 
 def parse_configuration_variant_offers(page_html: str, selected: Offer) -> list[Offer]:
-    """Clone a high-RAM config across its storage/color/keyboard selectors."""
+    """Collect same-config selector paths for exact page verification."""
     variants: list[Offer] = []
     seen: set[str] = set()
     for select in re.findall(r"<select\b[^>]*>.*?</select>", page_html,
@@ -266,8 +267,7 @@ def parse_configuration_variant_offers(page_html: str, selected: Offer) -> list[
         if re.search(r">\s*\d+\.\d+\s*GB\s*</option>", select,
                      flags=re.IGNORECASE):
             continue
-        is_storage = bool(re.search(r">\s*\d+\s*GB\s*</option>", select,
-                                    flags=re.IGNORECASE))
+
         # Refurbed nests options that change multiple hardware attributes under
         # “available in other configurations”. They are not siblings of the
         # selected hardware and must be fetched/verified separately.
@@ -277,7 +277,7 @@ def parse_configuration_variant_offers(page_html: str, selected: Offer) -> list[
             select,
             flags=re.IGNORECASE | re.DOTALL,
         )
-        for attrs, option_html in re.findall(
+        for attrs, _option_html in re.findall(
             r"<option\b([^>]*)>(.*?)</option>", same_configuration,
             flags=re.IGNORECASE | re.DOTALL,
         ):
@@ -291,29 +291,10 @@ def parse_configuration_variant_offers(page_html: str, selected: Offer) -> list[
             if not VARIANT_HREF_RE.fullmatch(f'href="{path}"') or path in seen:
                 continue
             seen.add(path)
-
-            delta = 0
-            delta_m = re.search(r'data-price="[^"]*?([+-])\s*([\d\s  ]+)\s*kr"',
-                                attrs, flags=re.IGNORECASE)
-            if delta_m:
-                amount = int(re.sub(r"[\s  ]", "", delta_m.group(2)))
-                delta = amount if delta_m.group(1) == "+" else -amount
-
-            ssd_gb = selected.ssd_gb
-            if is_storage:
-                storage_m = re.search(r"(\d+)\s*GB", strip_tags(option_html),
-                                      flags=re.IGNORECASE)
-                if storage_m:
-                    ssd_gb = float(storage_m.group(1))
-
-            variants.append(Offer(
-                path=path,
-                price=(selected.price + delta) if selected.price is not None else None,
-                config=selected.config,
-                chip=selected.chip,
-                ram_gb=selected.ram_gb,
-                ssd_gb=ssd_gb,
-            ))
+            # Even non-optgroup selectors can expose stale price deltas. Never
+            # infer hardware or price from the selected page; the destination
+            # page must provide both before this candidate can match.
+            variants.append(Offer(path=path, needs_verification=True))
     return variants
 
 
@@ -896,7 +877,9 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     matched: dict[str, Offer] = {}
     for o in offers:
         cached = prev_offers.get(o.path)
-        if o.config:
+        if o.needs_verification:
+            enrich(o)
+        elif o.config:
             pass
         elif cached and cached.get("config"):
             o.config = cached.get("config", "")
