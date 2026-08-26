@@ -268,11 +268,21 @@ def parse_configuration_variant_offers(page_html: str, selected: Offer) -> list[
             continue
         is_storage = bool(re.search(r">\s*\d+\s*GB\s*</option>", select,
                                     flags=re.IGNORECASE))
+        # Refurbed nests options that change multiple hardware attributes under
+        # “available in other configurations”. They are not siblings of the
+        # selected hardware and must be fetched/verified separately.
+        same_configuration = re.sub(
+            r"<optgroup\b[^>]*>.*?</optgroup>",
+            "",
+            select,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
         for attrs, option_html in re.findall(
-            r"<option\b([^>]*)>(.*?)</option>", select,
+            r"<option\b([^>]*)>(.*?)</option>", same_configuration,
             flags=re.IGNORECASE | re.DOTALL,
         ):
-            if re.search(r'data-type="optgroup-option"', attrs, flags=re.IGNORECASE):
+            if re.search(r'data-(?:type="optgroup-option"|optgroup-label=)',
+                         attrs, flags=re.IGNORECASE):
                 continue
             value_m = re.search(r'value="(/p/[^"]+)"', attrs, flags=re.IGNORECASE)
             if not value_m:
@@ -643,7 +653,11 @@ def historical_low_markdown(record: dict) -> str:
     """Render a low price linked only to its immutable screenshot proof."""
     price = fmt_kr(record.get("price"))
     screenshot = record.get("screenshot")
-    if not isinstance(screenshot, str) or not screenshot.startswith("price-proofs/"):
+    validation = record.get("proof_validation")
+    if (not isinstance(screenshot, str)
+            or not screenshot.startswith("price-proofs/")
+            or not isinstance(validation, dict)
+            or validation.get("version") != 1):
         return price
     repo = os.environ.get("GITHUB_REPOSITORY", "moonlitnayeem/refurbed-mac-watch")
     proof_path = urllib.parse.quote(screenshot, safe="/")

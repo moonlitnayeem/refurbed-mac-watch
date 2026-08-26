@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import shutil
@@ -11,6 +12,8 @@ import struct
 import subprocess
 from pathlib import Path
 from urllib.parse import urlsplit
+
+from refurbed_watch import parse_product_price, parse_variant_title
 
 MIN_WIDTH = 1_000
 MIN_HEIGHT = 700
@@ -60,12 +63,70 @@ def _matching_record(state: dict, request: dict) -> dict:
     return record
 
 
-def _capture_one(request: dict, root: Path, chrome_bin: str) -> Path:
+def _expected_configuration(request: dict) -> tuple[str, float, float]:
+    try:
+        _, chip, ram, ssd = request["key"].rsplit("|", 3)
+        return chip, float(ram), float(ssd)
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError("price proof comparison key is malformed") from exc
+
+
+def validate_rendered_page(request: dict, page_html: str) -> dict:
+    """Require the rendered product page to prove the requested specs and price."""
+    expected_chip, expected_ram, expected_ssd = _expected_configuration(request)
+    _, chip, ram, ssd = parse_variant_title(page_html)
+    price = parse_product_price(page_html)
+    expected = (expected_chip, expected_ram, expected_ssd, request["price"])
+    actual = (chip, ram, ssd, price)
+    if actual != expected:
+        raise ValueError(
+            "rendered Refurbed page does not match historical-low request: "
+            f"expected {expected}, got {actual}"
+        )
+    return {
+        "version": 1,
+        "chip": chip,
+        "ram_gb": ram,
+        "ssd_gb": ssd,
+        "price": price,
+    }
+
+
+def _dump_rendered_dom(request: dict, chrome_bin: str) -> str:
+    command = [
+        chrome_bin,
+        "--headless=new",
+        "--disable-gpu",
+        "--no-sandbox",
+        "--virtual-time-budget=8000",
+        "--dump-dom",
+        request["url"],
+    ]
+    result = subprocess.run(
+        command,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    if result.returncode != 0 or "<title" not in result.stdout.lower():
+        detail = (result.stderr or result.stdout).strip()[-1_000:]
+        raise RuntimeError(
+            f"Chrome could not inspect rendered product page ({result.returncode}): {detail}"
+        )
+    return result.stdout
+
+
+def _capture_one(request: dict, root: Path, chrome_bin: str) -> tuple[Path, dict]:
     target = (root / request["screenshot"]).resolve()
     proof_root = (root / "price-proofs").resolve()
     if proof_root not in target.parents:
         raise ValueError("screenshot must remain inside price-proofs/")
     target.parent.mkdir(parents=True, exist_ok=True)
+
+    validation = validate_rendered_page(
+        request, _dump_rendered_dom(request, chrome_bin)
+    )
 
     command = [
         chrome_bin,
@@ -97,7 +158,11 @@ def _capture_one(request: dict, root: Path, chrome_bin: str) -> Path:
     if width < MIN_WIDTH or height < MIN_HEIGHT:
         target.unlink(missing_ok=True)
         raise RuntimeError(f"Chrome screenshot was too small: {width}x{height}")
-    return target
+    # Recheck after capture so a redirect or rapidly changed offer cannot leave
+    # a PNG attached to configuration data from a different page load.
+    validate_rendered_page(request, _dump_rendered_dom(request, chrome_bin))
+    validation["sha256"] = hashlib.sha256(target.read_bytes()).hexdigest()
+    return target, validation
 
 
 def capture_all(
@@ -118,8 +183,9 @@ def capture_all(
     for request in requests:
         validate_request(request)
         record = _matching_record(state, request)
-        _capture_one(request, root, chrome_bin)
+        _, validation = _capture_one(request, root, chrome_bin)
         record["screenshot"] = request["screenshot"]
+        record["proof_validation"] = validation
 
     temporary = state_path.with_suffix(state_path.suffix + ".tmp")
     temporary.write_text(

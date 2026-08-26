@@ -117,6 +117,10 @@ enabled, the low price links to an immutable PNG under
 `price-proofs/YYYY-MM-DD/`—not to the mutable Refurbed product URL. The GitHub
 runner captures a 1440 × 1200 top-of-page viewport immediately when a new
 all-time low is recorded, showing the product image, configuration, and price.
+Before and after capture, headless Chrome inspects the rendered page and requires
+an exact match for chip, RAM, SSD, and whole-kr price. A redirect, default
+configuration, or changed offer fails the workflow before the low or screenshot
+can be committed. Accepted proof records also store the PNG's SHA-256 hash.
 Only new all-time lows are captured, rather than duplicating an image every 15
 minutes while a price is unchanged.
 
@@ -149,8 +153,11 @@ representative variant for a whole product family while RAM, storage, color,
 keyboard, and merchant configurations remain behind selectors. The 64 GB+
 watch searches every Mac family, opens one representative page per product,
 follows its RAM selector, verifies each RAM choice, and includes the compatible
-storage/color/keyboard variants. This is how configurations such as a 96 GB,
-4 TB M2 Max become visible even when the search card points somewhere else.
+storage/color/keyboard variants. Options inside Refurbed's “available in other
+configurations” groups are never cloned as though they preserve the selected
+hardware; they must be fetched and verified independently. This is how
+configurations such as a 96 GB, 4 TB M2 Max become visible without assigning a
+64 GB Max configuration to a cheaper 16 GB Pro URL.
 
 **Identity is the variant URL, not the product name.** Result cards link to
 `/p/<product-slug>/<variant-id>/`. The card title is useless for filtering — it
@@ -189,7 +196,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 76 tests, no network needed
+python3 -m unittest discover -v       # 79 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

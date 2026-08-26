@@ -56,6 +56,11 @@ class PriceProofCaptureTest(unittest.TestCase):
                 import zlib
                 from pathlib import Path
 
+                if "--dump-dom" in sys.argv:
+                    print('<title>Apple MacBook Pro 2023 Apple M2 Max 64.0 GB 1000 GB 14.2 " – refurbed</title>'
+                          '<p data-test="product-price"><span>21 900 kr</span></p>')
+                    raise SystemExit(0)
+
                 output = next(a.split("=", 1)[1] for a in sys.argv if a.startswith("--screenshot="))
                 width, height = 1440, 1200
                 raw = b"".join(b"\\x00" + os.urandom(width * 3) for _ in range(height))
@@ -88,6 +93,56 @@ class PriceProofCaptureTest(unittest.TestCase):
                 saved["price_lows"][request["key"]]["screenshot"],
                 request["screenshot"],
             )
+
+    def test_rejects_screenshot_when_rendered_configuration_does_not_match_request(self):
+        request = {
+            "key": "apple-macbook-pro-2021-m1-16-2|M1 Max|64|512",
+            "price": 10_899,
+            "url": "https://www.refurbed.se/p/apple-macbook-pro-2021-m1-16-2/wrong16/",
+            "seen_at": "2026-08-25T16:21:28Z",
+            "screenshot": "price-proofs/2026-08-25/wrong.png",
+        }
+        state = {"price_lows": {request["key"]: {
+            "price": request["price"],
+            "url": request["url"],
+            "seen_at": request["seen_at"],
+        }}}
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            state_path = root / "state.json"
+            requests_path = root / "price_proof_requests.json"
+            state_path.write_text(json.dumps(state), encoding="utf-8")
+            requests_path.write_text(json.dumps([request]), encoding="utf-8")
+            chrome = root / "fake-chrome.py"
+            chrome.write_text(textwrap.dedent("""\
+                #!/usr/bin/env python3
+                import binascii, os, struct, sys, zlib
+                from pathlib import Path
+
+                if "--dump-dom" in sys.argv:
+                    print('<title>Apple MacBook Pro 2021 Apple M1 Pro 16.0 GB 512 GB 16.2 " – refurbed</title>'
+                          '<p data-test="product-price"><span>10 899 kr</span></p>')
+                    raise SystemExit(0)
+                output = next(a.split("=", 1)[1] for a in sys.argv if a.startswith("--screenshot="))
+                width, height = 1440, 1200
+                raw = b"".join(b"\\x00" + os.urandom(width * 3) for _ in range(height))
+                def chunk(kind, data):
+                    return (struct.pack(">I", len(data)) + kind + data
+                            + struct.pack(">I", binascii.crc32(kind + data) & 0xffffffff))
+                Path(output).write_bytes(
+                    b"\\x89PNG\\r\\n\\x1a\\n"
+                    + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+                    + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
+                )
+            """), encoding="utf-8")
+            chrome.chmod(0o755)
+
+            with self.assertRaisesRegex(ValueError, "does not match"):
+                cpp.capture_all(state_path, requests_path, root, str(chrome))
+
+            saved = json.loads(state_path.read_text(encoding="utf-8"))
+            self.assertNotIn("screenshot", saved["price_lows"][request["key"]])
 
 
 if __name__ == "__main__":

@@ -259,7 +259,8 @@ class PriceHistoryTest(BaseWatchTest):
         self.state["price_lows"] = {
             key: {"price": 22_100, "url": previous_url,
                   "seen_at": previous_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                  "screenshot": "price-proofs/2026-08-18/22100kr-proof.png"}
+                  "screenshot": "price-proofs/2026-08-18/22100kr-proof.png",
+                  "proof_validation": {"version": 1}}
         }
         site = FakeSite(
             [(P_M2, "30 355 kr")],
@@ -290,6 +291,14 @@ class PriceHistoryTest(BaseWatchTest):
 
         self.assertEqual(markdown, "22 100 kr")
         self.assertNotIn("http", markdown)
+
+    def test_unvalidated_screenshot_is_not_presented_as_proof(self):
+        markdown = rw.historical_low_markdown({
+            "price": 10_899,
+            "screenshot": "price-proofs/2026-08-25/wrong.png",
+        })
+
+        self.assertEqual(markdown, "10 899 kr")
 
     def test_price_history_update_keeps_all_time_lowest_observation(self):
         old = rw.Offer(P_M2, price=22_100, chip="M2 Max", ram_gb=64, ssd_gb=1000)
@@ -398,6 +407,7 @@ class BuyNowSectionTest(unittest.TestCase):
                     "url": "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/old123/",
                     "seen_at": "2026-08-18T12:00:00Z",
                     "screenshot": "price-proofs/2026-08-18/22100kr-proof.png",
+                    "proof_validation": {"version": 1},
                 }
             },
             "watches": {"x": {"offers": offers}},

@@ -20,6 +20,7 @@ from refurbed_watch import (
     Offer,
     is_mac_studio,
     is_max_or_ultra_64gb,
+    parse_configuration_variant_offers,
     parse_product_price,
     parse_ram_variant_paths,
     parse_search_page,
@@ -170,6 +171,32 @@ class TestVariantTitleParsing(unittest.TestCase):
             ["/p/apple-macbook-pro-2023-m2-16-2/92650b/",
              "/p/apple-macbook-pro-2023-m2-16-2/302400b/"],
         )
+
+    def test_other_configuration_optgroup_is_never_cloned_as_selected_hardware(self):
+        page = '''
+        <select data-test="product-keyboard">
+          <option value="/p/apple-macbook-pro-2021-m1-16-2/real64/?offer=1">
+            DK (QWERTY)
+          </option>
+          <optgroup label="Tillgänglig i andra konfigurationer">
+            <option value="/p/apple-macbook-pro-2021-m1-16-2/wrong16/?offer=2"
+                    data-optgroup-label="Tillgänglig i andra konfigurationer">
+              FR (AZERTY) -9 750 kr
+            </option>
+          </optgroup>
+        </select>
+        '''
+        selected = Offer(
+            path="/p/apple-macbook-pro-2021-m1-16-2/real64/",
+            price=21_019,
+            chip="M1 Max",
+            ram_gb=64,
+            ssd_gb=512,
+        )
+
+        variants = parse_configuration_variant_offers(page, selected)
+
+        self.assertEqual([offer.path for offer in variants], [selected.path])
 
     def test_product_page_price(self):
         page = ('<p data-test="product-price" data-test-displayed-price>'
