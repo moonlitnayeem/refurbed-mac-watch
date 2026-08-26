@@ -227,7 +227,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-08-26T14:40:45Z",
+      "checked_at": "2026-08-26T14:55:13Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/294835/": {
@@ -654,7 +654,7 @@
           "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" rymdgrå SE (Svensk)",
           "matched": false,
           "name": "Apple MacBook Pro 2020 | 13.3",
-          "price": 5015,
+          "price": 4795,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": 24358
@@ -687,7 +687,7 @@
           "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 8000 GB 14.2 \" rymdgrå DK (Dansk)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 28115,
+          "price": 26775,
           "ram_gb": 64.0,
           "ssd_gb": 8000.0,
           "was_price": 71989
@@ -725,17 +725,6 @@
           "ssd_gb": 512.0,
           "was_price": 38980
         },
-        "/p/apple-macbook-pro-2021-m1-16-2/37563b/": {
-          "badge": null,
-          "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 16.0 GB 512 GB 16.2 \" rymdgrå FR (Fransk)",
-          "matched": false,
-          "name": "",
-          "price": 11305,
-          "ram_gb": 16.0,
-          "ssd_gb": 512.0,
-          "was_price": null
-        },
         "/p/apple-macbook-pro-2021-m1-16-2/64181c/": {
           "badge": "Bästsäljare",
           "chip": "M1 Max",
@@ -746,6 +735,17 @@
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": 46623
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/97922b/": {
+          "badge": null,
+          "chip": "M1 Pro",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 16.0 GB 512 GB 16.2 \" rymdgrå UK (UK-engelska)",
+          "matched": false,
+          "name": "",
+          "price": 12625,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
         },
         "/p/apple-macbook-pro-2022-m2-13-tb/179791b/": {
           "badge": null,
@@ -1886,7 +1886,7 @@
           "config": "Apple iPad 9 (2021) 64 GB 10.2 \" rymdgrå 3.0 GB",
           "matched": false,
           "name": "",
-          "price": 2519,
+          "price": 2495,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -2160,22 +2160,22 @@
           "chip": "",
           "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
           "matched": false,
-          "name": "iPad mini (2019) | 7.9",
-          "price": 2339,
-          "ram_gb": 64.0,
-          "ssd_gb": 3.0,
-          "was_price": 6524
-        },
-        "/p/ipad-mini-5/4456b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" silver 3.0 GB",
-          "matched": false,
           "name": "",
-          "price": 2609,
+          "price": 2335,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
+        },
+        "/p/ipad-mini-5/4455c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
+          "matched": false,
+          "name": "iPad mini (2019) | 7.9",
+          "price": 2165,
+          "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": 6524
         },
         "/p/ipad-mini-6/14220/": {
           "badge": null,
@@ -2335,7 +2335,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-08-26T14:30:43Z",
+      "checked_at": "2026-08-26T14:45:39Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -2848,7 +2848,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-08-26T14:30:46Z",
+      "checked_at": "2026-08-26T14:45:42Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
