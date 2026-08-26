@@ -659,13 +659,18 @@ def previous_low_suffix(offer: Offer, state: dict) -> str:
     return f" · Previous low for same model: {historical_low_markdown(record)} ({age})"
 
 
-def update_price_lows(state: dict, seen_at: str) -> list[dict]:
+def update_price_lows(
+    state: dict, seen_at: str, watch_keys: list[str] | None = None
+) -> list[dict]:
     """Update permanent lows and return screenshot requests for new records."""
     lows = dict(state.get("price_lows", {}))
     screenshot_requests: list[dict] = []
     cheapest_by_model: dict[str, Offer] = {}
+    allowed_watches = set(watch_keys) if watch_keys is not None else None
 
-    for watch in state.get("watches", {}).values():
+    for watch_key, watch in state.get("watches", {}).items():
+        if allowed_watches is not None and watch_key not in allowed_watches:
+            continue
         for path, data in watch.get("offers", {}).items():
             if not data.get("matched") or data.get("price") is None:
                 continue
@@ -1192,7 +1197,9 @@ def main() -> int:
 
     if not args.dry_run:
         screenshot_requests = update_price_lows(
-            state, time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+            state,
+            time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            watch_keys=active_watch_keys,
         )
         write_price_proof_requests(screenshot_requests)
         save_state(state_path, state)

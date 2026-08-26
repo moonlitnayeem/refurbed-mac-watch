@@ -378,6 +378,22 @@ class PriceHistoryTest(BaseWatchTest):
         self.assertTrue(requests[0]["url"].endswith(other_path))
         self.assertEqual(state["price_lows"][key]["price"], 23_000)
 
+    def test_stale_removed_watch_cannot_create_a_false_low(self):
+        fields = {"chip": "M1 Max", "ram_gb": 64, "ssd_gb": 512,
+                  "matched": True}
+        path = "/p/apple-macbook-pro-2021-m1-16-2/179581b/"
+        state = {"price_lows": {}, "watches": {
+            "current": {"offers": {path: {**fields, "price": 21_019}}},
+            "removed-old-watch": {"offers": {path: {**fields, "price": 21_009}}},
+        }}
+
+        requests = rw.update_price_lows(
+            state, "2026-08-26T11:50:00Z", watch_keys=["current"]
+        )
+
+        self.assertEqual(len(requests), 1)
+        self.assertEqual(requests[0]["price"], 21_019)
+
     def test_price_proof_manifest_is_written_and_stale_file_is_removed(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "requests.json"
