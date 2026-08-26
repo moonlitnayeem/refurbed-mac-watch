@@ -1,0 +1,40 @@
+name: Verify cookie-free price-proof capture
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser automation dependency
+        run: python3 -m pip install --disable-pip-version-check --quiet -r requirements.txt
+
+      - name: Accept all cookies and capture an unobstructed page
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from capture_price_proofs import _SeleniumBrowser, find_chrome
+
+          output = Path("cookie-free-price-proof-smoke.png")
+          url = "https://www.refurbed.se/p/apple-macbook-pro-2021-m1-16-2/179581b/"
+          with _SeleniumBrowser(find_chrome()) as browser:
+              browser.open(url)
+              browser.accept_all_cookies()
+              browser.screenshot(output)
+          print(f"Captured {output} after accepting all Refurbed cookies.")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cookie-free-price-proof-smoke
+          path: cookie-free-price-proof-smoke.png
+          if-no-files-found: error
+          retention-days: 1

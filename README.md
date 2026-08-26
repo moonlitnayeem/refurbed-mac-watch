@@ -201,6 +201,7 @@ python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
 python3 -m unittest discover -v       # 81 tests, no network needed
+gh workflow run verify-price-proof.yml # one-off cloud cookie-free capture smoke test
 ```
 
 The script also runs locally on macOS with native notifications
