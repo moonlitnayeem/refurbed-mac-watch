@@ -716,6 +716,7 @@ def update_price_lows(state: dict, seen_at: str) -> list[dict]:
                 "price": offer.price,
                 "url": offer.url,
                 "seen_at": seen_at,
+                "previous": previous,
                 "screenshot": f"price-proofs/{date}/{offer.price}kr-{digest}.png",
             })
     state["price_lows"] = lows

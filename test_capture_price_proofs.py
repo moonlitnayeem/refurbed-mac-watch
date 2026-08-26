@@ -101,6 +101,7 @@ class PriceProofCaptureTest(unittest.TestCase):
             "url": "https://www.refurbed.se/p/apple-macbook-pro-2021-m1-16-2/wrong16/",
             "seen_at": "2026-08-25T16:21:28Z",
             "screenshot": "price-proofs/2026-08-25/wrong.png",
+            "previous": None,
         }
         state = {"price_lows": {request["key"]: {
             "price": request["price"],
@@ -138,11 +139,13 @@ class PriceProofCaptureTest(unittest.TestCase):
             """), encoding="utf-8")
             chrome.chmod(0o755)
 
-            with self.assertRaisesRegex(ValueError, "does not match"):
-                cpp.capture_all(state_path, requests_path, root, str(chrome))
+            captured = cpp.capture_all(
+                state_path, requests_path, root, str(chrome)
+            )
 
             saved = json.loads(state_path.read_text(encoding="utf-8"))
-            self.assertNotIn("screenshot", saved["price_lows"][request["key"]])
+            self.assertEqual(captured, 0)
+            self.assertNotIn(request["key"], saved["price_lows"])
 
 
 if __name__ == "__main__":

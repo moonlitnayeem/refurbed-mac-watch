@@ -9,7 +9,8 @@ imagery, configuration details, and price. The corresponding `state.json`
 record stores the screenshot path, observed price, source URL, UTC time, and PNG
 SHA-256. Headless Chrome validates the rendered chip, RAM, SSD, and whole-kr
 price both before and after screenshot capture. Mismatched or default variants
-fail without attaching a screenshot to the historical-low record.
+are rejected without attaching a screenshot; the previous low is restored (or
+the new unproven record is removed) so a later run can retry safely.
 
 Screenshots are intentionally created **only for new all-time lows**, not every
 15-minute observation. This preserves the evidence needed by previous-low links

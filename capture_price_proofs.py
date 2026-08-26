@@ -20,6 +20,10 @@ MIN_HEIGHT = 700
 MIN_PNG_BYTES = 10_000
 
 
+class ProofMismatchError(ValueError):
+    """The browser rendered a different price or hardware configuration."""
+
+
 def validate_request(request: dict) -> None:
     """Reject any screenshot request that could escape the intended source/root."""
     parsed = urlsplit(str(request.get("url", "")))
@@ -79,7 +83,7 @@ def validate_rendered_page(request: dict, page_html: str) -> dict:
     expected = (expected_chip, expected_ram, expected_ssd, request["price"])
     actual = (chip, ram, ssd, price)
     if actual != expected:
-        raise ValueError(
+        raise ProofMismatchError(
             "rendered Refurbed page does not match historical-low request: "
             f"expected {expected}, got {actual}"
         )
@@ -180,12 +184,27 @@ def capture_all(
     state = json.loads(state_path.read_text(encoding="utf-8"))
     root = root.resolve()
 
+    captured = 0
     for request in requests:
         validate_request(request)
         record = _matching_record(state, request)
-        _, validation = _capture_one(request, root, chrome_bin)
+        try:
+            _, validation = _capture_one(request, root, chrome_bin)
+        except ProofMismatchError as exc:
+            target = (root / request["screenshot"]).resolve()
+            target.unlink(missing_ok=True)
+            previous = request.get("previous")
+            if previous is None:
+                state.get("price_lows", {}).pop(request["key"], None)
+            elif isinstance(previous, dict):
+                state["price_lows"][request["key"]] = previous
+            else:
+                raise ValueError("price proof previous record must be an object or null")
+            print(f"Rejected historical-low proof for {request['key']}: {exc}")
+            continue
         record["screenshot"] = request["screenshot"]
         record["proof_validation"] = validation
+        captured += 1
 
     temporary = state_path.with_suffix(state_path.suffix + ".tmp")
     temporary.write_text(
@@ -193,7 +212,7 @@ def capture_all(
         encoding="utf-8",
     )
     temporary.replace(state_path)
-    return len(requests)
+    return captured
 
 
 def find_chrome() -> str:

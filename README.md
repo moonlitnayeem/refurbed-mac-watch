@@ -119,8 +119,10 @@ runner captures a 1440 × 1200 top-of-page viewport immediately when a new
 all-time low is recorded, showing the product image, configuration, and price.
 Before and after capture, headless Chrome inspects the rendered page and requires
 an exact match for chip, RAM, SSD, and whole-kr price. A redirect, default
-configuration, or changed offer fails the workflow before the low or screenshot
-can be committed. Accepted proof records also store the PNG's SHA-256 hash.
+configuration, or changed offer is rejected before the low or screenshot can be
+committed. The prior low is restored (or an unproven new key is removed), the
+rest of the workflow continues, and the next run can retry. Accepted proof
+records also store the PNG's SHA-256 hash.
 Only new all-time lows are captured, rather than duplicating an image every 15
 minutes while a price is unchanged.
 

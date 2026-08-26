@@ -342,6 +342,7 @@ class PriceHistoryTest(BaseWatchTest):
         self.assertEqual(request["key"], key)
         self.assertEqual(request["price"], 21_900)
         self.assertEqual(request["url"], rw.BASE + P_M2)
+        self.assertEqual(request["previous"]["price"], 22_100)
         self.assertTrue(request["screenshot"].startswith("price-proofs/2026-08-25/"))
         self.assertTrue(request["screenshot"].endswith(".png"))
         self.assertEqual(state["price_lows"][key]["price"], 21_900)
