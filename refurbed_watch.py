@@ -61,7 +61,7 @@ BASE = "https://www.refurbed.se"
 
 # Be a polite client: identify honestly, and leave a gap between requests.
 USER_AGENT = "refurbed-mac-watch/2.0 (personal stock alert; +https://github.com/)"
-REQUEST_GAP_SECONDS = 3.0
+REQUEST_GAP_SECONDS = 2.0
 REQUEST_TIMEOUT = 30
 MAX_RETRIES = 3
 
