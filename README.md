@@ -117,8 +117,10 @@ enabled, the low price links to an immutable PNG under
 `price-proofs/YYYY-MM-DD/`—not to the mutable Refurbed product URL. The GitHub
 runner captures a 1440 × 1200 top-of-page viewport immediately when a new
 all-time low is recorded, showing the product image, configuration, and price.
-Before and after capture, headless Chrome inspects the rendered page and requires
-an exact match for chip, RAM, SSD, and whole-kr price. A redirect, default
+The cloud runner uses one Selenium-controlled headless Chrome session, clicks
+**Accept all cookies**, waits for the consent dialog to disappear, and only then
+captures the page. Before and after capture it inspects the rendered page and
+requires an exact match for chip, RAM, SSD, and whole-kr price. A redirect, default
 configuration, or changed offer is rejected before the low or screenshot can be
 committed. The prior low is restored (or an unproven new key is removed), the
 rest of the workflow continues, and the next run can retry. Accepted proof
@@ -198,7 +200,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 80 tests, no network needed
+python3 -m unittest discover -v       # 81 tests, no network needed
 ```
 
 The script also runs locally on macOS with native notifications

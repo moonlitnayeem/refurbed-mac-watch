@@ -9,8 +9,8 @@ import json
 import os
 import shutil
 import struct
-import subprocess
 from pathlib import Path
+from typing import Any
 from urllib.parse import urlsplit
 
 from refurbed_watch import parse_product_price, parse_variant_title
@@ -22,6 +22,79 @@ MIN_PNG_BYTES = 10_000
 
 class ProofMismatchError(ValueError):
     """The browser rendered a different price or hardware configuration."""
+
+
+class _SeleniumBrowser:
+    """One real Chrome session used for consent, validation, and capture."""
+
+    def __init__(self, chrome_bin: str):
+        self.chrome_bin = chrome_bin
+        self.driver: Any = None
+
+    def __enter__(self):
+        try:
+            from selenium import webdriver  # type: ignore[import-not-found]
+            from selenium.webdriver.chrome.options import Options  # type: ignore[import-not-found]
+            from selenium.webdriver.common.by import By  # type: ignore[import-not-found]
+            from selenium.webdriver.support import expected_conditions as EC  # type: ignore[import-not-found]
+            from selenium.webdriver.support.ui import WebDriverWait  # type: ignore[import-not-found]
+        except ModuleNotFoundError as exc:
+            raise RuntimeError(
+                "Selenium is required for cookie-free price-proof screenshots"
+            ) from exc
+
+        options = Options()
+        options.binary_location = self.chrome_bin
+        for argument in (
+            "--headless=new",
+            "--disable-gpu",
+            "--no-sandbox",
+            "--hide-scrollbars",
+            "--window-size=1440,1200",
+            "--force-device-scale-factor=1",
+        ):
+            options.add_argument(argument)
+        self.driver = webdriver.Chrome(options=options)
+        self.driver.set_window_size(1440, 1200)
+        self.By = By
+        self.EC = EC
+        self.WebDriverWait = WebDriverWait
+        return self
+
+    def __exit__(self, *_):
+        if self.driver is not None:
+            self.driver.quit()
+        return False
+
+    def open(self, url: str) -> None:
+        self.driver.get(url)
+
+    def accept_all_cookies(self) -> None:
+        wait = self.WebDriverWait(self.driver, 20)
+        button = wait.until(
+            self.EC.element_to_be_clickable((self.By.ID, "acceptAllCookiesBtn"))
+        )
+        button.click()
+
+        def all_categories_accepted(driver) -> bool:
+            cookie = driver.get_cookie("refbConsent") or {}
+            value = str(cookie.get("value", ""))
+            return all(
+                category in value
+                for category in ("necessary", "preferences", "statistics", "marketing")
+            )
+
+        wait.until(all_categories_accepted)
+        wait.until(
+            self.EC.invisibility_of_element_located((self.By.ID, "cookiebanner"))
+        )
+
+    def page_html(self) -> str:
+        return self.driver.page_source
+
+    def screenshot(self, path: Path) -> None:
+        if not self.driver.save_screenshot(str(path)):
+            raise RuntimeError("Chrome did not save the price-proof screenshot")
 
 
 def validate_request(request: dict) -> None:
@@ -96,65 +169,28 @@ def validate_rendered_page(request: dict, page_html: str) -> dict:
     }
 
 
-def _dump_rendered_dom(request: dict, chrome_bin: str) -> str:
-    command = [
-        chrome_bin,
-        "--headless=new",
-        "--disable-gpu",
-        "--no-sandbox",
-        "--virtual-time-budget=8000",
-        "--dump-dom",
-        request["url"],
-    ]
-    result = subprocess.run(
-        command,
-        check=False,
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
-    if result.returncode != 0 or "<title" not in result.stdout.lower():
-        detail = (result.stderr or result.stdout).strip()[-1_000:]
-        raise RuntimeError(
-            f"Chrome could not inspect rendered product page ({result.returncode}): {detail}"
-        )
-    return result.stdout
-
-
-def _capture_one(request: dict, root: Path, chrome_bin: str) -> tuple[Path, dict]:
+def _capture_one(
+    request: dict,
+    root: Path,
+    chrome_bin: str,
+    browser_factory=None,
+) -> tuple[Path, dict]:
     target = (root / request["screenshot"]).resolve()
     proof_root = (root / "price-proofs").resolve()
     if proof_root not in target.parents:
         raise ValueError("screenshot must remain inside price-proofs/")
     target.parent.mkdir(parents=True, exist_ok=True)
 
-    validation = validate_rendered_page(
-        request, _dump_rendered_dom(request, chrome_bin)
-    )
+    factory = browser_factory or _SeleniumBrowser
+    with factory(chrome_bin) as browser:
+        browser.open(request["url"])
+        browser.accept_all_cookies()
+        validation = validate_rendered_page(request, browser.page_html())
+        browser.screenshot(target)
+        # Recheck the exact same browser page after capture so a redirect or
+        # rapidly changed offer cannot attach a mismatched screenshot.
+        validate_rendered_page(request, browser.page_html())
 
-    command = [
-        chrome_bin,
-        "--headless=new",
-        "--disable-gpu",
-        "--no-sandbox",
-        "--hide-scrollbars",
-        "--window-size=1440,1200",
-        "--force-device-scale-factor=1",
-        "--virtual-time-budget=8000",
-        f"--screenshot={target}",
-        request["url"],
-    ]
-    result = subprocess.run(
-        command,
-        check=False,
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
-    if result.returncode != 0:
-        target.unlink(missing_ok=True)
-        detail = (result.stderr or result.stdout).strip()[-1_000:]
-        raise RuntimeError(f"Chrome screenshot failed ({result.returncode}): {detail}")
     if not target.exists() or target.stat().st_size < MIN_PNG_BYTES:
         target.unlink(missing_ok=True)
         raise RuntimeError("Chrome screenshot was missing or suspiciously small")
@@ -162,9 +198,6 @@ def _capture_one(request: dict, root: Path, chrome_bin: str) -> tuple[Path, dict
     if width < MIN_WIDTH or height < MIN_HEIGHT:
         target.unlink(missing_ok=True)
         raise RuntimeError(f"Chrome screenshot was too small: {width}x{height}")
-    # Recheck after capture so a redirect or rapidly changed offer cannot leave
-    # a PNG attached to configuration data from a different page load.
-    validate_rendered_page(request, _dump_rendered_dom(request, chrome_bin))
     validation["sha256"] = hashlib.sha256(target.read_bytes()).hexdigest()
     return target, validation
 
@@ -174,6 +207,7 @@ def capture_all(
     requests_path: Path,
     root: Path,
     chrome_bin: str,
+    browser_factory=None,
 ) -> int:
     """Capture every queued proof, then atomically attach paths to state."""
     if not requests_path.exists():
@@ -189,7 +223,9 @@ def capture_all(
         validate_request(request)
         record = _matching_record(state, request)
         try:
-            _, validation = _capture_one(request, root, chrome_bin)
+            _, validation = _capture_one(
+                request, root, chrome_bin, browser_factory=browser_factory
+            )
         except ProofMismatchError as exc:
             target = (root / request["screenshot"]).resolve()
             target.unlink(missing_ok=True)

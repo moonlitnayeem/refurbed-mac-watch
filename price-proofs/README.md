@@ -8,7 +8,9 @@ large enough to show the top portion of the Refurbed product page: product
 imagery, configuration details, and price. The corresponding `state.json`
 record stores the screenshot path, observed price, source URL, UTC time, and PNG
 SHA-256. Headless Chrome validates the rendered chip, RAM, SSD, and whole-kr
-price both before and after screenshot capture. Mismatched or default variants
+price both before and after screenshot capture. Before validation and capture,
+Selenium clicks Refurbed's **Accept all cookies** control and waits until the
+consent dialog is no longer visible. Mismatched or default variants
 are rejected without attaching a screenshot; the previous low is restored (or
 the new unproven record is removed) so a later run can retry safely.
 

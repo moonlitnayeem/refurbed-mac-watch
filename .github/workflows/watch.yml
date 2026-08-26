@@ -37,6 +37,9 @@ jobs:
 
       - name: Capture immutable screenshots for new historical lows
         run: |
+          if [[ -f price_proof_requests.json ]]; then
+            python3 -m pip install --disable-pip-version-check --quiet -r requirements.txt
+          fi
           python3 -c "from capture_price_proofs import find_chrome; print('Price-proof browser:', find_chrome())"
           python3 capture_price_proofs.py --state state.json
 

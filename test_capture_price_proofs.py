@@ -1,13 +1,57 @@
 #!/usr/bin/env python3
 
+import binascii
 import json
 import os
+import struct
 import tempfile
-import textwrap
 import unittest
+import zlib
 from pathlib import Path
 
 import capture_price_proofs as cpp
+
+
+def write_test_png(path, width=1440, height=1200):
+    raw = b"".join(b"\x00" + os.urandom(width * 3) for _ in range(height))
+
+    def chunk(kind, data):
+        return (
+            struct.pack(">I", len(data)) + kind + data
+            + struct.pack(">I", binascii.crc32(kind + data) & 0xffffffff)
+        )
+
+    path.write_bytes(
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
+    )
+
+
+class FakeBrowser:
+    def __init__(self, html):
+        self.html = html
+        self.accepted_all = False
+        self.captured_after_acceptance = False
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_):
+        return False
+
+    def open(self, url):
+        self.url = url
+
+    def accept_all_cookies(self):
+        self.accepted_all = True
+
+    def page_html(self):
+        return self.html
+
+    def screenshot(self, path):
+        self.captured_after_acceptance = self.accepted_all
+        write_test_png(path)
 
 
 class PriceProofCaptureTest(unittest.TestCase):
@@ -46,42 +90,18 @@ class PriceProofCaptureTest(unittest.TestCase):
             requests_path = root / "price_proof_requests.json"
             state_path.write_text(json.dumps(state), encoding="utf-8")
             requests_path.write_text(json.dumps([request]), encoding="utf-8")
-            chrome = root / "fake-chrome.py"
-            chrome.write_text(textwrap.dedent("""\
-                #!/usr/bin/env python3
-                import binascii
-                import os
-                import struct
-                import sys
-                import zlib
-                from pathlib import Path
-
-                if "--dump-dom" in sys.argv:
-                    print('<title>Apple MacBook Pro 2023 Apple M2 Max 64.0 GB 1000 GB 14.2 " – refurbed</title>'
-                          '<p data-test="product-price"><span>21 900 kr</span></p>')
-                    raise SystemExit(0)
-
-                output = next(a.split("=", 1)[1] for a in sys.argv if a.startswith("--screenshot="))
-                width, height = 1440, 1200
-                raw = b"".join(b"\\x00" + os.urandom(width * 3) for _ in range(height))
-
-                def chunk(kind, data):
-                    return (struct.pack(">I", len(data)) + kind + data
-                            + struct.pack(">I", binascii.crc32(kind + data) & 0xffffffff))
-
-                png = (b"\\x89PNG\\r\\n\\x1a\\n"
-                       + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
-                       + chunk(b"IDAT", zlib.compress(raw))
-                       + chunk(b"IEND", b""))
-                Path(output).write_bytes(png)
-            """), encoding="utf-8")
-            chrome.chmod(0o755)
+            browser = FakeBrowser(
+                '<title>Apple MacBook Pro 2023 Apple M2 Max 64.0 GB '
+                '1000 GB 14.2 " – refurbed</title>'
+                '<p data-test="product-price"><span>21 900 kr</span></p>'
+            )
 
             captured = cpp.capture_all(
                 state_path=state_path,
                 requests_path=requests_path,
                 root=root,
-                chrome_bin=str(chrome),
+                chrome_bin="unused-chrome",
+                browser_factory=lambda _: browser,
             )
 
             self.assertEqual(captured, 1)
@@ -93,6 +113,35 @@ class PriceProofCaptureTest(unittest.TestCase):
                 saved["price_lows"][request["key"]]["screenshot"],
                 request["screenshot"],
             )
+            self.assertTrue(browser.captured_after_acceptance)
+
+    def test_accepts_all_cookies_before_capturing_the_page(self):
+        request = {
+            "key": "apple-macbook-pro-2021-m1-16-2|M1 Max|64|512",
+            "price": 21_239,
+            "url": "https://www.refurbed.se/p/apple-macbook-pro-2021-m1-16-2/179581b/",
+            "seen_at": "2026-08-26T16:20:00Z",
+            "screenshot": "price-proofs/2026-08-26/cookie-free.png",
+        }
+        html = (
+            '<title>Apple MacBook Pro 2021 Apple M1 Max 64.0 GB 512 GB '
+            '16.2 " – refurbed</title>'
+            '<p data-test="product-price"><span>21 239 kr</span></p>'
+        )
+
+        browser = FakeBrowser(html)
+        with tempfile.TemporaryDirectory() as tmp:
+            target, validation = cpp._capture_one(
+                request,
+                Path(tmp),
+                "unused-chrome",
+                browser_factory=lambda _: browser,
+            )
+
+            self.assertTrue(browser.accepted_all)
+            self.assertTrue(browser.captured_after_acceptance)
+            self.assertTrue(target.exists())
+            self.assertEqual(validation["price"], 21_239)
 
     def test_rejects_screenshot_when_rendered_configuration_does_not_match_request(self):
         request = {
@@ -115,32 +164,18 @@ class PriceProofCaptureTest(unittest.TestCase):
             requests_path = root / "price_proof_requests.json"
             state_path.write_text(json.dumps(state), encoding="utf-8")
             requests_path.write_text(json.dumps([request]), encoding="utf-8")
-            chrome = root / "fake-chrome.py"
-            chrome.write_text(textwrap.dedent("""\
-                #!/usr/bin/env python3
-                import binascii, os, struct, sys, zlib
-                from pathlib import Path
-
-                if "--dump-dom" in sys.argv:
-                    print('<title>Apple MacBook Pro 2021 Apple M1 Pro 16.0 GB 512 GB 16.2 " – refurbed</title>'
-                          '<p data-test="product-price"><span>10 899 kr</span></p>')
-                    raise SystemExit(0)
-                output = next(a.split("=", 1)[1] for a in sys.argv if a.startswith("--screenshot="))
-                width, height = 1440, 1200
-                raw = b"".join(b"\\x00" + os.urandom(width * 3) for _ in range(height))
-                def chunk(kind, data):
-                    return (struct.pack(">I", len(data)) + kind + data
-                            + struct.pack(">I", binascii.crc32(kind + data) & 0xffffffff))
-                Path(output).write_bytes(
-                    b"\\x89PNG\\r\\n\\x1a\\n"
-                    + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
-                    + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
-                )
-            """), encoding="utf-8")
-            chrome.chmod(0o755)
+            browser = FakeBrowser(
+                '<title>Apple MacBook Pro 2021 Apple M1 Pro 16.0 GB '
+                '512 GB 16.2 " – refurbed</title>'
+                '<p data-test="product-price"><span>10 899 kr</span></p>'
+            )
 
             captured = cpp.capture_all(
-                state_path, requests_path, root, str(chrome)
+                state_path,
+                requests_path,
+                root,
+                "unused-chrome",
+                browser_factory=lambda _: browser,
             )
 
             saved = json.loads(state_path.read_text(encoding="utf-8"))
