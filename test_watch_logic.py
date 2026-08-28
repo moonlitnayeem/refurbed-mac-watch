@@ -22,6 +22,12 @@ M2_MAX_64_TITLE = ('<title>Apple MacBook Pro 2023 Apple M2 Max 12 Core '
                    '64.0 GB 2000 GB – refurbed</title>')
 STUDIO_M1_TITLE = ('<title>Apple Mac Studio 2022 Apple M1 Max 10 Core '
                    '32.0 GB 512 GB – refurbed</title>')
+STUDIO_M1_ULTRA_TITLE = ('<title>Apple Mac Studio 2022 Apple M1 Ultra 20 Core '
+                         '128.0 GB 2000 GB – refurbed</title>')
+STUDIO_M1_ULTRA_OUT_OF_STOCK = (
+    STUDIO_M1_ULTRA_TITLE
+    + "<p>Produkten finns för närvarande inte i lager</p>"
+)
 STUDIO_ULTRA_TITLE = ('<title>Apple Mac Studio 2025 Apple M3 Ultra 28 Core '
                       '256.0 GB 1000 GB – refurbed</title>')
 
@@ -30,7 +36,11 @@ P_M4 = "/p/apple-macbook-pro-2024-m4-14/282199c/"   # M4 Max but only 36 GB
 P_M2 = "/p/apple-macbook-pro-2023-m2-14/167837c/"
 P_M1_DK = "/p/apple-macbook-pro-2021-m1-14/209635c/"
 P_STUDIO = "/p/apple-mac-studio-2022-m1-max/72461aa/"
+P_M1_ULTRA_FAMILY = "/p/apple-mac-studio-2022-m1-ultra/"
+P_M1_ULTRA_VARIANT = "/p/apple-mac-studio-2022-m1-ultra/12345a/"
+P_M1_ULTRA_VARIANT_B = "/p/apple-mac-studio-2022-m1-ultra/67890b/"
 P_ULTRA = "/p/apple-mac-studio-2025-m3-ultra/99001a/"
+P_ULTRA_GENERIC_SLUG = "/p/apple-mac-studio-2025/abc123/"
 P_MINI = "/p/apple-mac-mini-2024-m4/273548aa/"      # fuzzy match, not a Mac Studio
 P_MACBOOK_32 = "/p/apple-macbook-air-2024-m3-15/300001a/"
 P_IMAC_INTEL = "/p/apple-imac-2020-intel/300002a/"
@@ -307,6 +317,26 @@ class PriceHistoryTest(BaseWatchTest):
 
         self.assertEqual(markdown, "10 899 kr")
 
+    def test_family_product_path_has_the_same_historical_identity_as_a_variant(self):
+        family = rw.Offer(
+            P_M1_ULTRA_FAMILY,
+            chip="M1 Ultra",
+            ram_gb=128,
+            ssd_gb=2000,
+        )
+        variant = rw.Offer(
+            P_M1_ULTRA_VARIANT,
+            chip="M1 Ultra",
+            ram_gb=128,
+            ssd_gb=2000,
+        )
+
+        self.assertEqual(rw.price_history_key(family), rw.price_history_key(variant))
+        self.assertEqual(
+            rw.price_history_key(family),
+            "apple-mac-studio-2022-m1-ultra|M1 Ultra|128|2000",
+        )
+
     def test_price_history_update_keeps_all_time_lowest_observation(self):
         old = rw.Offer(P_M2, price=22_100, chip="M2 Max", ram_gb=64, ssd_gb=1000)
         key = rw.price_history_key(old)
@@ -377,6 +407,27 @@ class PriceHistoryTest(BaseWatchTest):
         self.assertEqual(requests[0]["price"], 23_000)
         self.assertTrue(requests[0]["url"].endswith(other_path))
         self.assertEqual(state["price_lows"][key]["price"], 23_000)
+
+    def test_unknown_direct_page_observation_cannot_create_a_historical_low(self):
+        state = {"price_lows": {}, "watches": {"mac-studio": {"offers": {
+            P_M1_ULTRA_FAMILY: {
+                "price": 32_499,
+                "chip": "M1 Ultra",
+                "ram_gb": 128,
+                "ssd_gb": 2000,
+                "matched": True,
+                "verification_unknown": True,
+            }
+        }}}}
+
+        requests = rw.update_price_lows(
+            state,
+            "2026-08-26T17:00:00Z",
+            watch_keys=["mac-studio"],
+        )
+
+        self.assertEqual(requests, [])
+        self.assertEqual(state["price_lows"], {})
 
     def test_stale_removed_watch_cannot_create_a_false_low(self):
         fields = {"chip": "M1 Max", "ram_gb": 64, "ssd_gb": 512,
@@ -475,6 +526,39 @@ class BuyNowSectionTest(unittest.TestCase):
         fields = {"chip": "M2 Max", "ram_gb": 64, "ssd_gb": 1000,
                   "matched": True, "price": 23_101}
         state = self._state({P_M2: fields})
+
+        lines = rw.build_buy_now_lines(state, tolerance_kr=1_000)
+
+        self.assertIn("(0)", lines[0])
+        self.assertIn("none currently available", lines[1])
+
+    def test_unknown_direct_page_observation_is_not_a_buy_now_offer(self):
+        offer = rw.Offer(
+            P_M1_ULTRA_FAMILY,
+            price=32_499,
+            chip="M1 Ultra",
+            ram_gb=128,
+            ssd_gb=2000,
+        )
+        key = rw.price_history_key(offer)
+        state = {
+            "price_lows": {
+                key: {
+                    "price": 32_499,
+                    "seen_at": "2026-08-26T17:00:00Z",
+                }
+            },
+            "watches": {"mac-studio": {"offers": {
+                P_M1_ULTRA_FAMILY: {
+                    "price": 32_499,
+                    "chip": "M1 Ultra",
+                    "ram_gb": 128,
+                    "ssd_gb": 2000,
+                    "matched": True,
+                    "verification_unknown": True,
+                }
+            }}},
+        }
 
         lines = rw.build_buy_now_lines(state, tolerance_kr=1_000)
 
@@ -708,6 +792,510 @@ class MacStudioWatchTest(BaseWatchTest):
         self.run_once(site)
 
         self.assertEqual(rw.PHONE_ALERTS, [])
+
+    def test_supplied_m1_ultra_family_url_is_listed_and_alerted_when_buyable(self):
+        self.watch.direct_product_paths = (P_M1_ULTRA_FAMILY,)
+        site = FakeSite(
+            [(P_STUDIO, "19 845 kr")],
+            titles={
+                P_STUDIO: STUDIO_M1_TITLE,
+                P_M1_ULTRA_FAMILY: STUDIO_M1_ULTRA_OUT_OF_STOCK,
+            },
+        )
+        self.run_once(site)
+        self.assertEqual(rw.PHONE_ALERTS, [], "out-of-stock baseline must stay silent")
+
+        site.titles[P_M1_ULTRA_FAMILY] = (
+            STUDIO_M1_ULTRA_TITLE
+            + '<p data-test="product-price"><span>32 499 kr</span></p>'
+        )
+        lines = self.run_once(site)
+
+        item = next(line for line in lines if P_M1_ULTRA_FAMILY in line)
+        self.assertIn("M1 Ultra · 128 GB · 2000 GB SSD", item)
+        self.assertIn("32 499 kr", item)
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "Apple Silicon Ultra Mac Studio available",
+        )
+        self.assertEqual(rw.PHONE_ALERTS[0]["url"], rw.BASE + P_M1_ULTRA_FAMILY)
+
+    def test_ultra_appearing_after_zero_offer_baseline_still_alerts(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        direct_page = STUDIO_M1_ULTRA_OUT_OF_STOCK
+
+        def fetch(url):
+            if url in {
+                rw.search_url("Mac Studio"),
+                rw.search_url("Apple Mac Studio Ultra"),
+            }:
+                return search_html([])
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return direct_page
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_page = (
+                STUDIO_M1_ULTRA_TITLE
+                + '<p data-test="product-price"><span>32 499 kr</span></p>'
+            )
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "Apple Silicon Ultra Mac Studio available",
+        )
+
+    def test_explicit_direct_out_of_stock_survives_zero_search_and_restock_alerts(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        direct_page = (
+            STUDIO_M1_ULTRA_TITLE
+            + '<p data-test="product-price"><span>32 499 kr</span></p>'
+        )
+
+        def fetch(url):
+            if url in {
+                rw.search_url("Mac Studio"),
+                rw.search_url("Apple Mac Studio Ultra"),
+            }:
+                return search_html([])
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return direct_page
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_page = STUDIO_M1_ULTRA_OUT_OF_STOCK
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_page = (
+                STUDIO_M1_ULTRA_TITLE
+                + '<p data-test="product-price"><span>32 499 kr</span></p>'
+            )
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "Apple Silicon Ultra Mac Studio available",
+        )
+
+    def test_zero_search_with_direct_out_of_stock_preserves_other_offers_as_unknown(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        search_entries = [(P_STUDIO, "19 845 kr")]
+        direct_page = (
+            STUDIO_M1_ULTRA_TITLE
+            + '<p data-test="product-price"><span>32 499 kr</span></p>'
+        )
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html(search_entries)
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                return search_html([])
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return direct_page
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            search_entries = []
+            direct_page = STUDIO_M1_ULTRA_OUT_OF_STOCK
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            search_entries = [(P_STUDIO, "19 845 kr")]
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "a zero search must not turn unrelated preserved offers into fake restocks",
+        )
+
+    def test_broad_ultra_query_finds_and_alerts_any_ultra_generation(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        ultra_available = False
+        requested = []
+
+        def fetch(url):
+            nonlocal ultra_available
+            requested.append(url)
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                entries = [(P_ULTRA, "54 900 kr")] if ultra_available else []
+                return search_html(entries)
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return STUDIO_M1_ULTRA_OUT_OF_STOCK
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            if url.endswith(P_ULTRA):
+                return STUDIO_ULTRA_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            ultra_available = True
+            lines = rw.run_watch(
+                self.watch, self.state, dry_run=False, notifications_left=[8]
+            )
+
+        self.assertIn(rw.search_url("Apple Mac Studio Ultra"), requested)
+        self.assertIn(P_ULTRA, "\n".join(lines))
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "Apple Silicon Ultra Mac Studio available",
+        )
+
+    def test_unverified_ultra_search_card_cannot_consume_dedicated_alert(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        ultra_available = False
+        ultra_page_verified = False
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                entries = [(P_ULTRA, "54 900 kr")] if ultra_available else []
+                return search_html(entries)
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return STUDIO_M1_ULTRA_OUT_OF_STOCK
+            if url.endswith(P_ULTRA):
+                return STUDIO_ULTRA_TITLE if ultra_page_verified else None
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            ultra_available = True
+            unverified_lines = rw.run_watch(
+                self.watch, self.state, dry_run=False, notifications_left=[8]
+            )
+            ultra_page_verified = True
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertNotIn(P_ULTRA, "\n".join(unverified_lines))
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "Apple Silicon Ultra Mac Studio available",
+        )
+
+    def test_dedicated_ultra_query_requires_verification_when_slug_is_generic(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        ultra_available = False
+        ultra_page_verified = False
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                entries = [(P_ULTRA_GENERIC_SLUG, "54 900 kr")] if ultra_available else []
+                return search_html(entries)
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return STUDIO_M1_ULTRA_OUT_OF_STOCK
+            if url.endswith(P_ULTRA_GENERIC_SLUG):
+                return STUDIO_ULTRA_TITLE if ultra_page_verified else None
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            ultra_available = True
+            unverified_lines = rw.run_watch(
+                self.watch, self.state, dry_run=False, notifications_left=[8]
+            )
+            ultra_page_verified = True
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertNotIn(P_ULTRA_GENERIC_SLUG, "\n".join(unverified_lines))
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "Apple Silicon Ultra Mac Studio available",
+        )
+
+    def test_direct_and_search_discovery_do_not_duplicate_same_ultra_family(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        ultra_available = False
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                entries = [(P_M1_ULTRA_VARIANT, "32 499 kr")] if ultra_available else []
+                return search_html(entries)
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                if ultra_available:
+                    return (
+                        STUDIO_M1_ULTRA_TITLE
+                        + '<p data-test="product-price"><span>32 499 kr</span></p>'
+                    )
+                return STUDIO_M1_ULTRA_OUT_OF_STOCK
+            if url.endswith(P_M1_ULTRA_VARIANT):
+                return STUDIO_M1_ULTRA_TITLE
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            ultra_available = True
+            lines = rw.run_watch(
+                self.watch, self.state, dry_run=False, notifications_left=[8]
+            )
+
+        ultra_items = [
+            line for line in lines
+            if line.startswith("__ITEM__") and "M1 Ultra" in line
+        ]
+        self.assertEqual(len(ultra_items), 1)
+        self.assertIn(P_M1_ULTRA_VARIANT, ultra_items[0])
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertTrue(rw.PHONE_ALERTS[0]["url"].endswith(P_M1_ULTRA_VARIANT))
+
+    def test_canonical_to_variant_source_switch_does_not_duplicate_alert(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        variant_in_search = False
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                entries = [(P_M1_ULTRA_VARIANT, "32 499 kr")] if variant_in_search else []
+                return search_html(entries)
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return (
+                    STUDIO_M1_ULTRA_TITLE
+                    + '<p data-test="product-price"><span>32 499 kr</span></p>'
+                )
+            if url.endswith(P_M1_ULTRA_VARIANT):
+                return STUDIO_M1_ULTRA_TITLE
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            variant_in_search = True
+            lines = rw.run_watch(
+                self.watch, self.state, dry_run=False, notifications_left=[8]
+            )
+
+        ultra_items = [
+            line for line in lines
+            if line.startswith("__ITEM__") and "M1 Ultra" in line
+        ]
+        self.assertEqual(len(ultra_items), 1)
+        self.assertIn(P_M1_ULTRA_VARIANT, ultra_items[0])
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "switching from canonical to exact variant is not a new availability",
+        )
+
+    def test_one_canonical_alias_can_suppress_only_one_new_exact_variant(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        variants_in_search = False
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                entries = []
+                if variants_in_search:
+                    entries = [
+                        (P_M1_ULTRA_VARIANT, "32 499 kr"),
+                        (P_M1_ULTRA_VARIANT_B, "31 999 kr"),
+                    ]
+                return search_html(entries)
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return (
+                    STUDIO_M1_ULTRA_TITLE
+                    + '<p data-test="product-price"><span>32 499 kr</span></p>'
+                )
+            if url.endswith(P_M1_ULTRA_VARIANT) or url.endswith(P_M1_ULTRA_VARIANT_B):
+                return STUDIO_M1_ULTRA_TITLE
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            variants_in_search = True
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertTrue(rw.PHONE_ALERTS[0]["url"].endswith(P_M1_ULTRA_VARIANT_B))
+
+    def test_second_exact_variant_in_same_ultra_family_still_alerts(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        include_second_variant = False
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                entries = [(P_M1_ULTRA_VARIANT, "32 499 kr")]
+                if include_second_variant:
+                    entries.append((P_M1_ULTRA_VARIANT_B, "31 999 kr"))
+                return search_html(entries)
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return STUDIO_M1_ULTRA_OUT_OF_STOCK
+            if url.endswith(P_M1_ULTRA_VARIANT) or url.endswith(P_M1_ULTRA_VARIANT_B):
+                return STUDIO_M1_ULTRA_TITLE
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            include_second_variant = True
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertTrue(rw.PHONE_ALERTS[0]["url"].endswith(P_M1_ULTRA_VARIANT_B))
+
+    def test_transient_direct_page_failure_does_not_create_false_restock_alert(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        direct_fetch_fails = False
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                return search_html([])
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                if direct_fetch_fails:
+                    return None
+                return (
+                    STUDIO_M1_ULTRA_TITLE
+                    + '<p data-test="product-price"><span>32 499 kr</span></p>'
+                )
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_fetch_fails = True
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_fetch_fails = False
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "an unknown fetch must preserve last-known state instead of faking a restock",
+        )
+
+    def test_incomplete_direct_page_is_unknown_not_out_of_stock(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        direct_page = (
+            STUDIO_M1_ULTRA_TITLE
+            + '<p data-test="product-price"><span>32 499 kr</span></p>'
+        )
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                return search_html([])
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return direct_page
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_page = "<html><title>Temporary incomplete page</title></html>"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_page = (
+                STUDIO_M1_ULTRA_TITLE
+                + '<p data-test="product-price"><span>32 499 kr</span></p>'
+            )
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "missing price and missing out-of-stock marker is an unknown page",
+        )
+
+    def test_unverified_price_page_cannot_consume_the_real_ultra_alert(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        direct_page = STUDIO_M1_ULTRA_OUT_OF_STOCK
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                return search_html([])
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return direct_page
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_page = (
+                "<html><title>Temporary incomplete page</title>"
+                '<p data-test="product-price"><span>32 499 kr</span></p></html>'
+            )
+            incomplete_lines = rw.run_watch(
+                self.watch, self.state, dry_run=False, notifications_left=[8]
+            )
+            direct_page = (
+                STUDIO_M1_ULTRA_TITLE
+                + '<p data-test="product-price"><span>32 499 kr</span></p>'
+            )
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertNotIn(P_M1_ULTRA_FAMILY, "\n".join(incomplete_lines))
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "Apple Silicon Ultra Mac Studio available",
+        )
+
+    def test_wrong_ultra_generation_at_m1_family_url_is_rejected(self):
+        self.watch = next(w for w in rw.WATCHES if w.key == "mac-studio")
+        direct_page = STUDIO_M1_ULTRA_OUT_OF_STOCK
+
+        def fetch(url):
+            if url == rw.search_url("Mac Studio"):
+                return search_html([(P_STUDIO, "19 845 kr")])
+            if url == rw.search_url("Apple Mac Studio Ultra"):
+                return search_html([])
+            if url.endswith(P_M1_ULTRA_FAMILY):
+                return direct_page
+            if url.endswith(P_STUDIO):
+                return STUDIO_M1_TITLE
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            direct_page = (
+                '<title>Apple Mac Studio 2022 Apple M2 Ultra 20 Core '
+                '128.0 GB 2000 GB – refurbed</title>'
+                '<p data-test="product-price"><span>32 499 kr</span></p>'
+            )
+            wrong_lines = rw.run_watch(
+                self.watch, self.state, dry_run=False, notifications_left=[8]
+            )
+            direct_page = (
+                STUDIO_M1_ULTRA_TITLE
+                + '<p data-test="product-price"><span>32 499 kr</span></p>'
+            )
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertNotIn(P_M1_ULTRA_FAMILY, "\n".join(wrong_lines))
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(rw.PHONE_ALERTS[0]["model"].split(" ·")[0], "M1 Ultra")
 
     def test_first_studio_after_empty_period_notifies(self):
         """Today's real state: zero available. One appearing is the whole point."""

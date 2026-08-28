@@ -211,10 +211,51 @@ def parse_variant_title(page_html: str) -> tuple[str, str, float | None, float |
     if chip_m:
         chip = f"{chip_m.group(1)} {chip_m.group(2)}".strip() if chip_m.group(2) else chip_m.group(1)
 
-    # In the title the first "N GB" is RAM and the second is storage.
+    # In structured variant titles the first "N GB" is RAM and the second is
+    # storage. Canonical family pages use a shorter SEO title, so they need the
+    # semantic specification table fallback below.
     gbs = [float(x) for x in GB_RE.findall(config)]
     ram = gbs[0] if len(gbs) >= 1 else None
     ssd = gbs[1] if len(gbs) >= 2 else None
+
+    details: dict[str, str] = {}
+    for block in re.findall(
+        r'<div\b[^>]*data-test="details-attribute"[^>]*>(.*?)</div>',
+        page_html,
+        flags=re.IGNORECASE | re.DOTALL,
+    ):
+        label_m = re.search(r"<dt\b[^>]*>(.*?)</dt>", block,
+                            flags=re.IGNORECASE | re.DOTALL)
+        value_m = re.search(r"<dd\b[^>]*>(.*?)</dd>", block,
+                            flags=re.IGNORECASE | re.DOTALL)
+        if label_m and value_m:
+            label = " ".join(strip_tags(label_m.group(1)).lower().split())
+            value = " ".join(strip_tags(value_m.group(1)).split())
+            details[label] = value
+
+    if not chip:
+        for label, value in details.items():
+            if "processor" not in label:
+                continue
+            chip_m = CHIP_RE.search(value)
+            if not chip_m:
+                continue
+            chip = (f"{chip_m.group(1)} {chip_m.group(2)}".strip()
+                    if chip_m.group(2) else chip_m.group(1))
+            break
+
+    def detail_gb(labels: tuple[str, ...]) -> float | None:
+        value = next(
+            (value for label, value in details.items() if label in labels),
+            "",
+        )
+        match = GB_RE.search(value)
+        return float(match.group(1)) if match else None
+
+    if ram is None:
+        ram = detail_gb(("ram-minne", "ram", "memory (ram)"))
+    if ssd is None:
+        ssd = detail_gb(("minne", "lagring", "storage"))
 
     return config, chip, ram, ssd
 
@@ -254,6 +295,15 @@ def parse_product_price(page_html: str) -> int | None:
     if not price:
         return None
     return int(re.sub(r"[\s  ]", "", price.group(1)))
+
+
+def is_explicitly_out_of_stock(page_html: str) -> bool:
+    """Recognize Refurbed's Swedish product-family sold-out state."""
+    return bool(re.search(
+        r"Produkten\s+finns\s+för\s+närvarande\s+inte\s+i\s+lager",
+        strip_tags(page_html),
+        flags=re.IGNORECASE,
+    ))
 
 
 def parse_configuration_variant_offers(page_html: str, selected: Offer) -> list[Offer]:
@@ -319,6 +369,9 @@ class Watch:
     discover_ram_variants: bool = False
     # A broad watch may need the product family in addition to the config.
     offer_label: Callable[[Offer], str] = lambda o: o.label
+    # Product-family pages that need explicit polling because search ranking can
+    # omit an out-of-stock family until after it returns.
+    direct_product_paths: tuple[str, ...] = ()
 
 
 def is_mac_studio(o: Offer) -> bool:
@@ -327,6 +380,11 @@ def is_mac_studio(o: Offer) -> bool:
     and a Studio Display. Only the URL slug is trustworthy.
     """
     return "apple-mac-studio" in o.path
+
+
+def is_mac_studio_ultra(o: Offer) -> bool:
+    """A Mac Studio with any generation of Apple Silicon Ultra chip."""
+    return bool(is_mac_studio(o) and re.fullmatch(r"M[1-9]\d* Ultra", o.chip))
 
 
 def is_max_or_ultra_64gb(o: Offer) -> bool:
@@ -408,6 +466,8 @@ WATCHES: list[Watch] = [
         query="Mac Studio",
         matches=is_mac_studio,
         needs_config=True,   # enriches the alert text; filter is URL-based
+        extra_queries=("Apple Mac Studio Ultra",),
+        direct_product_paths=("/p/apple-mac-studio-2022-m1-ultra/",),
     ),
     Watch(
         key="apple-silicon-64-plus",
@@ -562,14 +622,33 @@ def fmt_kr(n: int | None) -> str:
     return f"{n:,}".replace(",", " ") + " kr"
 
 
+def product_slug(path: str) -> str | None:
+    """Return the product-family slug from either family or variant paths."""
+    parts = urllib.parse.urlsplit(path).path.strip("/").split("/")
+    if len(parts) >= 2 and parts[0] == "p":
+        return parts[1]
+    return None
+
+
+def is_product_family_path(path: str) -> bool:
+    """True for canonical /p/<slug>/ paths without a variant identifier."""
+    parts = urllib.parse.urlsplit(path).path.strip("/").split("/")
+    return len(parts) == 2 and parts[0] == "p"
+
+
+def expected_ultra_chip_from_path(path: str) -> str | None:
+    """Return the exact Ultra generation encoded in a product-family slug."""
+    match = re.search(r"-(m\d+)-ultra$", product_slug(path) or "", re.I)
+    return f"{match.group(1).upper()} Ultra" if match else None
+
+
 def price_history_key(offer: Offer) -> str | None:
     """Group variants that share model, chip, RAM, and storage."""
     if not offer.chip or offer.ram_gb is None or offer.ssd_gb is None:
         return None
-    parts = offer.path.strip("/").split("/")
-    if len(parts) < 3:
+    slug = product_slug(offer.path)
+    if slug is None:
         return None
-    slug = parts[1]
     return f"{slug}|{offer.chip}|{offer.ram_gb:g}|{offer.ssd_gb:g}"
 
 
@@ -672,7 +751,8 @@ def update_price_lows(
         if allowed_watches is not None and watch_key not in allowed_watches:
             continue
         for path, data in watch.get("offers", {}).items():
-            if not data.get("matched") or data.get("price") is None:
+            if (data.get("verification_unknown") or not data.get("matched")
+                    or data.get("price") is None):
                 continue
             offer = Offer(
                 path=path,
@@ -733,7 +813,8 @@ def build_buy_now_lines(state: dict, tolerance_kr: int = DEAL_PRICE_TOLERANCE_KR
             continue
         for path, data in watch.get("offers", {}).items():
             price = data.get("price")
-            if not data.get("matched") or not isinstance(price, int):
+            if (data.get("verification_unknown") or not data.get("matched")
+                    or not isinstance(price, int)):
                 continue
             offer = Offer(
                 path=path,
@@ -846,6 +927,8 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     """Check one watch. Returns human-readable lines describing what happened."""
     lines: list[str] = []
     offers_by_path: dict[str, Offer] = {}
+    direct_fetch_failed: set[str] = set()
+    direct_out_of_stock: set[str] = set()
     for index, query in enumerate((watch.query, *watch.extra_queries)):
         page = fetch(search_url(query))
         if page is None:
@@ -861,19 +944,86 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         for offer in query_offers:
             offers_by_path.setdefault(offer.path, offer)
 
+    for path in watch.direct_product_paths:
+        page = fetch(BASE + path)
+        if page is None:
+            logging.warning("[%s] direct product fetch failed for %s", watch.key, path)
+            direct_fetch_failed.add(path)
+            continue
+        offer = Offer(path=path)
+        enrich_from_page(offer, page)
+        if offer.price is None:
+            if is_explicitly_out_of_stock(page):
+                direct_out_of_stock.add(path)
+            else:
+                logging.warning(
+                    "[%s] direct product page has neither price nor out-of-stock marker: %s",
+                    watch.key,
+                    path,
+                )
+                direct_fetch_failed.add(path)
+            continue
+        slug = product_slug(path)
+        complete_config = bool(
+            offer.chip and offer.ram_gb is not None and offer.ssd_gb is not None
+        )
+        expected_ultra_chip = expected_ultra_chip_from_path(path)
+        if (not complete_config
+                or (expected_ultra_chip and offer.chip != expected_ultra_chip)):
+            logging.warning(
+                "[%s] direct product price lacks the expected verified configuration: %s",
+                watch.key,
+                path,
+            )
+            direct_fetch_failed.add(path)
+            continue
+        # Prefer a specific purchasable variant discovered by search over the
+        # canonical family URL, so one physical family produces one report row
+        # and one Telegram notification.
+        if not any(
+            product_slug(existing_path) == slug for existing_path in offers_by_path
+        ):
+            offers_by_path[path] = offer
+
     offers = list(offers_by_path.values())
 
     if watch.discover_ram_variants:
         discover_hidden_ram_variants(offers_by_path)
         offers = list(offers_by_path.values())
 
+    has_previous_watch_state = watch.key in state["watches"]
     prev = state["watches"].get(watch.key, {})
     prev_offers: dict = prev.get("offers", {})
-    is_first_run = not prev_offers
+    is_first_run = not has_previous_watch_state
+    consumed_previous_aliases: set[str] = set()
+
+    def previous_offer_for(current: Offer) -> dict | None:
+        exact = prev_offers.get(current.path)
+        if exact is not None:
+            return exact
+        current_identity = (
+            product_slug(current.path), current.chip, current.ram_gb, current.ssd_gb
+        )
+        for previous_path, previous in prev_offers.items():
+            if previous_path in consumed_previous_aliases:
+                continue
+            if not (is_product_family_path(current.path)
+                    or is_product_family_path(previous_path)):
+                continue
+            previous_identity = (
+                product_slug(previous_path),
+                previous.get("chip", ""),
+                previous.get("ram_gb"),
+                previous.get("ssd_gb"),
+            )
+            if previous.get("matched") and previous_identity == current_identity:
+                consumed_previous_aliases.add(previous_path)
+                return previous
+        return None
 
     # A zero-result page almost always means the site hiccuped or changed its
     # markup, not that every listing vanished. Refuse to diff against it.
-    if not offers and prev_offers:
+    if not offers and prev_offers and not direct_out_of_stock:
         logging.error("[%s] 0 results but %d known; treating as anomaly, not a sell-out",
                       watch.key, len(prev_offers))
         return [f"{watch.label}: 0 results (anomaly, ignored)"]
@@ -896,7 +1046,24 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         elif watch.needs_config:
             enrich(o)
 
-        if watch.matches(o):
+        expected_ultra_chip = (
+            expected_ultra_chip_from_path(o.path)
+            if watch.key == "mac-studio" else None
+        )
+        complete_mac_studio_config = bool(
+            o.chip and o.ram_gb is not None and o.ssd_gb is not None
+        )
+        if watch.key == "mac-studio" and not complete_mac_studio_config:
+            logging.info(
+                "[%s] filtered out unverified Mac Studio path %s",
+                watch.key, o.path,
+            )
+        elif expected_ultra_chip and o.chip != expected_ultra_chip:
+            logging.info(
+                "[%s] filtered out unverified Ultra path %s (expected %s, got %s)",
+                watch.key, o.path, expected_ultra_chip, o.chip or "?",
+            )
+        elif watch.matches(o):
             matched[o.path] = o
         else:
             logging.info("[%s] filtered out %s (%s, %s GB)",
@@ -904,7 +1071,7 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
 
     events: list[tuple[str, Offer, int | None]] = []
     for path, o in matched.items():
-        old = prev_offers.get(path)
+        old = previous_offer_for(o)
         if old is None or not old.get("matched"):
             events.append(("NEW", o, None))
         else:
@@ -966,11 +1133,14 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         logging.info("[%s] %s", watch.key, line)
 
         if kind == "NEW" and watch.key == "mac-studio" and not dry_run:
-            PHONE_ALERTS.append({
+            phone_alert = {
                 "model": o.label,
                 "price": o.price,
                 "url": o.url,
-            })
+            }
+            if is_mac_studio_ultra(o):
+                phone_alert["title"] = "Apple Silicon Ultra Mac Studio available"
+            PHONE_ALERTS.append(phone_alert)
 
         if not dry_run and notifications_left[0] > 0:
             notify(title, offer_label, message, url=o.url)
@@ -992,6 +1162,26 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         }
         for o in offers
     }
+    if not offers and direct_out_of_stock:
+        unavailable_slugs = {product_slug(path) for path in direct_out_of_stock}
+        for previous_path, previous in prev_offers.items():
+            if product_slug(previous_path) in unavailable_slugs:
+                continue
+            # Search returned nothing, so only the direct family's sold-out state
+            # is known. Preserve every unrelated offer as unknown rather than
+            # manufacturing future restock alerts.
+            new_offers[previous_path] = {**previous, "verification_unknown": True}
+    for path in direct_fetch_failed:
+        slug = product_slug(path)
+        if any(product_slug(current) == slug for current in new_offers):
+            continue
+        for previous_path, previous in prev_offers.items():
+            if product_slug(previous_path) != slug:
+                continue
+            # Unknown is not unavailable: preserve event continuity so a
+            # transient HTTP failure cannot manufacture a restock alert, but
+            # exclude the stale observation from lows and buy-now standings.
+            new_offers[previous_path] = {**previous, "verification_unknown": True}
 
     if not dry_run:
         state["watches"][watch.key] = {

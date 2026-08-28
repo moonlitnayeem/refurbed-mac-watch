@@ -6,7 +6,7 @@ current results to a permanent GitHub issue after every run.
 | Watch | What it looks for |
 |---|---|
 | `best-value-macs` | Any priced Mac with an **Apple M-series chip and at least 32 GB RAM**, ranked cheapest first |
-| `mac-studio` | Any purchasable Mac Studio |
+| `mac-studio` | Any purchasable Mac Studio, with a broad **Apple Silicon Ultra** search plus direct monitoring of the [2022 M1 Ultra family](https://www.refurbed.se/p/apple-mac-studio-2022-m1-ultra/) |
 | `apple-silicon-64-plus` | Any Apple-silicon Mac with **64 GB RAM or more**, including hidden RAM-selector configurations |
 
 The watcher runs on GitHub Actions. A free Cloudflare Worker triggers it every
@@ -77,7 +77,16 @@ price to the highest, with unknown prices shown last.
 The workflow sends Telegram messages containing the verified model, current
 price, and a clickable Refurbed link for two event types:
 
-- A Mac Studio newly appears or reappears in the `mac-studio` category.
+- A Mac Studio newly appears or reappears in the `mac-studio` category. This
+  existing behavior remains in place for Max and other chips. Every verified
+  `M1 Ultra`, `M2 Ultra`, `M3 Ultra`, or later Apple Silicon Ultra Mac Studio
+  gets the explicit Telegram title **Apple Silicon Ultra Mac Studio
+  available**. Every Mac Studio search card stays excluded until its product page
+  verifies chip, RAM, and SSD; Ultra cards additionally require the exact Ultra
+  generation. That prevents an error response from consuming the later real
+  alert. The watcher runs a broad `Apple Mac Studio Ultra` search and
+  directly polls the [2022 M1 Ultra product family](https://www.refurbed.se/p/apple-mac-studio-2022-m1-ultra/),
+  so that supplied family does not depend only on general-search ranking.
 - An exact **MacBook Pro · M2 Max · 64 GB RAM** offer becomes purchasable below
   **23,000 kr**. “Below” is strict: 22,999 kr qualifies, while 23,000 kr does
   not. A message is sent when an offer first appears below the threshold,
@@ -149,8 +158,17 @@ saved for future comparisons.
 
 **Search only lists purchasable offers.** A Mac Studio that's out of stock has
 a product page but does not appear in search results. So "a variant URL we
-haven't seen before" cleanly covers both a brand-new listing and a restock,
-with no need to poll product pages and parse Swedish availability strings.
+haven't seen before" normally covers both a brand-new listing and a restock.
+The supplied 2022 M1 Ultra family is deliberately stricter: its canonical page
+is polled directly on every run and qualifies only when a current product price
+is present and the chip, RAM, and SSD are all parsed and verified. A failed
+fetch, an unrecognized response, or a priced response without the exact verified
+`M1 Ultra` generation plus RAM and SSD is treated as unknown and preserves the
+last-known event state; it cannot manufacture a false restock alert or consume
+the later real alert. Only Refurbed's explicit out-of-stock text records
+unavailability; if search simultaneously returns zero results, unrelated saved
+offers remain unknown rather than being cleared and later misreported as
+restocks.
 
 **Search cards collapse alternate configurations.** Refurbed can show one
 representative variant for a whole product family while RAM, storage, color,
@@ -163,12 +181,20 @@ hardware; they must be fetched and verified independently. This is how
 configurations such as a 96 GB, 4 TB M2 Max become visible without assigning a
 64 GB Max configuration to a cheaper 16 GB Pro URL.
 
-**Identity is the variant URL, not the product name.** Result cards link to
-`/p/<product-slug>/<variant-id>/`. The card title is useless for filtering — it
-reads `Apple MacBook Pro 2023 M3 | 16.2"` whether that's an M3 Pro with 18 GB
-or an M3 Max with 64 GB.
+**Identity is normally the variant URL, not the product name.** Result cards
+link to `/p/<product-slug>/<variant-id>/`. The directly polled M1 Ultra family
+uses its canonical `/p/<product-slug>/` URL when no specific purchasable variant
+is returned by search; if both are present, the specific variant wins so the
+report and Telegram receive only one entry. Switching between those two source
+forms does not create a false availability event, while a genuinely second
+variant still does. The card title is useless for filtering — it reads `Apple
+MacBook Pro 2023 M3 | 16.2"` whether that's an M3 Pro with 18 GB or an M3 Max
+with 64 GB.
 
-**Config comes from the variant page `<title>`,** which is a structured string:
+**Config comes from the variant page `<title>`,** which is a structured string.
+The canonical M1 Ultra family currently uses a shorter SEO title, so its chip,
+RAM, and SSD are instead read from Refurbed's semantic `Processor`, `RAM-minne`,
+and `Minne` specification rows. A structured variant title looks like:
 
 ```
 Apple MacBook Pro 2023 M3 Apple M3 Max 16 Core 64.0 GB 2000 GB 16.2 " rymdsvart SE – refurbed
@@ -185,6 +211,9 @@ Pro configurations qualify too whenever Refurbed lists compatible hardware.
 **The Mac Studio search is mostly noise.** It returns Mac minis, a Mac Pro, an
 iMac and a Studio Display. Only results whose URL contains `apple-mac-studio`
 count — the Studio Display is the trap the name-based filter would fall into.
+The extra Ultra query is generation-independent, and an exact chip parser—not a
+fuzzy title check—requires `M<number> Ultra` before applying the dedicated Ultra
+Telegram label.
 
 ## State, and the 60-day rule
 
@@ -200,7 +229,7 @@ count — the Studio Display is the trap the name-based filter would fall into.
 python3 refurbed_watch.py --list      # what matches right now
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 81 tests, no network needed
+python3 -m unittest discover -v       # 100 tests, no network needed
 gh workflow run verify-price-proof.yml # one-off cloud cookie-free capture smoke test
 ```
 
@@ -242,7 +271,7 @@ matches=lambda o: is_max_or_ultra_64gb(o) and (o.price or 0) < 32000,
 ## Being a good citizen
 
 `robots.txt` on refurbed.se permits general crawling. This script identifies
-itself honestly in its `User-Agent`, leaves 3 seconds between requests, caches
+itself honestly in its `User-Agent`, leaves 2 seconds between requests, caches
 verified configuration data, and backs off exponentially on errors. The 64 GB+
 watch intentionally revisits representative and RAM-selector pages so newly
 available hidden configurations and their current prices can be discovered.
