@@ -928,18 +928,28 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     lines: list[str] = []
     offers_by_path: dict[str, Offer] = {}
     direct_fetch_failed: set[str] = set()
-    direct_out_of_stock: set[str] = set()
+    direct_out_of_stock: dict[str, Offer] = {}
+    search_fetch_incomplete = False
+    search_offer_count = 0
     for index, query in enumerate((watch.query, *watch.extra_queries)):
         page = fetch(search_url(query))
         if page is None:
-            if index == 0:
+            if index == 0 and not (watch.extra_queries or watch.direct_product_paths):
                 logging.error("[%s] search fetch failed; skipping this run", watch.key)
                 return [f"{watch.label}: fetch failed, skipped"]
-            logging.warning("[%s] extra search fetch failed for %r; continuing",
-                            watch.key, query)
+            if index == 0:
+                logging.warning(
+                    "[%s] primary search fetch failed; continuing auxiliary/direct discovery",
+                    watch.key,
+                )
+            else:
+                logging.warning("[%s] extra search fetch failed for %r; continuing",
+                                watch.key, query)
+            search_fetch_incomplete = True
             continue
 
         query_offers = parse_search_page(page)
+        search_offer_count += len(query_offers)
         logging.info("[%s] %d cards for query %r", watch.key, len(query_offers), query)
         for offer in query_offers:
             offers_by_path.setdefault(offer.path, offer)
@@ -952,24 +962,36 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
             continue
         offer = Offer(path=path)
         enrich_from_page(offer, page)
-        if offer.price is None:
-            if is_explicitly_out_of_stock(page):
-                direct_out_of_stock.add(path)
+        complete_config = bool(
+            offer.chip and offer.ram_gb is not None and offer.ssd_gb is not None
+        )
+        expected_ultra_chip = expected_ultra_chip_from_path(path)
+        verified_config = bool(
+            complete_config
+            and (not expected_ultra_chip or offer.chip == expected_ultra_chip)
+        )
+        if is_explicitly_out_of_stock(page):
+            if verified_config:
+                # Refurbed's explicit sold-out marker is authoritative even if
+                # stale price markup remains in the rendered document.
+                direct_out_of_stock[path] = offer
             else:
                 logging.warning(
-                    "[%s] direct product page has neither price nor out-of-stock marker: %s",
+                    "[%s] direct product page has no verified availability state: %s",
                     watch.key,
                     path,
                 )
                 direct_fetch_failed.add(path)
             continue
-        slug = product_slug(path)
-        complete_config = bool(
-            offer.chip and offer.ram_gb is not None and offer.ssd_gb is not None
-        )
-        expected_ultra_chip = expected_ultra_chip_from_path(path)
-        if (not complete_config
-                or (expected_ultra_chip and offer.chip != expected_ultra_chip)):
+        if offer.price is None:
+            logging.warning(
+                "[%s] direct product page has no verified availability state: %s",
+                watch.key,
+                path,
+            )
+            direct_fetch_failed.add(path)
+            continue
+        if not verified_config:
             logging.warning(
                 "[%s] direct product price lacks the expected verified configuration: %s",
                 watch.key,
@@ -977,13 +999,10 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
             )
             direct_fetch_failed.add(path)
             continue
-        # Prefer a specific purchasable variant discovered by search over the
-        # canonical family URL, so one physical family produces one report row
-        # and one Telegram notification.
-        if not any(
-            product_slug(existing_path) == slug for existing_path in offers_by_path
-        ):
-            offers_by_path[path] = offer
+        # Keep the canonical offer until every search result has been verified.
+        # A same-family variant is an alias only when its chip/RAM/storage also
+        # match; another configuration is a separate purchasable offer.
+        offers_by_path[path] = offer
 
     offers = list(offers_by_path.values())
 
@@ -1068,6 +1087,32 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         else:
             logging.info("[%s] filtered out %s (%s, %s GB)",
                          watch.key, o.path, o.chip or "?", o.ram_gb)
+
+    # Prefer an exact variant over its canonical family URL only when both
+    # describe the same verified hardware. Distinct same-family configurations
+    # remain separate rows and separate availability events.
+    exact_paths_by_identity: dict[tuple, list[str]] = {}
+    for path, offer in sorted(matched.items()):
+        if is_product_family_path(path):
+            continue
+        identity = (product_slug(path), offer.chip, offer.ram_gb, offer.ssd_gb)
+        exact_paths_by_identity.setdefault(identity, []).append(path)
+
+    canonical_alias_targets: dict[str, str] = {}
+    for path, offer in sorted(matched.items()):
+        if not is_product_family_path(path):
+            continue
+        identity = (product_slug(path), offer.chip, offer.ram_gb, offer.ssd_gb)
+        exact_paths = exact_paths_by_identity.get(identity, [])
+        if exact_paths:
+            # Persist which one exact offer consumed this canonical observation;
+            # this relation is needed if the canonical page is unknown later.
+            canonical_alias_targets[path] = exact_paths[0]
+
+    if canonical_alias_targets:
+        for path in canonical_alias_targets:
+            matched.pop(path, None)
+        offers = [o for o in offers if o.path not in canonical_alias_targets]
 
     events: list[tuple[str, Offer, int | None]] = []
     for path, o in matched.items():
@@ -1162,26 +1207,115 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         }
         for o in offers
     }
-    if not offers and direct_out_of_stock:
-        unavailable_slugs = {product_slug(path) for path in direct_out_of_stock}
-        for previous_path, previous in prev_offers.items():
-            if product_slug(previous_path) in unavailable_slugs:
-                continue
-            # Search returned nothing, so only the direct family's sold-out state
-            # is known. Preserve every unrelated offer as unknown rather than
-            # manufacturing future restock alerts.
-            new_offers[previous_path] = {**previous, "verification_unknown": True}
-    for path in direct_fetch_failed:
-        slug = product_slug(path)
-        if any(product_slug(current) == slug for current in new_offers):
+
+    aliases_by_target: dict[str, set[str]] = {}
+    for canonical_path, exact_path in canonical_alias_targets.items():
+        aliases_by_target.setdefault(exact_path, set()).add(canonical_path)
+    for current_path in new_offers:
+        previous_aliases = prev_offers.get(current_path, {}).get(
+            "canonical_aliases", []
+        )
+        for canonical_path in previous_aliases:
+            if canonical_path in direct_fetch_failed:
+                aliases_by_target.setdefault(current_path, set()).add(
+                    canonical_path
+                )
+    for exact_path, canonical_paths in aliases_by_target.items():
+        if exact_path in new_offers:
+            new_offers[exact_path]["canonical_aliases"] = sorted(canonical_paths)
+
+    known_unavailable_previous: set[str] = set()
+    for direct_path, direct_offer in direct_out_of_stock.items():
+        if direct_path in prev_offers:
+            known_unavailable_previous.add(direct_path)
             continue
+        direct_identity = (
+            product_slug(direct_path),
+            direct_offer.chip,
+            direct_offer.ram_gb,
+            direct_offer.ssd_gb,
+        )
         for previous_path, previous in prev_offers.items():
-            if product_slug(previous_path) != slug:
+            if previous_path in known_unavailable_previous:
                 continue
-            # Unknown is not unavailable: preserve event continuity so a
-            # transient HTTP failure cannot manufacture a restock alert, but
-            # exclude the stale observation from lows and buy-now standings.
+            if not (is_product_family_path(direct_path)
+                    or is_product_family_path(previous_path)):
+                continue
+            previous_identity = (
+                product_slug(previous_path),
+                previous.get("chip", ""),
+                previous.get("ram_gb"),
+                previous.get("ssd_gb"),
+            )
+            if previous.get("matched") and previous_identity == direct_identity:
+                # One canonical observation can establish unavailability for one
+                # exact alias, never for every same-family variant.
+                known_unavailable_previous.add(previous_path)
+                break
+
+    if (search_fetch_incomplete
+            or (search_offer_count == 0 and prev_offers)):
+        for previous_path, previous in prev_offers.items():
+            if (previous_path in new_offers
+                    or previous_path in known_unavailable_previous
+                    or previous_path in consumed_previous_aliases):
+                continue
+            # A failed auxiliary query or a zero-result search establishes no
+            # availability state for missing offers. Preserve continuity while
+            # excluding the stale observation from lows and buy-now standings.
             new_offers[previous_path] = {**previous, "verification_unknown": True}
+
+    for path in direct_fetch_failed:
+        if path in new_offers:
+            continue
+
+        # The canonical family may have been intentionally collapsed into one
+        # exact verified offer on a prior run. Preserve that exact alias when the
+        # canonical response is now unknown, even if unrelated search cards kept
+        # the search result non-empty.
+        persisted_alias = next(
+            (
+                (previous_path, previous)
+                for previous_path, previous in sorted(prev_offers.items())
+                if previous.get("matched")
+                and path in previous.get("canonical_aliases", [])
+            ),
+            None,
+        )
+        if persisted_alias is not None:
+            previous_path, previous = persisted_alias
+            if previous_path not in new_offers:
+                new_offers[previous_path] = {
+                    **previous,
+                    "verification_unknown": True,
+                }
+            continue
+
+        previous = prev_offers.get(path)
+        if previous is not None:
+            previous_identity = (
+                product_slug(path),
+                previous.get("chip", ""),
+                previous.get("ram_gb"),
+                previous.get("ssd_gb"),
+            )
+            verified_alias_present = any(
+                current.get("matched")
+                and (is_product_family_path(path)
+                     or is_product_family_path(current_path))
+                and (
+                    product_slug(current_path),
+                    current.get("chip", ""),
+                    current.get("ram_gb"),
+                    current.get("ssd_gb"),
+                ) == previous_identity
+                for current_path, current in new_offers.items()
+            )
+            if verified_alias_present:
+                continue
+            # Unknown is not unavailable: preserve the exact direct observation,
+            # but do not conflate every same-family variant with it.
+            new_offers[path] = {**previous, "verification_unknown": True}
 
     if not dry_run:
         state["watches"][watch.key] = {
@@ -1346,19 +1480,32 @@ def main() -> int:
         return 0
 
     if args.list:
+        # Use the same discovery and verification path as scheduled runs so the
+        # listing includes auxiliary queries, direct products, hidden variants,
+        # and the same canonical/exact deduplication rules.
+        list_state = {"version": 2, "watches": {}, "price_lows": {}}
+        list_lines: list[str] = []
         for w in WATCHES:
-            page = fetch(search_url(w.query))
-            if page is None:
-                print(f"\n{w.label}: fetch failed")
-                continue
-            offers = parse_search_page(page)
-            print(f"\n{w.label}  ({len(offers)} raw results for {w.query!r})")
-            for o in offers:
-                if w.needs_config:
-                    enrich(o)
-                mark = "OK " if w.matches(o) else "no "
-                print(f"  {mark} {fmt_kr(o.price):>12}  {o.label}")
-                print(f"       {o.url}")
+            try:
+                list_lines += run_watch(
+                    w,
+                    list_state,
+                    dry_run=True,
+                    notifications_left=[0],
+                )
+            except Exception as e:  # noqa: BLE001 - list every healthy watch
+                logging.exception("[%s] unhandled list error: %s", w.key, e)
+                list_lines.append(f"{w.label}: error ({e})")
+        _, standings_md = build_report(list_lines)
+        status = [
+            line for line in list_lines
+            if not line.startswith("__STANDINGS__")
+            and not line.startswith("__ITEM__")
+        ]
+        for line in status:
+            print(line)
+        if standings_md:
+            print("\n" + standings_md)
         return 0
 
     state = load_state(state_path)

@@ -160,15 +160,19 @@ saved for future comparisons.
 a product page but does not appear in search results. So "a variant URL we
 haven't seen before" normally covers both a brand-new listing and a restock.
 The supplied 2022 M1 Ultra family is deliberately stricter: its canonical page
-is polled directly on every run and qualifies only when a current product price
-is present and the chip, RAM, and SSD are all parsed and verified. A failed
-fetch, an unrecognized response, or a priced response without the exact verified
+is polled directly on every run—even if the primary Mac Studio search fails—and
+qualifies only when a current product price is present and the chip, RAM, and SSD
+are all parsed and verified. A failed fetch, an unrecognized response, or a
+priced response without the exact verified
 `M1 Ultra` generation plus RAM and SSD is treated as unknown and preserves the
 last-known event state; it cannot manufacture a false restock alert or consume
-the later real alert. Only Refurbed's explicit out-of-stock text records
-unavailability; if search simultaneously returns zero results, unrelated saved
-offers remain unknown rather than being cleared and later misreported as
-restocks.
+the later real alert. A failed auxiliary search likewise preserves offers missing
+from that partial result as unknown until every query succeeds again. Only
+Refurbed's explicit out-of-stock text records unavailability and takes precedence
+over any stale price node left in the rendered page; it applies to the canonical
+configuration or one verified exact alias—not every same-family variant. If
+search simultaneously returns zero results, other saved configurations remain
+unknown rather than being cleared and later misreported as restocks.
 
 **Search cards collapse alternate configurations.** Refurbed can show one
 representative variant for a whole product family while RAM, storage, color,
@@ -184,10 +188,16 @@ configurations such as a 96 GB, 4 TB M2 Max become visible without assigning a
 **Identity is normally the variant URL, not the product name.** Result cards
 link to `/p/<product-slug>/<variant-id>/`. The directly polled M1 Ultra family
 uses its canonical `/p/<product-slug>/` URL when no specific purchasable variant
-is returned by search; if both are present, the specific variant wins so the
-report and Telegram receive only one entry. Switching between those two source
-forms does not create a false availability event, while a genuinely second
-variant still does. The card title is useless for filtering — it reads `Apple
+is returned by search; if both contain the same verified chip, RAM, and SSD, the
+specific variant wins so the report and Telegram receive only one entry. A
+same-family variant with a different verified configuration remains a separate
+row and availability event. Switching between canonical and one matching exact
+variant does not create a false availability or duplicate price-drop event—even
+if an auxiliary search or the canonical fetch fails during that switch. The
+one-to-one canonical-to-exact relation is persisted so a later unverified
+canonical response preserves the correct exact alias as unknown; a genuinely
+second variant still remains independent. The card title is useless for filtering —
+it reads `Apple
 MacBook Pro 2023 M3 | 16.2"` whether that's an M3 Pro with 18 GB or an M3 Max
 with 64 GB.
 
@@ -226,12 +236,16 @@ Telegram label.
 ## Everyday use
 
 ```bash
-python3 refurbed_watch.py --list      # what matches right now
+python3 refurbed_watch.py --list      # full verified current standings; no writes/alerts
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 100 tests, no network needed
+python3 -m unittest discover -v       # 111 tests, no network needed
 gh workflow run verify-price-proof.yml # one-off cloud cookie-free capture smoke test
 ```
+
+`--list` uses the same primary searches, auxiliary Ultra searches, direct product
+polls, hidden-variant discovery, verification, and canonical/exact deduplication
+as a scheduled run; it only skips state writes and notifications.
 
 The script also runs locally on macOS with native notifications
 (`--notify macos`), if you ever want that again.
