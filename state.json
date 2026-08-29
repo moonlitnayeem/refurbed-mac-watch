@@ -259,7 +259,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-08-29T05:55:16Z",
+      "checked_at": "2026-08-29T06:10:41Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -371,17 +371,6 @@
           "ram_gb": 128.0,
           "ssd_gb": 1000.0,
           "was_price": 67795
-        },
-        "/p/apple-imac-pro-2017-27/181214/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "iMac Pro 2017 27\" - Rekonditionerad Apple Dator",
-          "matched": false,
-          "name": "Apple iMac Pro 2017 | 27",
-          "price": 13075,
-          "ram_gb": 32.0,
-          "ssd_gb": 1000.0,
-          "was_price": 40006
         },
         "/p/apple-mac-mini-2018/109947b/": {
           "badge": null,
@@ -570,13 +559,13 @@
           "ssd_gb": 256.0,
           "was_price": 16662
         },
-        "/p/apple-macbook-air-m4-2025/307981c/": {
+        "/p/apple-macbook-air-m4-2025/308006b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 13.6 \" Midnatt SE (Svensk)",
+          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 13.6 \" Polstjärnan DE (Tysk)",
           "matched": false,
           "name": "Apple MacBook Air 2025 | 13.6",
-          "price": 12265,
+          "price": 12345,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 13327
@@ -2006,7 +1995,18 @@
           "config": "Apple iPad 10 (2022) 64 GB 10.9 \" silver 4.0 GB",
           "matched": false,
           "name": "",
-          "price": 4565,
+          "price": 4699,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-10-10-9-2022/56341b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad 10 (2022) 64 GB 10.9 \" silver 4.0 GB",
+          "matched": false,
+          "name": "",
+          "price": 5525,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2356,7 +2356,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-08-29T05:45:48Z",
+      "checked_at": "2026-08-29T06:00:56Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -2479,17 +2479,6 @@
           "ram_gb": null,
           "ssd_gb": null,
           "was_price": 67795
-        },
-        "/p/apple-imac-pro-2017-27/32018/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "iMac Pro 2017 27\" - Rekonditionerad Apple Dator",
-          "matched": false,
-          "name": "Apple iMac Pro 2017 | 27",
-          "price": 13829,
-          "ram_gb": null,
-          "ssd_gb": null,
-          "was_price": 40006
         },
         "/p/apple-ipad-2017/953c/": {
           "badge": null,
@@ -2832,6 +2821,17 @@
           "ssd_gb": 2.0,
           "was_price": 4546
         },
+        "/p/ipad-mini-4/2533/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2015) 32 GB 7.9 \" rymdgrå 2.0 GB",
+          "matched": false,
+          "name": "iPad mini (2015) | 7.9",
+          "price": 1879,
+          "ram_gb": 32.0,
+          "ssd_gb": 2.0,
+          "was_price": 4546
+        },
         "/p/ipad-pro-9-7-2016/134b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
@@ -2891,7 +2891,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-08-29T05:45:56Z",
+      "checked_at": "2026-08-29T06:01:05Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-airpods-max-2-2026/428332aa/": {
