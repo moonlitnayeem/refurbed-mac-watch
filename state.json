@@ -315,7 +315,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-08-31T14:24:44Z",
+      "checked_at": "2026-08-31T14:40:06Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -443,6 +443,20 @@
           "ssd_gb": 1000.0,
           "was_price": 67757
         },
+        "/p/apple-mac-mini-2018/109947b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple Mac Mini 2018 - Rekonditionerad Dator",
+          "discovery_parent_paths": [
+            "/p/apple-mac-mini-2018/109949b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 8875,
+          "ram_gb": 32.0,
+          "ssd_gb": 2000.0,
+          "was_price": null
+        },
         "/p/apple-mac-mini-2018/109949b/": {
           "badge": null,
           "chip": "",
@@ -534,6 +548,17 @@
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": 9432
+        },
+        "/p/apple-mac-mini-2024-m4/273542/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M4",
+          "config": "Mac Mini 2024 M4 - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2024 M4",
+          "price": 9815,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 10543
         },
         "/p/apple-mac-mini-2024-m4/273548aa/": {
           "badge": null,
@@ -2330,20 +2355,6 @@
           "ssd_gb": 1000.0,
           "was_price": 26874
         },
-        "/p/apple-macbook-pro-2025-m5-14/368550b/": {
-          "badge": null,
-          "chip": "M5",
-          "config": "Apple MacBook Pro 2025 M5 Apple M5 10 Core 16.0 GB 1000 GB 14.2 \" silver DE (Tysk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2025-m5-14/368287b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 20779,
-          "ram_gb": 16.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
         "/p/apple-macbook-pro-2026-m5-max-18-32-16/422731/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M5 Max",
@@ -2354,6 +2365,20 @@
           "ram_gb": 36.0,
           "ssd_gb": 2000.0,
           "was_price": 56647
+        },
+        "/p/apple-macbook-pro-2026-m5-max-18-32-16/422891/": {
+          "badge": null,
+          "chip": "M5 Max",
+          "config": "Apple MacBook Pro 2026 M5 Max 18-Core CPU Apple M5 Max 18 Core 36.0 GB 2000 GB 16.2 \" rymdsvart DE (Tysk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2026-m5-max-18-32-16/422731/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 43399,
+          "ram_gb": 36.0,
+          "ssd_gb": 2000.0,
+          "was_price": null
         },
         "/p/apple-macbook-pro-2026-m5-max-18-40-16/423030aa/": {
           "badge": "Bara ett fåtal kvar",
@@ -2789,46 +2814,76 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/ipad-pro-10-5-2017/1375/": {
+        "/p/ipad-pro-10-5-2017/1312/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" guld 4.0 GB",
+          "config": "Apple iPad Pro (2017) 256 GB 10.5 \" rymdgrå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-pro-10-5-2017/1375b/",
-            "/p/ipad-pro-10-5-2017/1375c/"
+            "/p/ipad-pro-10-5-2017/1375/"
           ],
           "matched": false,
           "name": "",
-          "price": 2625,
-          "ram_gb": 64.0,
+          "price": 3685,
+          "ram_gb": 256.0,
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/ipad-pro-10-5-2017/1375b/": {
+        "/p/ipad-pro-10-5-2017/1375/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad Pro (2017) 64 GB 10.5 \" guld 4.0 GB",
           "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/1375/",
             "/p/ipad-pro-10-5-2017/1375b/",
             "/p/ipad-pro-10-5-2017/1375c/"
           ],
           "matched": false,
           "name": "iPad Pro (2017) | 10.5",
-          "price": 2515,
+          "price": 2625,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 7765
         },
-        "/p/ipad-pro-10-5-2017/2165b/": {
+        "/p/ipad-pro-10-5-2017/1375b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" guld 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/1375/",
+            "/p/ipad-pro-10-5-2017/1375b/",
+            "/p/ipad-pro-10-5-2017/1375c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2405,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-10-5-2017/1375c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" guld 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/1375/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2435,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-10-5-2017/2165/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Pro (2017) 64 GB 10.5 \" silver 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-pro-10-5-2017/1375b/"
+            "/p/ipad-pro-10-5-2017/1375/"
           ],
           "matched": false,
           "name": "",
-          "price": 3399,
+          "price": 3369,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2993,7 +3048,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-08-31T14:15:58Z",
+      "checked_at": "2026-08-31T14:31:00Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3073,16 +3128,16 @@
           "ssd_gb": 1000.0,
           "was_price": 34428
         },
-        "/p/apple-imac-5k-2019-27/67666/": {
+        "/p/apple-imac-5k-2019-27/67668/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "iMac 5K 2019 27\" - Rekonditionerad Apple Dator",
           "matched": false,
           "name": "Apple iMac 5K 2019 | 27",
-          "price": 15339,
+          "price": 13479,
           "ram_gb": 32.0,
-          "ssd_gb": 3000.0,
-          "was_price": 36317
+          "ssd_gb": 512.0,
+          "was_price": 35539
         },
         "/p/apple-imac-5k-2020-27/181749/": {
           "badge": "Bara ett fåtal kvar",
@@ -3546,6 +3601,17 @@
           "ssd_gb": 128.0,
           "was_price": 15542
         },
+        "/p/macbook-pro-2019-154-tb/112210/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple MacBook Pro 2019 Intel Core i7-9750H 32.0 GB 256 GB 15.4 \" rymdgrå US (US-engelska)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2019 | 15.4",
+          "price": 5239,
+          "ram_gb": 32.0,
+          "ssd_gb": 256.0,
+          "was_price": 35539
+        },
         "/p/macbook-pro-2019-154-tb/208514c/": {
           "badge": null,
           "chip": "",
@@ -3556,23 +3622,12 @@
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 37761
-        },
-        "/p/macbook-pro-2019-154-tb/50441c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i9-9980HK 32.0 GB 512 GB 15.4 \" rymdgrå IT (Italiensk)",
-          "matched": false,
-          "name": "Apple MacBook Pro 2019 | 15.4",
-          "price": 5605,
-          "ram_gb": 32.0,
-          "ssd_gb": 512.0,
-          "was_price": 56647
         }
       },
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-08-31T14:16:08Z",
+      "checked_at": "2026-08-31T14:31:10Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-airpods-max-2-2026/428332aa/": {
