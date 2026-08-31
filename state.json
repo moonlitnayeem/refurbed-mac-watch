@@ -329,7 +329,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-08-31T16:11:40Z",
+      "checked_at": "2026-08-31T16:25:13Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -773,7 +773,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 16",
-          "price": 8925,
+          "price": 8949,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": 55537
@@ -1109,6 +1109,20 @@
           "price": 19219,
           "ram_gb": 32.0,
           "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2022-m2-13-tb/127598c/": {
+          "badge": null,
+          "chip": "M2",
+          "config": "Apple MacBook Pro 2022 M2 Apple M2 8 Core 16.0 GB 512 GB 13.3 \" silver UK (UK-engelska)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2022-m2-13-tb/179791b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 10525,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
           "was_price": null
         },
         "/p/apple-macbook-pro-2022-m2-13-tb/179791b/": {
@@ -2889,33 +2903,48 @@
           "ssd_gb": 4.0,
           "was_price": 6099
         },
-        "/p/ipad-pro-10-5-2017/1375c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" guld 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-pro-10-5-2017/1375c/"
-          ],
-          "matched": false,
-          "name": "iPad Pro (2017) | 10.5",
-          "price": 2519,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": 7765
-        },
-        "/p/ipad-pro-10-5-2017/2165c/": {
+        "/p/ipad-pro-10-5-2017/2165/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Pro (2017) 64 GB 10.5 \" silver 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-pro-10-5-2017/1375c/"
+            "/p/ipad-pro-10-5-2017/2165c/"
           ],
           "matched": false,
           "name": "",
-          "price": 2925,
+          "price": 3369,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
+        },
+        "/p/ipad-pro-10-5-2017/2165b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" silver 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/2165c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3399,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-10-5-2017/2165c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" silver 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/1375c/",
+            "/p/ipad-pro-10-5-2017/2165c/"
+          ],
+          "matched": false,
+          "name": "iPad Pro (2017) | 10.5",
+          "price": 2925,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": 7765
         },
         "/p/ipad-pro-11-0-2018/3656/": {
           "badge": "Bara ett fåtal kvar",
@@ -3010,7 +3039,7 @@
           ],
           "matched": false,
           "name": "iPad Pro (2018) | 12.9",
-          "price": 5125,
+          "price": 5279,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 14098
@@ -3161,7 +3190,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-08-31T16:01:07Z",
+      "checked_at": "2026-08-31T16:16:00Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3291,7 +3320,7 @@
           "config": "Apple iPad 5 (2017) 32 GB 9.7 \" grå 2.0 GB",
           "matched": false,
           "name": "iPad 5 (2017) | 9.7",
-          "price": 1299,
+          "price": 3877,
           "ram_gb": 32.0,
           "ssd_gb": 2.0,
           "was_price": null
@@ -3429,7 +3458,7 @@
           "was_price": 35539
         },
         "/p/apple-macbook-pro-2020-133-tb/97271c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple MacBook Pro 2020 Intel Core i7-1068NG7 32.0 GB 512 GB 13.3 \" silver SE (Svensk)",
           "matched": false,
@@ -3483,16 +3512,16 @@
           "ssd_gb": 512.0,
           "was_price": 35984
         },
-        "/p/apple-macbook-pro-2023-m2-14/172990b/": {
+        "/p/apple-macbook-pro-2023-m2-14/213369c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2 Pro",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 32.0 GB 1000 GB 14.2 \" rymdgrå US (US-engelska)",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 32.0 GB 1000 GB 14.2 \" silver UK (UK-engelska)",
           "matched": true,
           "name": "Apple MacBook Pro 2023 M2 | 14.2",
-          "price": 19689,
+          "price": 18635,
           "ram_gb": 32.0,
           "ssd_gb": 1000.0,
-          "was_price": 37983
+          "was_price": 39983
         },
         "/p/apple-macbook-pro-2023-m2-14/354870c/": {
           "badge": "Bara ett fåtal kvar",
@@ -3729,21 +3758,9 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-08-31T16:01:19Z",
+      "checked_at": "2026-08-31T16:16:09Z",
       "label": "Mac Studio",
       "offers": {
-        "/p/apple-airpods-max-2-2026/428332aa/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple AirPods Max 2 2026 | Polstjärna | 5 845 kr | Nu med en 30 dagars provperiod",
-          "matched": false,
-          "name": "Apple AirPods Max 2 2026",
-          "price": 5849,
-          "ram_gb": null,
-          "ssd_gb": null,
-          "verification_unknown": true,
-          "was_price": 6423
-        },
         "/p/apple-imac-2021-m1-24/182387/": {
           "badge": null,
           "chip": "M1",
