@@ -7,7 +7,7 @@ current results to a permanent GitHub issue after every run.
 |---|---|
 | `best-value-macs` | Any priced Mac with an **Apple M-series chip and at least 32 GB RAM**, ranked cheapest first |
 | `mac-studio` | Any purchasable Mac Studio, with a broad **Apple Silicon Ultra** search plus direct monitoring of the [2022 M1 Ultra family](https://www.refurbed.se/p/apple-mac-studio-2022-m1-ultra/) |
-| `apple-silicon-64-plus` | Any Apple-silicon Mac with **64 GB RAM or more**, including hidden RAM-selector configurations |
+| `apple-silicon-64-plus` | Any Apple-silicon Mac with **64 GB RAM or more**, including hidden RAM-selector configurations and a targeted MacBook Pro Max search |
 
 The watcher runs on GitHub Actions. A free Cloudflare Worker triggers it every
 15 minutes because GitHub's native scheduled events can be delayed or dropped.
@@ -75,7 +75,7 @@ price to the highest, with unknown prices shown last.
 ### Actionable Telegram alerts
 
 The workflow sends Telegram messages containing the verified model, current
-price, and a clickable Refurbed link for two event types:
+price, and a clickable Refurbed link for three event types:
 
 - A Mac Studio newly appears or reappears in the `mac-studio` category. This
   existing behavior remains in place for Max and other chips. Every verified
@@ -95,6 +95,18 @@ price, and a clickable Refurbed link for two event types:
   repeat the same phone alert every 15 minutes. This dedicated alert is exact
   to 64 GB; the broader report still includes every Apple-silicon Mac with
   64 GB or more.
+- Any verified **MacBook Pro** with an exact `M<number> Max` chip, **64 GB RAM
+  or more**, and a current price strictly below **18,000 kr**. This accepts M1
+  Max, M2 Max, M3 Max, later Max generations, and higher-memory configurations;
+  it rejects Pro/Ultra chips, non-MacBook-Pro products, 63 GB or less, and
+  18,000 kr exactly. A dedicated `Apple MacBook Pro Max 64 GB` query supplements
+  the broad 64 GB searches and hidden RAM-selector discovery. The alert fires
+  when a qualifying offer appears or reappears, crosses below 18,000 kr, or is
+  already qualifying when this rule is first deployed. Qualification is stored
+  per offer so unchanged listings stay silent afterward, including through an
+  unknown/fetch-failure interval. If an exact M2 Max/64 GB offer satisfies both
+  thresholds in the same run, Telegram sends only the more actionable 18,000 kr
+  alert rather than two messages for one listing.
 
 The first watcher run remains a silent baseline, and unchanged listings are not
 messaged repeatedly.
@@ -183,7 +195,21 @@ storage/color/keyboard variants. Options inside Refurbed's “available in other
 configurations” groups are never cloned as though they preserve the selected
 hardware; they must be fetched and verified independently. This is how
 configurations such as a 96 GB, 4 TB M2 Max become visible without assigning a
-64 GB Max configuration to a cheaper 16 GB Pro URL.
+64 GB Max configuration to a cheaper 16 GB Pro URL. If a representative page or
+selector destination fails to load, or returns a malformed configuration, prior
+hidden offers are preserved as verification-unknown and excluded from current
+buy-now and historical-low processing. That continuity is scoped by product slug
+and persisted parent-to-descendant selector relationships, so a cross-slug hidden
+descendant remains unknown without masking another product family's healthy
+disappearance. Selector-derived exact offers must expose their own current
+product-page price; projected selector prices cannot qualify an alert by
+themselves. A semantically verified explicit out-of-stock marker is known
+unavailability and overrides stale price markup on that exact path; exact
+siblings that were discoverable only through that now-sold-out representative
+or hidden destination remain verification-unknown until re-observed, without
+masking another product family's healthy disappearance. A successfully verified
+selector page that no longer exposes a variant still records a real
+disappearance, so a later verified reappearance can alert again.
 
 **Identity is normally the variant URL, not the product name.** Result cards
 link to `/p/<product-slug>/<variant-id>/`. The directly polled M1 Ultra family
@@ -239,7 +265,7 @@ Telegram label.
 python3 refurbed_watch.py --list      # full verified current standings; no writes/alerts
 python3 refurbed_watch.py --dry-run   # check without saving or notifying
 python3 refurbed_watch.py --reset     # forget state, re-baseline next run
-python3 -m unittest discover -v       # 111 tests, no network needed
+python3 -m unittest discover -v       # 130 tests, no network needed
 gh workflow run verify-price-proof.yml # one-off cloud cookie-free capture smoke test
 ```
 

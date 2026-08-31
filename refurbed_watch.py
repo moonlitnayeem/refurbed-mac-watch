@@ -48,7 +48,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
@@ -76,8 +76,12 @@ MAX_NOTIFICATIONS_PER_RUN = 8
 # qualifies automatically.
 DEAL_PRICE_TOLERANCE_KR = 1000
 
-# Dedicated Telegram threshold requested for an exact MacBook Pro config.
+# Dedicated Telegram thresholds for verified MacBook Pro configurations.
 M2_MAX_64GB_ALERT_THRESHOLD_KR = 23_000
+M_SERIES_MAX_64GB_PLUS_ALERT_THRESHOLD_KR = 18_000
+M_SERIES_MAX_64GB_PLUS_ALERT_RULE = (
+    "m-series-max-macbook-pro-64gb-plus-under-18000"
+)
 
 # Filled by notify(); main() turns this into the GitHub issue body.
 COLLECTED_ALERTS: list[dict] = []
@@ -116,6 +120,16 @@ CHIP_RE = re.compile(
     r"Apple\s+(M\d+)(?:\s+(Pro|Max|Ultra))?(?:\s+\d+\s+Core)?"
 )
 GB_RE = re.compile(r"(\d+(?:\.\d+)?)\s*GB")
+MAC_PRODUCT_PATH_PREFIXES = (
+    "/p/apple-macbook-",
+    "/p/apple-mac-mini-",
+    "/p/apple-mac-studio-",
+    "/p/apple-imac-",
+    "/p/apple-mac-pro-",
+)
+PRODUCT_PAGE_AVAILABLE = "available"
+PRODUCT_PAGE_UNAVAILABLE = "unavailable"
+PRODUCT_PAGE_UNKNOWN = "unknown"
 
 
 @dataclass
@@ -131,6 +145,7 @@ class Offer:
     ram_gb: float | None = None
     ssd_gb: float | None = None
     needs_verification: bool = False  # selector-derived path; fetch exact page
+    discovery_parent_paths: set[str] = field(default_factory=set)
 
     @property
     def url(self) -> str:
@@ -401,14 +416,7 @@ def is_best_value_mac(o: Offer) -> bool:
 
 def is_apple_silicon_mac(o: Offer, min_ram_gb: float) -> bool:
     """A Mac-family product with an M-series chip and the requested RAM."""
-    mac_slugs = (
-        "/p/apple-macbook-",
-        "/p/apple-mac-mini-",
-        "/p/apple-mac-studio-",
-        "/p/apple-imac-",
-        "/p/apple-mac-pro-",
-    )
-    is_mac = o.path.startswith(mac_slugs)
+    is_mac = o.path.startswith(MAC_PRODUCT_PATH_PREFIXES)
     is_apple_silicon = bool(re.fullmatch(r"M[1-9]\d*(?: (?:Pro|Max|Ultra))?", o.chip))
     return bool(is_mac and is_apple_silicon and (o.ram_gb or 0) >= min_ram_gb)
 
@@ -427,6 +435,18 @@ def is_m2_max_64gb_under_threshold(o: Offer) -> bool:
         and abs(o.ram_gb - 64.0) <= 0.01
         and o.price is not None
         and o.price < M2_MAX_64GB_ALERT_THRESHOLD_KR
+    )
+
+
+def is_m_series_max_macbook_pro_64gb_plus_under_threshold(o: Offer) -> bool:
+    """Any M-series Max MacBook Pro with 64 GB+ below the alert level."""
+    return bool(
+        o.path.startswith("/p/apple-macbook-pro-")
+        and re.fullmatch(r"M[1-9]\d* Max", o.chip)
+        and o.ram_gb is not None
+        and o.ram_gb >= 64
+        and o.price is not None
+        and o.price < M_SERIES_MAX_64GB_PLUS_ALERT_THRESHOLD_KR
     )
 
 
@@ -478,6 +498,7 @@ WATCHES: list[Watch] = [
         discover_ram_variants=True,
         offer_label=best_value_offer_label,
         extra_queries=(
+            "Apple MacBook Pro Max 64 GB",
             "Apple MacBook 64 GB",
             "Apple Mac mini 64 GB",
             "Apple Mac Studio 64 GB",
@@ -869,47 +890,155 @@ def build_buy_now_lines(state: dict, tolerance_kr: int = DEAL_PRICE_TOLERANCE_KR
 # Core
 # --------------------------------------------------------------------------
 
-def enrich_from_page(offer: Offer, page: str) -> None:
+def enrich_from_page(offer: Offer, page: str) -> int | None:
     """Fill configuration and selected-offer price from a product page."""
     offer.config, offer.chip, offer.ram_gb, offer.ssd_gb = parse_variant_title(page)
     product_price = parse_product_price(page)
     if product_price is not None:
         offer.price = product_price
+    return product_price
 
 
-def enrich(offer: Offer) -> None:
-    """Fill in chip / RAM / SSD from the variant page."""
+def mac_model_pattern_from_path(path: str) -> str | None:
+    """Return the Mac model name that a product slug must describe."""
+    slug = product_slug(path) or ""
+    model_patterns = (
+        ("apple-macbook-pro-", r"\bmacbook\s+pro\b"),
+        ("apple-macbook-air-", r"\bmacbook\s+air\b"),
+        ("apple-macbook-", r"\bmacbook\b"),
+        ("apple-mac-mini-", r"\bmac\s+mini\b"),
+        ("apple-mac-studio-", r"\bmac\s+studio\b"),
+        ("apple-imac-pro-", r"\bimac\s+pro\b"),
+        ("apple-imac-", r"\bimac\b"),
+        ("apple-mac-pro-", r"\bmac\s+pro\b"),
+    )
+    return next(
+        (pattern for prefix, pattern in model_patterns if slug.startswith(prefix)),
+        None,
+    )
+
+
+def has_complete_variant_configuration(offer: Offer) -> bool:
+    """Whether model, processor class, RAM, and storage are semantically verified."""
+    if not (offer.config and offer.ram_gb is not None and offer.ssd_gb is not None):
+        return False
+
+    model_pattern = mac_model_pattern_from_path(offer.path)
+    if model_pattern is None:
+        return True
+    if not re.search(model_pattern, offer.config, flags=re.IGNORECASE):
+        return False
+
+    slug = product_slug(offer.path) or ""
+    expected_generation = re.search(
+        r"(?:^|-)(m[1-9]\d*)(?:-|$)", slug, flags=re.IGNORECASE
+    )
+    if expected_generation:
+        return bool(
+            offer.chip
+            and offer.chip.split()[0].lower() == expected_generation.group(1).lower()
+        )
+    if offer.chip:
+        return True
+
+    # Refurbed's legacy Intel titles sometimes omit the processor entirely
+    # (for example "Apple Mac Mini 2018"). Those are verified non-targets, not
+    # malformed M-series pages. M-series slugs encode their generation above.
+    if re.search(r"\b(?:intel|xeon)\b", offer.config, flags=re.IGNORECASE):
+        return True
+    model_year = re.search(r"(?:^|-)((?:19|20)\d{2})(?:-|$)", slug)
+    return bool(
+        model_year
+        and int(model_year.group(1)) <= 2020
+        and not slug.startswith("apple-mac-studio-")
+    )
+
+
+def verify_product_page(offer: Offer, page: str,
+                        require_product_price: bool = False) -> str:
+    """Classify one fetched page as available, explicitly unavailable, or unknown."""
+    product_price = enrich_from_page(offer, page)
+    if not has_complete_variant_configuration(offer):
+        return PRODUCT_PAGE_UNKNOWN
+    if is_explicitly_out_of_stock(page):
+        return PRODUCT_PAGE_UNAVAILABLE
+    if require_product_price and product_price is None:
+        return PRODUCT_PAGE_UNKNOWN
+    return PRODUCT_PAGE_AVAILABLE
+
+
+def enrich(offer: Offer, require_product_price: bool = False) -> str:
+    """Fetch and classify a variant page without conflating unknown with sold out."""
     page = fetch(offer.url)
-    if page is not None:
-        enrich_from_page(offer, page)
+    if page is None:
+        return PRODUCT_PAGE_UNKNOWN
+    return verify_product_page(offer, page, require_product_price)
 
 
-def discover_hidden_ram_variants(offers_by_path: dict[str, Offer]) -> None:
-    """Follow RAM dropdowns from one search result per product family."""
+def discover_hidden_ram_variants(
+        offers_by_path: dict[str, Offer],
+) -> tuple[bool, set[str], set[str], set[str]]:
+    """Follow RAM dropdowns; return global/scoped unknowns and sold-out paths."""
     representatives: dict[str, Offer] = {}
     for offer in offers_by_path.values():
         parts = offer.path.strip("/").split("/")
         if len(parts) >= 3:
             representatives.setdefault(parts[1], offer)
 
+    search_paths = set(offers_by_path)
     pages: dict[str, str] = {}
     hidden_paths: set[str] = set()
+    unavailable_paths: set[str] = set()
+    incomplete_product_slugs: set[str] = set()
+    incomplete_paths: set[str] = set()
+    discovery_incomplete = False
+
+    def mark_product_incomplete(path: str) -> None:
+        """Preserve unknown continuity only within the failed product family."""
+        nonlocal discovery_incomplete
+        incomplete_paths.add(path)
+        incomplete_slug = product_slug(path)
+        if incomplete_slug is None:
+            discovery_incomplete = True
+        else:
+            incomplete_product_slugs.add(incomplete_slug)
 
     def add_sibling_configurations(offer: Offer, page: str) -> None:
         if (offer.ram_gb or 0) < 64:
             return
         for variant in parse_configuration_variant_offers(page, offer):
             existing = offers_by_path.get(variant.path)
-            if existing is None or not existing.config:
-                offers_by_path[variant.path] = variant
+            if existing is None:
+                existing = variant
+                offers_by_path[variant.path] = existing
+            existing.discovery_parent_paths.add(offer.path)
 
     for offer in representatives.values():
         page = fetch(offer.url)
         if page is None:
+            offers_by_path.pop(offer.path, None)
+            mark_product_incomplete(offer.path)
+            continue
+        status = verify_product_page(offer, page)
+        if status == PRODUCT_PAGE_UNKNOWN:
+            offers_by_path.pop(offer.path, None)
+            mark_product_incomplete(offer.path)
+            continue
+        if status == PRODUCT_PAGE_UNAVAILABLE:
+            offers_by_path.pop(offer.path, None)
+            unavailable_paths.add(offer.path)
+            # The marker proves only this exact offer is gone. Scope uncertainty
+            # about unobserved selector siblings to its product family so an
+            # unrelated family's healthy disappearance stays authoritative.
+            mark_product_incomplete(offer.path)
             continue
         pages[offer.path] = page
-        enrich_from_page(offer, page)
-        hidden_paths.update(parse_ram_variant_paths(page))
+        for hidden_path in parse_ram_variant_paths(page):
+            hidden_paths.add(hidden_path)
+            hidden_offer = offers_by_path.setdefault(
+                hidden_path, Offer(path=hidden_path)
+            )
+            hidden_offer.discovery_parent_paths.add(offer.path)
         add_sibling_configurations(offer, page)
 
     for path in sorted(hidden_paths):
@@ -917,9 +1046,38 @@ def discover_hidden_ram_variants(offers_by_path: dict[str, Offer]) -> None:
         page = pages.get(path)
         if page is None:
             page = fetch(offer.url)
-        if page is not None:
-            enrich_from_page(offer, page)
-            add_sibling_configurations(offer, page)
+        if page is None:
+            # A selector proves the destination exists, but a failed exact fetch
+            # proves nothing about its current availability or configuration.
+            offers_by_path.pop(path, None)
+            mark_product_incomplete(path)
+            continue
+        status = verify_product_page(
+            offer,
+            page,
+            require_product_price=path not in search_paths,
+        )
+        if status == PRODUCT_PAGE_UNKNOWN:
+            offers_by_path.pop(path, None)
+            mark_product_incomplete(path)
+            continue
+        if status == PRODUCT_PAGE_UNAVAILABLE:
+            offers_by_path.pop(path, None)
+            unavailable_paths.add(path)
+            # This exact selector destination is known unavailable, but its page
+            # can be the only source for additional exact configuration siblings.
+            # Only siblings sharing this product slug become unknown; another
+            # product family's healthy disappearance must remain authoritative.
+            mark_product_incomplete(path)
+            continue
+        add_sibling_configurations(offer, page)
+
+    return (
+        discovery_incomplete,
+        incomplete_product_slugs,
+        incomplete_paths,
+        unavailable_paths,
+    )
 
 
 def run_watch(watch: Watch, state: dict, dry_run: bool,
@@ -1006,8 +1164,18 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
 
     offers = list(offers_by_path.values())
 
+    hidden_discovery_incomplete = False
+    hidden_incomplete_product_slugs: set[str] = set()
+    hidden_incomplete_paths: set[str] = set()
+    verified_unavailable_paths: set[str] = set()
     if watch.discover_ram_variants:
-        discover_hidden_ram_variants(offers_by_path)
+        (hidden_discovery_incomplete,
+         hidden_incomplete_product_slugs,
+         hidden_incomplete_paths,
+         hidden_unavailable_paths) = discover_hidden_ram_variants(
+             offers_by_path
+        )
+        verified_unavailable_paths.update(hidden_unavailable_paths)
         offers = list(offers_by_path.values())
 
     has_previous_watch_state = watch.key in state["watches"]
@@ -1042,17 +1210,23 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
 
     # A zero-result page almost always means the site hiccuped or changed its
     # markup, not that every listing vanished. Refuse to diff against it.
-    if not offers and prev_offers and not direct_out_of_stock:
+    if (not offers
+            and prev_offers
+            and not direct_out_of_stock
+            and not hidden_discovery_incomplete
+            and not hidden_incomplete_product_slugs):
         logging.error("[%s] 0 results but %d known; treating as anomaly, not a sell-out",
                       watch.key, len(prev_offers))
         return [f"{watch.label}: 0 results (anomaly, ignored)"]
 
     # Reuse cached config for variants we already verified; only pay for new ones.
     matched: dict[str, Offer] = {}
+    verification_unknown_paths: set[str] = set()
     for o in offers:
         cached = prev_offers.get(o.path)
+        page_status = PRODUCT_PAGE_AVAILABLE
         if o.needs_verification:
-            enrich(o)
+            page_status = enrich(o, require_product_price=True)
         elif o.config:
             pass
         elif cached and cached.get("config"):
@@ -1062,8 +1236,17 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
             o.ssd_gb = cached.get("ssd_gb")
             if o.price is None:
                 o.price = cached.get("price")
+            if watch.needs_config and not has_complete_variant_configuration(o):
+                page_status = enrich(o)
         elif watch.needs_config:
-            enrich(o)
+            page_status = enrich(o)
+
+        if page_status == PRODUCT_PAGE_UNKNOWN:
+            verification_unknown_paths.add(o.path)
+            continue
+        if page_status == PRODUCT_PAGE_UNAVAILABLE:
+            verified_unavailable_paths.add(o.path)
+            continue
 
         expected_ultra_chip = (
             expected_ultra_chip_from_path(o.path)
@@ -1139,9 +1322,32 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
     if (watch.key == "apple-silicon-64-plus" and not is_first_run
             and not dry_run):
         for path, o in matched.items():
+            old = prev_offers.get(path)
+            old_below_max_threshold = bool(
+                old
+                and old.get("matched")
+                and M_SERIES_MAX_64GB_PLUS_ALERT_RULE
+                in old.get("telegram_alert_rules", [])
+            )
+            newly_below_max_threshold = bool(
+                is_m_series_max_macbook_pro_64gb_plus_under_threshold(o)
+                and not old_below_max_threshold
+            )
+            if newly_below_max_threshold:
+                PHONE_ALERTS.append({
+                    "title": (
+                        "M-series Max MacBook Pro 64 GB+ below 18 000 kr"
+                    ),
+                    "model": best_value_offer_label(o),
+                    "price": o.price,
+                    "url": o.url,
+                })
+                # One actionable message is enough when the same M2 Max / 64 GB
+                # offer also satisfies the existing 23 000 kr rule.
+                continue
+
             if not is_m2_max_64gb_under_threshold(o):
                 continue
-            old = prev_offers.get(path)
             old_qualified = bool(
                 old
                 and old.get("matched")
@@ -1193,6 +1399,12 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
 
     # Persist every offer we saw, matched or not, so rejected variants are not
     # re-fetched on every single run.
+    def discovery_parents_for(offer: Offer) -> list[str]:
+        previous_parents = prev_offers.get(offer.path, {}).get(
+            "discovery_parent_paths", []
+        )
+        return sorted(offer.discovery_parent_paths | set(previous_parents))
+
     new_offers = {
         o.path: {
             "name": o.name,
@@ -1204,8 +1416,27 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
             "ram_gb": o.ram_gb,
             "ssd_gb": o.ssd_gb,
             "matched": o.path in matched,
+            **(
+                {"discovery_parent_paths": discovery_parents_for(o)}
+                if discovery_parents_for(o) else {}
+            ),
+            **(
+                {
+                    "telegram_alert_rules": [
+                        M_SERIES_MAX_64GB_PLUS_ALERT_RULE
+                    ]
+                }
+                if (
+                    watch.key == "apple-silicon-64-plus"
+                    and o.path in matched
+                    and is_m_series_max_macbook_pro_64gb_plus_under_threshold(o)
+                )
+                else {}
+            ),
         }
         for o in offers
+        if (o.path not in verification_unknown_paths
+            and o.path not in verified_unavailable_paths)
     }
 
     aliases_by_target: dict[str, set[str]] = {}
@@ -1224,7 +1455,7 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
         if exact_path in new_offers:
             new_offers[exact_path]["canonical_aliases"] = sorted(canonical_paths)
 
-    known_unavailable_previous: set[str] = set()
+    known_unavailable_previous: set[str] = set(verified_unavailable_paths)
     for direct_path, direct_offer in direct_out_of_stock.items():
         if direct_path in prev_offers:
             known_unavailable_previous.add(direct_path)
@@ -1253,17 +1484,53 @@ def run_watch(watch: Watch, state: dict, dry_run: bool,
                 known_unavailable_previous.add(previous_path)
                 break
 
-    if (search_fetch_incomplete
-            or (search_offer_count == 0 and prev_offers)):
+    hidden_unknown_previous_paths = {
+        previous_path
+        for previous_path in prev_offers
+        if (previous_path in hidden_incomplete_paths
+            or product_slug(previous_path) in hidden_incomplete_product_slugs)
+    }
+    while True:
+        descendants = {
+            previous_path
+            for previous_path, previous in prev_offers.items()
+            if previous_path not in hidden_unknown_previous_paths
+            and set(previous.get("discovery_parent_paths", []))
+            & hidden_unknown_previous_paths
+        }
+        if not descendants:
+            break
+        hidden_unknown_previous_paths.update(descendants)
+
+    preserve_all_missing = bool(
+        search_fetch_incomplete
+        or hidden_discovery_incomplete
+        or (search_offer_count == 0 and prev_offers)
+    )
+    if preserve_all_missing or hidden_unknown_previous_paths:
         for previous_path, previous in prev_offers.items():
             if (previous_path in new_offers
                     or previous_path in known_unavailable_previous
                     or previous_path in consumed_previous_aliases):
                 continue
-            # A failed auxiliary query or a zero-result search establishes no
-            # availability state for missing offers. Preserve continuity while
-            # excluding the stale observation from lows and buy-now standings.
+            if (not preserve_all_missing
+                    and previous_path not in hidden_unknown_previous_paths):
+                continue
+            # A failed search or a zero-result search establishes no availability
+            # state for any missing offer. Failed hidden discovery preserves only
+            # its product slug and previously observed selector descendants.
             new_offers[previous_path] = {**previous, "verification_unknown": True}
+
+    for path in verification_unknown_paths:
+        if (path in new_offers
+                or path in known_unavailable_previous
+                or path in consumed_previous_aliases):
+            continue
+        previous = prev_offers.get(path)
+        if previous is not None:
+            # The selector still exposed this exact offer, but its destination
+            # could not be verified. Unknown is not unavailable.
+            new_offers[path] = {**previous, "verification_unknown": True}
 
     for path in direct_fetch_failed:
         if path in new_offers:

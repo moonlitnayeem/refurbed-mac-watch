@@ -185,6 +185,76 @@ class AppleSilicon64PlusWatchTest(BaseWatchTest):
                               chip=offer.chip, ram=offer.ram_gb):
                 self.assertFalse(rw.is_m2_max_64gb_under_threshold(offer))
 
+    def test_m_series_max_threshold_accepts_any_generation_and_64gb_or_more(self):
+        accepted = [
+            rw.Offer(P_M1_DK, price=17_999, chip="M1 Max", ram_gb=64),
+            rw.Offer(P_M2_96, price=17_999, chip="M3 Max", ram_gb=96),
+            rw.Offer(P_M3, price=1, chip="M12 Max", ram_gb=128),
+        ]
+        for offer in accepted:
+            with self.subTest(chip=offer.chip, ram=offer.ram_gb):
+                self.assertTrue(
+                    rw.is_m_series_max_macbook_pro_64gb_plus_under_threshold(offer)
+                )
+
+        rejected = [
+            rw.Offer(P_M3, price=18_000, chip="M3 Max", ram_gb=64),
+            rw.Offer(P_M3, price=17_999, chip="M3 Max", ram_gb=63),
+            rw.Offer(P_M3, price=17_999, chip="M3 Pro", ram_gb=96),
+            rw.Offer(P_M3, price=17_999, chip="M3 Ultra", ram_gb=96),
+            rw.Offer(P_STUDIO, price=17_999, chip="M3 Max", ram_gb=96),
+            rw.Offer(P_MACBOOK_32, price=17_999, chip="M3 Max", ram_gb=96),
+            rw.Offer(P_M3, price=None, chip="M3 Max", ram_gb=96),
+        ]
+        for offer in rejected:
+            with self.subTest(path=offer.path, price=offer.price,
+                              chip=offer.chip, ram=offer.ram_gb):
+                self.assertFalse(
+                    rw.is_m_series_max_macbook_pro_64gb_plus_under_threshold(offer)
+                )
+
+    def test_dedicated_max_query_discovers_listing_missing_from_broad_searches(self):
+        self.watch = next(
+            watch for watch in rw.WATCHES
+            if watch.key == "apple-silicon-64-plus"
+        )
+        targeted_query = rw.search_url("Apple MacBook Pro Max 64 GB")
+        requests = []
+
+        def fetch(url):
+            requests.append(url)
+            if url == targeted_query:
+                return search_html([(P_M3, "17 999 kr")])
+            if "/search/" in url:
+                return search_html([])
+            if url.endswith(P_M3):
+                return TITLE_M3_MAX_64
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(
+                self.watch,
+                self.state,
+                dry_run=False,
+                notifications_left=[rw.MAX_NOTIFICATIONS_PER_RUN],
+            )
+            rw.run_watch(
+                self.watch,
+                self.state,
+                dry_run=False,
+                notifications_left=[rw.MAX_NOTIFICATIONS_PER_RUN],
+            )
+
+        self.assertIn(targeted_query, requests)
+        offer = self.state["watches"][self.watch.key]["offers"][P_M3]
+        self.assertTrue(offer["matched"])
+        self.assertEqual(offer["price"], 17_999)
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "the silent initial baseline must persist the rule qualification",
+        )
+
     def test_qualifying_offer_reappearance_sends_one_threshold_phone_alert(self):
         site = FakeSite([(P_M3, "39 499 kr"), (P_M2, "22 999 kr")])
         self.run_once(site)
@@ -218,6 +288,77 @@ class AppleSilicon64PlusWatchTest(BaseWatchTest):
         self.assertEqual(
             len(rw.PHONE_ALERTS), 1,
             "an unchanged below-threshold state must not repeat every run",
+        )
+
+    def test_m_series_max_crossing_below_18000_sends_once(self):
+        site = FakeSite([(P_M3, "18 000 kr")])
+        self.run_once(site)
+
+        site.entries = [(P_M3, "17 999 kr")]
+        self.run_once(site)
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        alert = rw.PHONE_ALERTS[0]
+        self.assertEqual(
+            alert["title"],
+            "M-series Max MacBook Pro 64 GB+ below 18 000 kr",
+        )
+        self.assertEqual(
+            alert["model"],
+            "MacBook Pro · M3 Max · 64 GB · 2000 GB SSD",
+        )
+        self.assertEqual(alert["price"], 17_999)
+        self.assertTrue(alert["url"].endswith(P_M3))
+
+        site.entries = [(P_M3, "17 500 kr")]
+        self.run_once(site)
+        self.assertEqual(
+            len(rw.PHONE_ALERTS),
+            1,
+            "remaining below 18 000 kr must not repeat every run",
+        )
+
+    def test_existing_qualifying_listing_alerts_once_when_rule_is_introduced(self):
+        self.state["watches"][self.watch.key] = {
+            "offers": {
+                P_M3: {
+                    "name": "Apple MacBook Pro 2023 M3",
+                    "price": 17_999,
+                    "config": "Apple MacBook Pro 2023 M3 Max 64 GB",
+                    "chip": "M3 Max",
+                    "ram_gb": 64.0,
+                    "ssd_gb": 2000.0,
+                    "matched": True,
+                }
+            }
+        }
+        site = FakeSite([(P_M3, "17 999 kr")])
+
+        self.run_once(site)
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "M-series Max MacBook Pro 64 GB+ below 18 000 kr",
+        )
+
+        self.run_once(site)
+        self.assertEqual(
+            len(rw.PHONE_ALERTS),
+            1,
+            "the migrated qualifying listing must not repeat on the next run",
+        )
+
+    def test_overlapping_m2_rules_send_only_the_18000_alert(self):
+        site = FakeSite([(P_M2, "23 000 kr")])
+        self.run_once(site)
+
+        site.entries = [(P_M2, "17 999 kr")]
+        self.run_once(site)
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(
+            rw.PHONE_ALERTS[0]["title"],
+            "M-series Max MacBook Pro 64 GB+ below 18 000 kr",
         )
 
     def test_discovers_96gb_variant_hidden_in_ram_dropdown(self):
@@ -262,6 +403,670 @@ class AppleSilicon64PlusWatchTest(BaseWatchTest):
         self.assertEqual(offers[P_M2_96]["price"], 41459)
         self.assertNotIn(P_M2_ALT_CONFIG, offers)
         self.assertIn("96 GB", "\n".join(lines))
+
+    def test_hidden_variant_representative_failure_preserves_alert_state(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        hidden = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        malformed = (
+            '<html><title>Temporary Mac page 96.0 GB 4000 GB</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p></html>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html([(P_M2, "30 000 kr")])
+            if url.endswith(P_M2):
+                if phase == "representative-failed":
+                    return None
+                if phase == "representative-malformed":
+                    return malformed
+                return representative
+            if url.endswith(P_M2_96_BASE):
+                return hidden
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "representative-failed"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertIn(P_M2_96_BASE, offers)
+            preserved = offers[P_M2_96_BASE]
+            self.assertTrue(preserved.get("verification_unknown"))
+            self.assertIn(
+                rw.M_SERIES_MAX_64GB_PLUS_ALERT_RULE,
+                preserved.get("telegram_alert_rules", []),
+            )
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            recovered = self.state["watches"][self.watch.key]["offers"][P_M2_96_BASE]
+            self.assertFalse(recovered.get("verification_unknown"))
+
+            phase = "representative-malformed"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertIn(P_M2_96_BASE, offers)
+            self.assertTrue(offers[P_M2_96_BASE].get("verification_unknown"))
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "representative recovery must not duplicate the threshold alert",
+        )
+
+    def test_hidden_ram_destination_failure_is_unknown_not_stale_current(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        hidden = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        malformed = (
+            '<html><title>Temporary Mac page 96.0 GB 4000 GB</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p></html>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html([(P_M2, "30 000 kr")])
+            if url.endswith(P_M2):
+                return representative
+            if url.endswith(P_M2_96_BASE):
+                if phase == "hidden-failed":
+                    return None
+                if phase == "hidden-malformed":
+                    return malformed
+                return hidden
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "hidden-failed"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            preserved = self.state["watches"][self.watch.key]["offers"][P_M2_96_BASE]
+            self.assertTrue(preserved.get("verification_unknown"))
+            self.assertIn(
+                rw.M_SERIES_MAX_64GB_PLUS_ALERT_RULE,
+                preserved.get("telegram_alert_rules", []),
+            )
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            recovered = self.state["watches"][self.watch.key]["offers"][P_M2_96_BASE]
+            self.assertFalse(recovered.get("verification_unknown"))
+
+            phase = "hidden-malformed"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            preserved = self.state["watches"][self.watch.key]["offers"][P_M2_96_BASE]
+            self.assertTrue(preserved.get("verification_unknown"))
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "hidden destination recovery must not duplicate the threshold alert",
+        )
+
+    def _assert_hidden_discovery_failure_is_product_family_scoped(
+            self, failure_at: str, malformed: bool) -> None:
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        hidden = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        unrelated = (
+            TITLE_M3_MAX_64
+            + '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        malformed_page = (
+            '<html><title>Temporary Mac page 96.0 GB 4000 GB</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p></html>'
+        )
+        phase = "baseline"
+
+        def failed_page():
+            return malformed_page if malformed else None
+
+        def fetch(url):
+            if "/search/" in url:
+                entries = [(P_M2, "30 000 kr")]
+                if phase in {"baseline", "recovered"}:
+                    entries.append((P_M3, "17 999 kr"))
+                return search_html(entries)
+            if url.endswith(P_M2):
+                if phase == "failure" and failure_at == "representative":
+                    return failed_page()
+                return representative
+            if url.endswith(P_M2_96_BASE):
+                if phase == "failure" and failure_at == "hidden":
+                    return failed_page()
+                return hidden
+            if url.endswith(P_M3):
+                return unrelated
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "failure"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertTrue(offers[P_M2_96_BASE].get("verification_unknown"))
+            self.assertIn(
+                rw.M_SERIES_MAX_64GB_PLUS_ALERT_RULE,
+                offers[P_M2_96_BASE].get("telegram_alert_rules", []),
+            )
+            self.assertNotIn(
+                P_M3,
+                offers,
+                "one failed product family must not mask an unrelated disappearance",
+            )
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        alert_paths = {
+            alert["url"].removeprefix(rw.BASE)
+            for alert in rw.PHONE_ALERTS
+        }
+        self.assertEqual(
+            alert_paths,
+            {P_M3},
+            "only the genuinely disappeared unrelated offer may alert on return",
+        )
+
+    def test_representative_fetch_failure_is_product_family_scoped(self):
+        self._assert_hidden_discovery_failure_is_product_family_scoped(
+            failure_at="representative", malformed=False,
+        )
+
+    def test_representative_malformed_page_is_product_family_scoped(self):
+        self._assert_hidden_discovery_failure_is_product_family_scoped(
+            failure_at="representative", malformed=True,
+        )
+
+    def test_hidden_destination_fetch_failure_is_product_family_scoped(self):
+        self._assert_hidden_discovery_failure_is_product_family_scoped(
+            failure_at="hidden", malformed=False,
+        )
+
+    def test_hidden_destination_malformed_page_is_product_family_scoped(self):
+        self._assert_hidden_discovery_failure_is_product_family_scoped(
+            failure_at="hidden", malformed=True,
+        )
+
+    def test_healthy_selector_removal_is_a_real_hidden_variant_disappearance(self):
+        representative_with_hidden = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        representative_without_hidden = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        hidden = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html([(P_M2, "30 000 kr")])
+            if url.endswith(P_M2):
+                if phase == "disappeared":
+                    return representative_without_hidden
+                return representative_with_hidden
+            if url.endswith(P_M2_96_BASE):
+                return hidden
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "disappeared"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertNotIn(P_M2_96_BASE, offers)
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(rw.PHONE_ALERTS[0]["price"], 17_999)
+
+    def test_representative_explicit_out_of_stock_is_known_unavailable(self):
+        available = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        sold_out = (
+            available
+            + '<p>Produkten finns för närvarande inte i lager</p>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html([(P_M2_96_BASE, "17 999 kr")])
+            if url.endswith(P_M2_96_BASE):
+                return sold_out if phase == "sold-out" else available
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "sold-out"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertNotIn(P_M2_96_BASE, offers)
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(rw.PHONE_ALERTS[0]["price"], 17_999)
+
+    def test_sold_out_representative_does_not_mask_unrelated_disappearance(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<select data-test="keyboard">'
+            f'<option value="{P_M2_96_BASE}" selected data-price="">'
+            'Nordic</option>'
+            f'<option value="{P_M2_96}" data-price="more,+154 kr">'
+            'US English</option></select>'
+            '<p data-test="product-price"><span>17 845 kr</span></p>'
+        )
+        representative_sold_out = (
+            representative
+            + '<p>Produkten finns för närvarande inte i lager</p>'
+        )
+        exact_sibling = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        unrelated = (
+            TITLE_M3_MAX_64
+            + '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                entries = [(P_M2_96_BASE, "17 845 kr")]
+                if phase in {"baseline", "recovered"}:
+                    entries.append((P_M3, "17 999 kr"))
+                return search_html(entries)
+            if url.endswith(P_M2_96_BASE):
+                if phase == "representative-sold-out":
+                    return representative_sold_out
+                return representative
+            if url.endswith(P_M2_96):
+                return exact_sibling
+            if url.endswith(P_M3):
+                return unrelated
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "representative-sold-out"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertNotIn(P_M2_96_BASE, offers)
+            self.assertTrue(offers[P_M2_96].get("verification_unknown"))
+            self.assertNotIn(P_M3, offers)
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        alert_paths = {
+            alert["url"].removeprefix(rw.BASE)
+            for alert in rw.PHONE_ALERTS
+        }
+        self.assertEqual(alert_paths, {P_M2_96_BASE, P_M3})
+
+    def test_hidden_explicit_out_of_stock_is_known_unavailable(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        available = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        sold_out = (
+            available
+            + '<p>Produkten finns för närvarande inte i lager</p>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html([(P_M2, "30 000 kr")])
+            if url.endswith(P_M2):
+                return representative
+            if url.endswith(P_M2_96_BASE):
+                return sold_out if phase == "sold-out" else available
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "sold-out"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertNotIn(P_M2_96_BASE, offers)
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertEqual(rw.PHONE_ALERTS[0]["price"], 17_999)
+
+    def test_sold_out_hidden_parent_preserves_unobserved_exact_sibling_unknown(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        hidden_parent_available = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 845 kr</span></p>'
+            '<select data-test="keyboard">'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/75335b/'
+            '?offer=19861870" selected data-price="">EN (QWERTY)</option>'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/302400b/'
+            '?offer=19862087" data-price="more,+154 kr">US (QWERTY)</option>'
+            '</select>'
+        )
+        hidden_parent_sold_out = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 845 kr</span></p>'
+            '<p>Produkten finns för närvarande inte i lager</p>'
+        )
+        exact_sibling = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html([(P_M2, "30 000 kr")])
+            if url.endswith(P_M2):
+                return representative
+            if url.endswith(P_M2_96_BASE):
+                if phase == "sold-out":
+                    return hidden_parent_sold_out
+                return hidden_parent_available
+            if url.endswith(P_M2_96):
+                return exact_sibling
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "sold-out"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertNotIn(P_M2_96_BASE, offers)
+            self.assertIn(P_M2_96, offers)
+            self.assertTrue(offers[P_M2_96].get("verification_unknown"))
+            self.assertIn(
+                rw.M_SERIES_MAX_64GB_PLUS_ALERT_RULE,
+                offers[P_M2_96].get("telegram_alert_rules", []),
+            )
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(len(rw.PHONE_ALERTS), 1)
+        self.assertTrue(rw.PHONE_ALERTS[0]["url"].endswith(P_M2_96_BASE))
+
+    def test_sold_out_hidden_parent_does_not_mask_unrelated_disappearance(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '64.0 GB 1000 GB – refurbed</title>'
+            '<select><option value="/p/apple-macbook-pro-2023-m2-16-2/'
+            '75335b/?offer=19861870">96.0 GB</option></select>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        hidden_parent_available = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 845 kr</span></p>'
+            '<select data-test="keyboard">'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/75335b/'
+            '?offer=19861870" selected data-price="">EN (QWERTY)</option>'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/302400b/'
+            '?offer=19862087" data-price="more,+154 kr">US (QWERTY)</option>'
+            '</select>'
+        )
+        hidden_parent_sold_out = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 845 kr</span></p>'
+            '<p>Produkten finns för närvarande inte i lager</p>'
+        )
+        exact_sibling = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        m3_offer = (
+            TITLE_M3_MAX_64
+            + '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                entries = [(P_M2, "30 000 kr")]
+                if phase in ("baseline", "recovered"):
+                    entries.append((P_M3, "17 999 kr"))
+                return search_html(entries)
+            if url.endswith(P_M2):
+                return representative
+            if url.endswith(P_M2_96_BASE):
+                if phase == "sold-out":
+                    return hidden_parent_sold_out
+                return hidden_parent_available
+            if url.endswith(P_M2_96):
+                return exact_sibling
+            if url.endswith(P_M3):
+                return m3_offer
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "sold-out"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            offers = self.state["watches"][self.watch.key]["offers"]
+            self.assertNotIn(P_M2_96_BASE, offers)
+            self.assertTrue(offers[P_M2_96].get("verification_unknown"))
+            self.assertNotIn(P_M3, offers)
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        alerted_paths = {alert["url"].removeprefix(rw.BASE) for alert in rw.PHONE_ALERTS}
+        self.assertEqual(alerted_paths, {P_M2_96_BASE, P_M3})
+
+    def test_incomplete_nonrepresentative_exact_page_cannot_alert(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>30 000 kr</span></p>'
+        )
+        incomplete = (
+            '<title>Apple MacBook Pro 2023 Apple M3 Max 16 Core '
+            '96.0 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        entries = [(P_M2_96_BASE, "30 000 kr")]
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html(entries)
+            if url.endswith(P_M2_96_BASE):
+                return representative
+            if url.endswith(P_M2_96):
+                return incomplete
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            entries.append((P_M2_96, "17 999 kr"))
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        offers = self.state["watches"][self.watch.key]["offers"]
+        self.assertNotIn(P_M2_96, offers)
+        self.assertEqual(rw.PHONE_ALERTS, [])
+
+    def test_hidden_exact_verification_failure_preserves_alert_state(self):
+        representative = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 845 kr</span></p>'
+            '<select data-test="keyboard">'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/75335b/'
+            '?offer=19861870" selected data-price="">EN (QWERTY)</option>'
+            '<option value="/p/apple-macbook-pro-2023-m2-16-2/302400b/'
+            '?offer=19862087" data-price="more,+154 kr">US (QWERTY)</option>'
+            '</select>'
+        )
+        exact_sibling = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p>'
+        )
+        exact_no_price = (
+            '<title>Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core '
+            '96.0 GB 4000 GB – refurbed</title>'
+        )
+        malformed = (
+            '<html><title>Temporary Mac page 96.0 GB 4000 GB</title>'
+            '<p data-test="product-price"><span>17 999 kr</span></p></html>'
+        )
+        phase = "baseline"
+
+        def fetch(url):
+            if "/search/" in url:
+                return search_html([(P_M2_96_BASE, "17 845 kr")])
+            if url.endswith(P_M2_96_BASE):
+                return representative
+            if url.endswith(P_M2_96):
+                if phase == "exact-failed":
+                    return None
+                if phase == "exact-malformed":
+                    return malformed
+                if phase == "exact-no-price":
+                    return exact_no_price
+                return exact_sibling
+            return None
+
+        with mock.patch.object(rw, "fetch", side_effect=fetch):
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            self.assertEqual(rw.PHONE_ALERTS, [])
+
+            phase = "exact-failed"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            preserved = self.state["watches"][self.watch.key]["offers"][P_M2_96]
+            self.assertTrue(preserved.get("verification_unknown"))
+            self.assertIn(
+                rw.M_SERIES_MAX_64GB_PLUS_ALERT_RULE,
+                preserved.get("telegram_alert_rules", []),
+            )
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            recovered = self.state["watches"][self.watch.key]["offers"][P_M2_96]
+            self.assertFalse(recovered.get("verification_unknown"))
+
+            phase = "exact-malformed"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            preserved = self.state["watches"][self.watch.key]["offers"][P_M2_96]
+            self.assertTrue(preserved.get("verification_unknown"))
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            recovered = self.state["watches"][self.watch.key]["offers"][P_M2_96]
+            self.assertFalse(recovered.get("verification_unknown"))
+
+            phase = "exact-no-price"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+            preserved = self.state["watches"][self.watch.key]["offers"][P_M2_96]
+            self.assertTrue(preserved.get("verification_unknown"))
+
+            phase = "recovered"
+            rw.run_watch(self.watch, self.state, dry_run=False, notifications_left=[8])
+
+        self.assertEqual(
+            rw.PHONE_ALERTS,
+            [],
+            "exact verification recovery must not duplicate the threshold alert",
+        )
 
 
 class PriceHistoryTest(BaseWatchTest):
