@@ -366,7 +366,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-01T13:11:18Z",
+      "checked_at": "2026-09-01T13:24:46Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182355/": {
@@ -1193,7 +1193,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 13459,
+          "price": 13469,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -2739,7 +2739,7 @@
           "was_price": null
         },
         "/p/ipad-air-4/9793b/": {
-          "badge": "Bara ett fåtal kvar",
+          "badge": null,
           "chip": "",
           "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
           "discovery_parent_paths": [
@@ -2748,7 +2748,7 @@
           ],
           "matched": false,
           "name": "iPad Air (2020) | 10.9",
-          "price": 4365,
+          "price": 4379,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 8769
@@ -2796,50 +2796,64 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5105,
+          "price": 5905,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
         },
-        "/p/ipad-air-5/21653/": {
+        "/p/ipad-air-5/21650aa/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21650c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 6715,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": null
+        },
+        "/p/ipad-air-5/21650b/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21650c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5425,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": null
+        },
+        "/p/ipad-air-5/21650c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M1",
           "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-5/21653/"
+            "/p/ipad-air-5/21650c/"
           ],
           "matched": false,
           "name": "iPad Air (2022) | 10.9",
-          "price": 4939,
+          "price": 5295,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
-          "was_price": 10769
+          "was_price": 8546
         },
-        "/p/ipad-air-5/21655/": {
+        "/p/ipad-air-5/21654c/": {
           "badge": null,
           "chip": "M1",
           "config": "Apple iPad Air (2022) 256 GB 10.9 \" rymdgrå 8.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-5/21653/"
+            "/p/ipad-air-5/21650c/"
           ],
           "matched": false,
           "name": "",
-          "price": 5315,
+          "price": 5159,
           "ram_gb": 256.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21667/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21653/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5415,
-          "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
         },
@@ -2859,7 +2873,7 @@
           "was_price": null
         },
         "/p/ipad-mini-5/4455b/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
           "discovery_parent_paths": [
@@ -2867,22 +2881,8 @@
             "/p/ipad-mini-5/4455c/"
           ],
           "matched": false,
-          "name": "",
-          "price": 2119,
-          "ram_gb": 64.0,
-          "ssd_gb": 3.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-5/4455c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455c/"
-          ],
-          "matched": false,
           "name": "iPad mini (2019) | 7.9",
-          "price": 1935,
+          "price": 2119,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 6546
@@ -3091,7 +3091,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-01T13:01:00Z",
+      "checked_at": "2026-09-01T13:15:57Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3424,13 +3424,13 @@
           "ssd_gb": 512.0,
           "was_price": 34442
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/178029c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/178029/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2 Pro",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 16.0 GB 512 GB 16.2 \" rymdgrå DK (Dansk)",
           "matched": false,
           "name": "Apple MacBook Pro 2023 M2 | 16.2",
-          "price": 17285,
+          "price": 15385,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": 33331
@@ -3557,7 +3557,7 @@
           "was_price": 46779
         },
         "/p/fair-apple-macbook-pro-2022-m2-13-tb/501661c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "M2",
           "config": "FAIR Apple MacBook Pro 2022 M2 Apple M2 8 Core 16.0 GB 1000 GB 13.3 \" silver ND (Nordisk)",
           "matched": false,
@@ -3692,7 +3692,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-01T13:01:17Z",
+      "checked_at": "2026-09-01T13:16:12Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
