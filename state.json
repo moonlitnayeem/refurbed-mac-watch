@@ -366,7 +366,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-01T21:10:32Z",
+      "checked_at": "2026-09-01T21:25:26Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -482,6 +482,48 @@
           "ram_gb": 8.0,
           "ssd_gb": 2000.0,
           "was_price": 37666
+        },
+        "/p/apple-imac-5k-2020-27/181667/": {
+          "badge": null,
+          "chip": "",
+          "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
+          "discovery_parent_paths": [
+            "/p/apple-imac-5k-2020-27/72773/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 15349,
+          "ram_gb": 32.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/apple-imac-5k-2020-27/181893/": {
+          "badge": null,
+          "chip": "",
+          "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
+          "discovery_parent_paths": [
+            "/p/apple-imac-5k-2020-27/72773/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 14415,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/apple-imac-5k-2020-27/72773/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
+          "discovery_parent_paths": [
+            "/p/apple-imac-5k-2020-27/72773/"
+          ],
+          "matched": false,
+          "name": "Apple iMac 5K 2020 | 27",
+          "price": 12295,
+          "ram_gb": 8.0,
+          "ssd_gb": 512.0,
+          "was_price": 26663
         },
         "/p/apple-imac-pro-2017-27/180936b/": {
           "badge": "Bara ett fåtal kvar",
@@ -1981,17 +2023,6 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m3-16-2/300473c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M3 Max",
-          "config": "Apple MacBook Pro 2023 M3 Apple M3 Max 14 Core 36.0 GB 1000 GB 16.2 \" rymdsvart DK (Dansk)",
-          "matched": false,
-          "name": "Apple MacBook Pro 2023 M3 | 16.2",
-          "price": 31755,
-          "ram_gb": 36.0,
-          "ssd_gb": 1000.0,
-          "was_price": 47224
-        },
         "/p/apple-macbook-pro-2023-m3-16-2/304022b/": {
           "badge": null,
           "chip": "M3 Pro",
@@ -2845,39 +2876,39 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/macbook-pro-2019-133-tb/13032c/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/macbook-pro-2019-133-tb/39907/": {
+          "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 512 GB 13.3 \" rymdgrå FR (Fransk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 256 GB 13.3 \" rymdgrå DK (Dansk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/13032c/"
+            "/p/macbook-pro-2019-133-tb/39907/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 4165,
+          "price": 4485,
           "ram_gb": 8.0,
-          "ssd_gb": 512.0,
-          "was_price": 18883
+          "ssd_gb": 256.0,
+          "was_price": 22217
         },
-        "/p/macbook-pro-2019-133-tb/27792c/": {
+        "/p/macbook-pro-2019-133-tb/98472/": {
           "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 512 GB 13.3 \" rymdgrå FR (Fransk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" rymdgrå DK (Dansk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/13032c/"
+            "/p/macbook-pro-2019-133-tb/39907/"
           ],
           "matched": false,
           "name": "",
-          "price": 5739,
+          "price": 7115,
           "ram_gb": 16.0,
-          "ssd_gb": 512.0,
+          "ssd_gb": 256.0,
           "was_price": null
         }
       },
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-01T21:01:04Z",
+      "checked_at": "2026-09-01T21:15:58Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3478,7 +3509,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-01T21:01:19Z",
+      "checked_at": "2026-09-01T21:16:14Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
