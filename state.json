@@ -329,7 +329,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-01T00:09:54Z",
+      "checked_at": "2026-09-01T00:24:47Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -2801,7 +2801,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5235,
+          "price": 6215,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2860,7 +2860,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 6145,
+          "price": 6695,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -2874,7 +2874,7 @@
           ],
           "matched": false,
           "name": "iPad Air (2022) | 10.9",
-          "price": 4905,
+          "price": 4895,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": 8543
@@ -3122,39 +3122,39 @@
           "ssd_gb": 6.0,
           "was_price": null
         },
-        "/p/macbook-pro-2019-133-tb/20321c/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/macbook-pro-2019-133-tb/55207c/": {
+          "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 256 GB 13.3 \" silver FR (Fransk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 512 GB 13.3 \" rymdgrå ES (Spansk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/20321c/"
+            "/p/macbook-pro-2019-133-tb/55352c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4565,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/macbook-pro-2019-133-tb/55352c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 512 GB 13.3 \" rymdgrå ES (Spansk)",
+          "discovery_parent_paths": [
+            "/p/macbook-pro-2019-133-tb/55352c/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
           "price": 4035,
           "ram_gb": 8.0,
-          "ssd_gb": 256.0,
-          "was_price": 18875
-        },
-        "/p/macbook-pro-2019-133-tb/55345c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" silver FR (Fransk)",
-          "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/20321c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4095,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": null
+          "ssd_gb": 512.0,
+          "was_price": 22208
         }
       },
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-01T00:00:52Z",
+      "checked_at": "2026-09-01T00:15:53Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/68737c/": {
@@ -3674,15 +3674,15 @@
           "ssd_gb": 2.0,
           "was_price": 8876
         },
-        "/p/macbook-pro-2019-133-tb/13241c/": {
-          "badge": null,
+        "/p/macbook-pro-2019-133-tb/22216c/": {
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8257U 8.0 GB 128 GB 13.3 \" silver FR (Fransk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8257U 8.0 GB 256 GB 13.3 \" silver FR (Fransk)",
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 3879,
+          "price": 3885,
           "ram_gb": 8.0,
-          "ssd_gb": 128.0,
+          "ssd_gb": 256.0,
           "was_price": 15542
         },
         "/p/macbook-pro-2019-154-tb/112210/": {
@@ -3722,7 +3722,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-01T00:01:06Z",
+      "checked_at": "2026-09-01T00:16:06Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/68737c/": {
