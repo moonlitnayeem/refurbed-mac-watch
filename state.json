@@ -338,7 +338,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-01T06:27:03Z",
+      "checked_at": "2026-09-01T06:41:31Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -416,13 +416,13 @@
           "ssd_gb": 256.0,
           "was_price": 20016
         },
-        "/p/apple-imac-2024-m4-8core/278902b/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/apple-imac-2024-m4-8core/278934aa/": {
+          "badge": null,
           "chip": "M4",
           "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
           "matched": false,
           "name": "Apple iMac 2024 M4 8 Core | 24",
-          "price": 17159,
+          "price": 18845,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 20016
@@ -2911,7 +2911,8 @@
           "discovery_parent_paths": [
             "/p/ipad-mini-6/14220/",
             "/p/ipad-mini-6/14228/",
-            "/p/ipad-mini-6/14228b/"
+            "/p/ipad-mini-6/14228b/",
+            "/p/ipad-mini-6/14228c/"
           ],
           "matched": false,
           "name": "",
@@ -2921,15 +2922,30 @@
           "was_price": null
         },
         "/p/ipad-mini-6/14228b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14228b/",
+            "/p/ipad-mini-6/14228c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4105,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14228c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228b/"
+            "/p/ipad-mini-6/14228c/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 4475,
+          "price": 4085,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 6108
@@ -3139,7 +3155,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-01T06:16:08Z",
+      "checked_at": "2026-09-01T06:30:59Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3230,6 +3246,17 @@
           "ssd_gb": 512.0,
           "was_price": 35593
         },
+        "/p/apple-imac-5k-2020-27/181749/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple iMac 5K 2020 | 27",
+          "price": 12339,
+          "ram_gb": 32.0,
+          "ssd_gb": 256.0,
+          "was_price": 30808
+        },
         "/p/apple-imac-5k-2020-27/181944/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
@@ -3237,17 +3264,6 @@
           "matched": false,
           "name": "Apple iMac 5K 2020 | 27",
           "price": 15365,
-          "ram_gb": 32.0,
-          "ssd_gb": 512.0,
-          "was_price": 28917
-        },
-        "/p/apple-imac-5k-2020-27/72780c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
-          "matched": false,
-          "name": "Apple iMac 5K 2020 | 27",
-          "price": 11865,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 28917
@@ -3729,7 +3745,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-01T06:16:27Z",
+      "checked_at": "2026-09-01T06:31:16Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
