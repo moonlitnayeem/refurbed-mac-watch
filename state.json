@@ -380,7 +380,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-02T19:40:34Z",
+      "checked_at": "2026-09-02T19:56:09Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -2877,7 +2877,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2275,
+          "price": 2339,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -3437,50 +3437,39 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/macbook-pro-2019-133-tb/12203c/": {
+        "/p/macbook-pro-2019-133-tb/28041/": {
           "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8257U 8.0 GB 128 GB 13.3 \" rymdgrå US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/28041c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4255,
-          "ram_gb": 8.0,
-          "ssd_gb": 128.0,
-          "was_price": null
-        },
-        "/p/macbook-pro-2019-133-tb/28041c/": {
-          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" rymdgrå DE (Tysk)",
-          "matched": false,
-          "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 4355,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 17842
-        },
-        "/p/macbook-pro-2019-133-tb/55345c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" silver FR (Fransk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/28041c/"
+            "/p/macbook-pro-2019-133-tb/39907/"
           ],
           "matched": false,
           "name": "",
-          "price": 4815,
+          "price": 6325,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
+        },
+        "/p/macbook-pro-2019-133-tb/39907/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 256 GB 13.3 \" rymdgrå DK (Dansk)",
+          "discovery_parent_paths": [
+            "/p/macbook-pro-2019-133-tb/39907/"
+          ],
+          "matched": false,
+          "name": "Apple MacBook Pro 2019 | 13.3",
+          "price": 4485,
+          "ram_gb": 8.0,
+          "ssd_gb": 256.0,
+          "was_price": 22305
         }
       },
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-02T19:31:03Z",
+      "checked_at": "2026-09-02T19:45:55Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/41884c/": {
@@ -4004,7 +3993,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-02T19:31:18Z",
+      "checked_at": "2026-09-02T19:46:10Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
