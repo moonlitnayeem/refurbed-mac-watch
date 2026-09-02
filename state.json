@@ -380,7 +380,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-02T18:40:23Z",
+      "checked_at": "2026-09-02T18:57:24Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -2776,7 +2776,7 @@
           ],
           "matched": false,
           "name": "FAIR Apple MacBook Pro 2020 | 13.3",
-          "price": 3895,
+          "price": 4835,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": 24537
@@ -2832,7 +2832,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 4975,
+          "price": 5045,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2896,17 +2896,31 @@
           "ssd_gb": 3.0,
           "was_price": 4786
         },
-        "/p/ipad-9-2021/14240c/": {
+        "/p/ipad-9-2021/14238c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad 9 (2021) 64 GB 10.2 \" silver 3.0 GB",
+          "config": "Apple iPad 9 (2021) 64 GB 10.2 \" rymdgrå 3.0 GB",
           "discovery_parent_paths": [
             "/p/ipad-9-2021/14236c/"
           ],
           "matched": false,
           "name": "",
-          "price": 2715,
+          "price": 2265,
           "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": null
+        },
+        "/p/ipad-9-2021/14241c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad 9 (2021) 256 GB 10.2 \" silver 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-9-2021/14236c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2669,
+          "ram_gb": 256.0,
           "ssd_gb": 3.0,
           "was_price": null
         },
@@ -3046,7 +3060,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5965,
+          "price": 4025,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -3074,7 +3088,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 7135,
+          "price": 7159,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -3309,21 +3323,6 @@
           "ssd_gb": 64.0,
           "was_price": 10031
         },
-        "/p/ipad-pro-12-9-2018/3423b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Pro (2018) 1000 GB 12.9 \" rymdgrå 6.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-pro-12-9-2018/3423b/",
-            "/p/ipad-pro-12-9-2018/3424/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5475,
-          "ram_gb": 1000.0,
-          "ssd_gb": 6.0,
-          "was_price": null
-        },
         "/p/ipad-pro-12-9-2018/3424/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
@@ -3350,6 +3349,21 @@
           "price": 6669,
           "ram_gb": 256.0,
           "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-12-9-2018/3435c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2018) 1000 GB 12.9 \" silver 6.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-12-9-2018/3424/",
+            "/p/ipad-pro-12-9-2018/3435c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 6159,
+          "ram_gb": 1000.0,
+          "ssd_gb": 6.0,
           "was_price": null
         },
         "/p/iphone-11-pro-max/4811b/": {
@@ -3465,7 +3479,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-02T18:30:57Z",
+      "checked_at": "2026-09-02T18:46:00Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/41884c/": {
@@ -3989,7 +4003,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-02T18:31:10Z",
+      "checked_at": "2026-09-02T18:46:15Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/68740c/": {
