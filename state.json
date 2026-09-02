@@ -380,7 +380,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-02T16:56:46Z",
+      "checked_at": "2026-09-02T17:11:46Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -961,61 +961,34 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2020-133-tb/21612c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" rymdgrå SE (Svensk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/21612c/"
-          ],
-          "matched": false,
-          "name": "Apple MacBook Pro 2020 | 13.3",
-          "price": 5099,
-          "ram_gb": 16.0,
-          "ssd_gb": 512.0,
-          "was_price": 24537
-        },
-        "/p/apple-macbook-pro-2020-133-tb/28036c/": {
+        "/p/apple-macbook-pro-2020-133-tb/22218c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2020 Intel Core i5-8257U 8.0 GB 256 GB 13.3 \" silver SE (Svensk)",
+          "config": "Apple MacBook Pro 2020 Intel Core i7-1068NG7 32.0 GB 512 GB 13.3 \" rymdgrå FR (Fransk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/21612c/"
+            "/p/apple-macbook-pro-2020-133-tb/66480c/"
           ],
           "matched": false,
           "name": "",
-          "price": 4985,
-          "ram_gb": 8.0,
-          "ssd_gb": 256.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2020-133-tb/283618c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 32.0 GB 1000 GB 13.3 \" silver ES (Spansk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/21612c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 6979,
+          "price": 7795,
           "ram_gb": 32.0,
-          "ssd_gb": 1000.0,
+          "ssd_gb": 512.0,
           "was_price": null
         },
         "/p/apple-macbook-pro-2020-133-tb/66480c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple MacBook Pro 2020 Intel Core i7-1068NG7 16.0 GB 512 GB 13.3 \" rymdgrå US (US-engelska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/21612c/"
+            "/p/apple-macbook-pro-2020-133-tb/21612c/",
+            "/p/apple-macbook-pro-2020-133-tb/66480c/"
           ],
           "matched": false,
-          "name": "",
+          "name": "Apple MacBook Pro 2020 | 13.3",
           "price": 4895,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
-          "was_price": null
+          "was_price": 26769
         },
         "/p/apple-macbook-pro-2021-m1-14/120261b/": {
           "badge": null,
@@ -2441,24 +2414,27 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2024-m4-14/279670/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/apple-macbook-pro-2024-m4-14/280007/": {
+          "badge": null,
           "chip": "M4",
-          "config": "Apple MacBook Pro 2024 M4 Apple M4 10 Core 24.0 GB 512 GB 14.2 \" rymdsvart SE (Svensk)",
+          "config": "Apple MacBook Pro 2024 M4 Apple M4 10 Core 16.0 GB 512 GB 14.2 \" silver DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2024-m4-14/279670/"
+            "/p/apple-macbook-pro-2024-m4-14/280537/"
           ],
           "matched": false,
-          "name": "Apple MacBook Pro 2024 M4 | 14",
-          "price": 21099,
-          "ram_gb": 24.0,
+          "name": "",
+          "price": 18279,
+          "ram_gb": 16.0,
           "ssd_gb": 512.0,
-          "was_price": 23756
+          "was_price": null
         },
         "/p/apple-macbook-pro-2024-m4-14/280537/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M4 Pro",
           "config": "Apple MacBook Pro 2024 M4 Apple M4 Pro 12 Core 24.0 GB 512 GB 14.2 \" rymdsvart SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2024-m4-14/280537/"
+          ],
           "matched": false,
           "name": "Apple MacBook Pro 2024 M4 | 14",
           "price": 23965,
@@ -2473,6 +2449,7 @@
           "discovery_parent_paths": [
             "/p/apple-macbook-pro-2024-m4-14/279670/",
             "/p/apple-macbook-pro-2024-m4-14/280526/",
+            "/p/apple-macbook-pro-2024-m4-14/280537/",
             "/p/apple-macbook-pro-2024-m4-14/280537b/",
             "/p/apple-macbook-pro-2024-m4-14/280570/"
           ],
@@ -2490,6 +2467,7 @@
           "discovery_parent_paths": [
             "/p/apple-macbook-pro-2024-m4-14/279670/",
             "/p/apple-macbook-pro-2024-m4-14/280526/",
+            "/p/apple-macbook-pro-2024-m4-14/280537/",
             "/p/apple-macbook-pro-2024-m4-14/280537b/",
             "/p/apple-macbook-pro-2024-m4-14/280570/"
           ],
@@ -2866,37 +2844,8 @@
           "ssd_gb": 1000.0,
           "was_price": 42837
         },
-        "/p/ipad-10-10-9-2022/58268/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad 10 (2022) 64 GB 10.9 \" blå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-10-10-9-2022/58268/",
-            "/p/ipad-10-10-9-2022/73274/"
-          ],
-          "matched": false,
-          "name": "iPad 10 (2022) | 10.9",
-          "price": 3515,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": 4786
-        },
-        "/p/ipad-10-10-9-2022/61398/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad 10 (2022) 256 GB 10.9 \" blå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-10-10-9-2022/58268/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 6139,
-          "ram_gb": 256.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
         "/p/ipad-10-10-9-2022/73274/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad 10 (2022) 64 GB 10.9 \" rosa 4.0 GB",
           "discovery_parent_paths": [
@@ -2904,11 +2853,11 @@
             "/p/ipad-10-10-9-2022/73274/"
           ],
           "matched": false,
-          "name": "",
+          "name": "iPad 10 (2022) | 10.9",
           "price": 4129,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": null
+          "was_price": 4786
         },
         "/p/ipad-9-2021/14236/": {
           "badge": null,
@@ -3048,7 +2997,7 @@
           ],
           "matched": false,
           "name": "iPad Air (2020) | 10.9",
-          "price": 3675,
+          "price": 3735,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 7241
@@ -3090,7 +3039,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 3905,
+          "price": 3939,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -3106,7 +3055,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5035,
+          "price": 4919,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -3125,33 +3074,47 @@
           "ssd_gb": 8.0,
           "was_price": 8580
         },
-        "/p/ipad-mini-5/4454/": {
+        "/p/ipad-mini-5/4452b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" silver 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-5/4454c/"
+            "/p/ipad-mini-5/4453b/"
           ],
           "matched": false,
           "name": "",
-          "price": 2989,
+          "price": 2485,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-mini-5/4454aa/": {
+        "/p/ipad-mini-5/4453/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" guld 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-5/4454c/"
+            "/p/ipad-mini-5/4453b/"
           ],
           "matched": false,
           "name": "",
-          "price": 2745,
+          "price": 2725,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
+        },
+        "/p/ipad-mini-5/4453b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" guld 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-5/4453b/"
+          ],
+          "matched": false,
+          "name": "iPad mini (2019) | 7.9",
+          "price": 2395,
+          "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": 5010
         },
         "/p/ipad-mini-5/4454b/": {
           "badge": null,
@@ -3167,20 +3130,6 @@
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
-        },
-        "/p/ipad-mini-5/4454c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-5/4454c/"
-          ],
-          "matched": false,
-          "name": "iPad mini (2019) | 7.9",
-          "price": 2335,
-          "ram_gb": 64.0,
-          "ssd_gb": 3.0,
-          "was_price": 5010
         },
         "/p/ipad-mini-6/14220b/": {
           "badge": null,
@@ -3397,7 +3346,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-02T16:46:01Z",
+      "checked_at": "2026-09-02T17:00:57Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/41884c/": {
@@ -3648,7 +3597,7 @@
           "config": "Apple MacBook Pro 2019 Intel Core i7-9750H 32.0 GB 512 GB 16.0 \" rymdgrå UK (UK-engelska)",
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 16",
-          "price": 6209,
+          "price": 6219,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 35695
@@ -3932,7 +3881,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-02T16:46:15Z",
+      "checked_at": "2026-09-02T17:01:12Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/68740c/": {
