@@ -380,7 +380,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-02T11:56:15Z",
+      "checked_at": "2026-09-02T12:10:41Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -699,7 +699,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Air 2015 | 13.3",
-          "price": 2485,
+          "price": 2425,
           "ram_gb": 4.0,
           "ssd_gb": 128.0,
           "was_price": 11140
@@ -770,20 +770,6 @@
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 16716
-        },
-        "/p/apple-macbook-air-m4-2025/307985b/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 13.6 \" Midnatt IT (Italiensk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m4-2025/307985b/"
-          ],
-          "matched": false,
-          "name": "Apple MacBook Air 2025 | 13.6",
-          "price": 13369,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 13370
         },
         "/p/apple-macbook-pro-2019-16/27564c/": {
           "badge": "Bara ett fåtal kvar",
@@ -2701,7 +2687,7 @@
           ],
           "matched": false,
           "name": "iPad 9 (2021) | 10.2",
-          "price": 2039,
+          "price": 2045,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 4784
@@ -2720,17 +2706,30 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-air-4/9790c/": {
+        "/p/ipad-air-4/9793/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9795/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5415,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-air-4/9795/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple iPad Air (2020) 64 GB 10.9 \" roségold 4.0 GB",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9790c/",
-            "/p/ipad-air-4/9794c/"
+            "/p/ipad-air-4/9795/"
           ],
           "matched": false,
           "name": "iPad Air (2020) | 10.9",
-          "price": 4455,
+          "price": 4395,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 7237
@@ -2744,7 +2743,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5939,
+          "price": 5129,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -2772,13 +2771,13 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5029,
+          "price": 4969,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
         },
         "/p/ipad-air-5/21665/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "M1",
           "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
           "discovery_parent_paths": [
@@ -2786,7 +2785,7 @@
           ],
           "matched": false,
           "name": "iPad Air (2022) | 10.9",
-          "price": 5569,
+          "price": 4575,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": 8575
@@ -2842,7 +2841,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2439,
+          "price": 2465,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -3084,7 +3083,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 4155,
+          "price": 3949,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
           "was_price": null
@@ -3112,7 +3111,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 3375,
+          "price": 3389,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
           "was_price": null
@@ -3188,7 +3187,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-02T11:45:56Z",
+      "checked_at": "2026-09-02T12:00:56Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3734,7 +3733,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-02T11:46:11Z",
+      "checked_at": "2026-09-02T12:01:13Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
@@ -3913,16 +3912,16 @@
           "ssd_gb": 1000.0,
           "was_price": 28091
         },
-        "/p/apple-macbook-air-m4-2025/307985b/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/apple-macbook-air-m4-2025-15/308514aa/": {
+          "badge": "Bästsäljare",
           "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 13.6 \" Midnatt IT (Italiensk)",
+          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 512 GB 15.3 \" himmelsblå IT (Italiensk)",
           "matched": false,
-          "name": "Apple MacBook Air 2025 | 13.6",
-          "price": 13369,
+          "name": "Apple MacBook Air 2025 | 15.3",
+          "price": 17995,
           "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 13370
+          "ssd_gb": 512.0,
+          "was_price": 19504
         },
         "/p/apple-macbook-pro-2021-m1-14/98262c/": {
           "badge": "Bästsäljare",
@@ -3958,7 +3957,7 @@
           "was_price": 26752
         },
         "/p/apple-macbook-pro-2025-m5-14/368552aa/": {
-          "badge": "Bästsäljare",
+          "badge": null,
           "chip": "M5",
           "config": "Apple MacBook Pro 2025 M5 Apple M5 10 Core 16.0 GB 1000 GB 14.2 \" rymdsvart DE (Tysk)",
           "matched": false,
