@@ -389,7 +389,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-03T11:41:01Z",
+      "checked_at": "2026-09-03T11:55:18Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -788,18 +788,18 @@
           "ssd_gb": 256.0,
           "was_price": 18959
         },
-        "/p/apple-macbook-air-m2-2022/66322/": {
+        "/p/apple-macbook-air-m2-2022/277235/": {
           "badge": null,
           "chip": "M2",
-          "config": "Apple MacBook Air 2022 Apple M2 8.0 GB 512 GB 13.6 \" mörkblå SE (Svensk)",
+          "config": "Apple MacBook Air 2022 Apple M2 8.0 GB 256 GB 13.6 \" mörkblå FR (Fransk)",
           "discovery_parent_paths": [
             "/p/apple-macbook-air-m2-2022/277163/"
           ],
           "matched": false,
           "name": "",
-          "price": 11625,
+          "price": 12849,
           "ram_gb": 8.0,
-          "ssd_gb": 512.0,
+          "ssd_gb": 256.0,
           "was_price": null
         },
         "/p/apple-macbook-air-m3-2024-15/129194b/": {
@@ -2353,20 +2353,6 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2024-m4-14/280526/": {
-          "badge": null,
-          "chip": "M4 Pro",
-          "config": "Apple MacBook Pro 2024 M4 Apple M4 Pro 12 Core 24.0 GB 512 GB 14.2 \" rymdsvart DE (Tysk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2024-m4-14/280537/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 22895,
-          "ram_gb": 24.0,
-          "ssd_gb": 512.0,
-          "was_price": null
-        },
         "/p/apple-macbook-pro-2024-m4-14/280537/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M4 Pro",
@@ -2376,7 +2362,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2024 M4 | 14",
-          "price": 23999,
+          "price": 23965,
           "ram_gb": 24.0,
           "ssd_gb": 512.0,
           "was_price": 26770
@@ -2851,7 +2837,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2979,
+          "price": 2985,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -3170,7 +3156,7 @@
           ],
           "matched": false,
           "name": "iPad Pro (2018) | 11.0",
-          "price": 4035,
+          "price": 4475,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 11705
@@ -3291,18 +3277,18 @@
           "ssd_gb": 6.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/409576b/": {
+        "/p/iphone-11-pro-max/4811b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 512 GB guld Dual-SIM (2 x Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 64 GB guld Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4813b/"
+            "/p/iphone-11-pro-max/4814b/"
           ],
           "matched": false,
           "name": "",
-          "price": 5199,
-          "ram_gb": 512.0,
-          "ssd_gb": 512.0,
+          "price": 3959,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
           "was_price": null
         },
         "/p/iphone-11-pro-max/4812b/": {
@@ -3320,36 +3306,8 @@
           "ssd_gb": 64.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/4813/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4813b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3465,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": null
-        },
-        "/p/iphone-11-pro-max/4813aa/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4813b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3509,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": null
-        },
         "/p/iphone-11-pro-max/4813b/": {
-          "badge": "Bara ett fåtal kvar",
+          "badge": null,
           "chip": "",
           "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
@@ -3357,14 +3315,28 @@
             "/p/iphone-11-pro-max/4814b/"
           ],
           "matched": false,
-          "name": "iPhone 11 Pro Max",
-          "price": 2065,
+          "name": "",
+          "price": 3395,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
-          "was_price": 12598
+          "was_price": null
+        },
+        "/p/iphone-11-pro-max/4814/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 64 GB grön Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4814b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3395,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
         },
         "/p/iphone-11-pro-max/4814b/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPhone 11 Pro Max 64 GB grön Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
@@ -3372,25 +3344,11 @@
             "/p/iphone-11-pro-max/4814b/"
           ],
           "matched": false,
-          "name": "",
+          "name": "iPhone 11 Pro Max",
           "price": 2779,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
-          "was_price": null
-        },
-        "/p/iphone-11-pro-max/4816b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 256 GB guld Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4813b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3725,
-          "ram_gb": 256.0,
-          "ssd_gb": 256.0,
-          "was_price": null
+          "was_price": 12598
         },
         "/p/iphone-11-pro-max/4818b/": {
           "badge": null,
@@ -3407,16 +3365,16 @@
           "ssd_gb": 256.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/4820b/": {
+        "/p/iphone-11-pro-max/4821b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 512 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 512 GB grön Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4813b/"
+            "/p/iphone-11-pro-max/4814b/"
           ],
           "matched": false,
           "name": "",
-          "price": 4645,
+          "price": 6999,
           "ram_gb": 512.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -3453,7 +3411,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-03T11:30:58Z",
+      "checked_at": "2026-09-03T11:45:56Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/41884c/": {
@@ -3709,17 +3667,6 @@
           "ssd_gb": 256.0,
           "was_price": 35139
         },
-        "/p/apple-macbook-pro-2019-16/26373c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i9-9980HK 32.0 GB 512 GB 16.0 \" rymdgrå PT (Portugisisk)",
-          "matched": false,
-          "name": "Apple MacBook Pro 2019 | 16",
-          "price": 5349,
-          "ram_gb": 32.0,
-          "ssd_gb": 512.0,
-          "was_price": 40161
-        },
         "/p/apple-macbook-pro-2019-16/27150b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
@@ -3730,6 +3677,17 @@
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 35697
+        },
+        "/p/apple-macbook-pro-2019-16/89048c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2019 Intel Core i9-9980HK 32.0 GB 512 GB 16.0 \" rymdgrå SE (Svensk)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2019 | 16",
+          "price": 6159,
+          "ram_gb": 32.0,
+          "ssd_gb": 512.0,
+          "was_price": 37259
         },
         "/p/apple-macbook-pro-2020-133-tb/93219b/": {
           "badge": null,
@@ -3977,7 +3935,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-03T11:31:10Z",
+      "checked_at": "2026-09-03T11:46:10Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/68740c/": {
