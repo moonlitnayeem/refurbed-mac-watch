@@ -389,7 +389,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-03T09:42:59Z",
+      "checked_at": "2026-09-03T09:55:17Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -2826,6 +2826,20 @@
           "ssd_gb": 3.0,
           "was_price": 4787
         },
+        "/p/ipad-9-2021/14237c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad 9 (2021) 256 GB 10.2 \" rymdgrå 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-9-2021/14236c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3615,
+          "ram_gb": 256.0,
+          "ssd_gb": 3.0,
+          "was_price": null
+        },
         "/p/ipad-9-2021/14240c/": {
           "badge": null,
           "chip": "",
@@ -3129,49 +3143,49 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
+        "/p/ipad-mini-6/14220/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14228/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5569,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
         "/p/ipad-mini-6/14228/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228b/",
-            "/p/ipad-mini-6/14228c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4985,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14228b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228b/",
-            "/p/ipad-mini-6/14228c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4989,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14228c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
           "discovery_parent_paths": [
+            "/p/ipad-mini-6/14228/",
+            "/p/ipad-mini-6/14228b/",
             "/p/ipad-mini-6/14228c/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 3709,
+          "price": 4985,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 6126
+        },
+        "/p/ipad-mini-6/14230/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 256 GB 8.3 \" lila 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14228/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5369,
+          "ram_gb": 256.0,
+          "ssd_gb": 4.0,
+          "was_price": null
         },
         "/p/ipad-pro-11-0-2018/3644c/": {
           "badge": null,
@@ -3288,40 +3302,26 @@
           "ssd_gb": 64.0,
           "was_price": 10031
         },
-        "/p/ipad-pro-12-9-2018/3424/": {
+        "/p/ipad-pro-12-9-2018/3420b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad Pro (2018) 64 GB 12.9 \" rymdgrå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-pro-12-9-2018/3424/",
-            "/p/ipad-pro-12-9-2018/3424c/"
+            "/p/ipad-pro-12-9-2018/3420b/"
           ],
           "matched": false,
           "name": "iPad Pro (2018) | 12.9",
-          "price": 5279,
+          "price": 7045,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": 14160
-        },
-        "/p/ipad-pro-12-9-2018/3425/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Pro (2018) 256 GB 12.9 \" rymdgrå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-pro-12-9-2018/3424/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 6519,
-          "ram_gb": 256.0,
-          "ssd_gb": 4.0,
-          "was_price": null
+          "was_price": 12263
         },
         "/p/ipad-pro-12-9-2018/3435c/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Pro (2018) 1000 GB 12.9 \" silver 6.0 GB",
           "discovery_parent_paths": [
+            "/p/ipad-pro-12-9-2018/3420b/",
             "/p/ipad-pro-12-9-2018/3424/",
             "/p/ipad-pro-12-9-2018/3424c/",
             "/p/ipad-pro-12-9-2018/3435c/"
@@ -3463,7 +3463,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-03T09:31:10Z",
+      "checked_at": "2026-09-03T09:45:54Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/41884c/": {
@@ -3752,16 +3752,16 @@
           "ssd_gb": 512.0,
           "was_price": 27886
         },
-        "/p/apple-macbook-pro-2021-m1-14/75157b/": {
+        "/p/apple-macbook-pro-2021-m1-14/125759/": {
           "badge": "Bästsäljare",
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 32.0 GB 512 GB 14.2 \" rymdgrå SE (Svensk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 32.0 GB 512 GB 14.2 \" rymdgrå DK (Dansk)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 13485,
+          "price": 15035,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
-          "was_price": 30229
+          "was_price": 27998
         },
         "/p/apple-macbook-pro-2021-m1-16-2/113355b/": {
           "badge": "Bara ett fåtal kvar",
@@ -3987,7 +3987,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-03T09:31:25Z",
+      "checked_at": "2026-09-03T09:46:07Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
