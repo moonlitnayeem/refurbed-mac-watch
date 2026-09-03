@@ -200,9 +200,18 @@
       "url": "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/213369c/"
     },
     "apple-macbook-pro-2023-m2-14|M2 Pro|32|512": {
-      "price": 18045,
-      "seen_at": "2026-08-20T00:46:00Z",
-      "url": "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/179569/"
+      "price": 17565,
+      "proof_validation": {
+        "chip": "M2 Pro",
+        "price": 17565,
+        "ram_gb": 32.0,
+        "sha256": "274e08cf2e7b98e8f6b685d49945d90675e10a854dd7d0c7d8be6644f1ce7f04",
+        "ssd_gb": 512.0,
+        "version": 1
+      },
+      "screenshot": "price-proofs/2026-09-03/17565kr-00cb56cc038f5bce.png",
+      "seen_at": "2026-09-03T04:24:31Z",
+      "url": "https://www.refurbed.se/p/apple-macbook-pro-2023-m2-14/179566b/"
     },
     "apple-macbook-pro-2023-m2-16-2|M2 Max|32|512": {
       "price": 17815,
@@ -380,7 +389,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-03T04:11:02Z",
+      "checked_at": "2026-09-03T04:24:31Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -2785,7 +2794,7 @@
           ],
           "matched": false,
           "name": "iPad Air (2022) | 10.9",
-          "price": 4629,
+          "price": 4575,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": 10813
@@ -2866,7 +2875,8 @@
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228b/"
+            "/p/ipad-mini-6/14228b/",
+            "/p/ipad-mini-6/14228c/"
           ],
           "matched": false,
           "name": "",
@@ -2876,15 +2886,30 @@
           "was_price": null
         },
         "/p/ipad-mini-6/14228b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14228b/",
+            "/p/ipad-mini-6/14228c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4969,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14228c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228b/"
+            "/p/ipad-mini-6/14228c/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 4969,
+          "price": 3619,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 6126
@@ -3079,7 +3104,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-03T04:00:57Z",
+      "checked_at": "2026-09-03T04:15:55Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/41884c/": {
@@ -3357,16 +3382,16 @@
           "ssd_gb": 512.0,
           "was_price": 27886
         },
-        "/p/apple-macbook-pro-2021-m1-14/125759/": {
+        "/p/apple-macbook-pro-2021-m1-14/75157b/": {
           "badge": "Bästsäljare",
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 32.0 GB 512 GB 14.2 \" rymdgrå DK (Dansk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 32.0 GB 512 GB 14.2 \" rymdgrå SE (Svensk)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 15035,
+          "price": 12879,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
-          "was_price": 27998
+          "was_price": 30229
         },
         "/p/apple-macbook-pro-2021-m1-16-2/113355b/": {
           "badge": "Bara ett fåtal kvar",
@@ -3407,7 +3432,7 @@
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 10 Core 32.0 GB 512 GB 14.2 \" rymdgrå SE (Svensk)",
           "matched": true,
           "name": "Apple MacBook Pro 2023 M2 | 14.2",
-          "price": 22499,
+          "price": 17565,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 31457
@@ -3603,7 +3628,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-03T04:01:12Z",
+      "checked_at": "2026-09-03T04:16:09Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
