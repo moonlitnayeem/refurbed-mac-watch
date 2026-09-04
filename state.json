@@ -417,7 +417,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-04T22:10:02Z",
+      "checked_at": "2026-09-04T22:26:52Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -1119,6 +1119,20 @@
           "name": "",
           "price": 16255,
           "ram_gb": 16.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-14/66522b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 14.2 \" rymdgrå DE (Tysk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-14/180552b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 24985,
+          "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
@@ -2324,7 +2338,8 @@
           "chip": "M4",
           "config": "Apple MacBook Pro 2024 M4 Apple M4 10 Core 16.0 GB 512 GB 14.2 \" silver DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2024-m4-14/280526/"
+            "/p/apple-macbook-pro-2024-m4-14/280526/",
+            "/p/apple-macbook-pro-2024-m4-14/280657/"
           ],
           "matched": false,
           "name": "",
@@ -2333,16 +2348,16 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2024-m4-14/280526/": {
+        "/p/apple-macbook-pro-2024-m4-14/280657/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M4 Pro",
-          "config": "Apple MacBook Pro 2024 M4 Apple M4 Pro 12 Core 24.0 GB 512 GB 14.2 \" rymdsvart DE (Tysk)",
+          "config": "Apple MacBook Pro 2024 M4 Apple M4 Pro 12 Core 24.0 GB 512 GB 14.2 \" silver DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2024-m4-14/280526/"
+            "/p/apple-macbook-pro-2024-m4-14/280657/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2024 M4 | 14",
-          "price": 23249,
+          "price": 21795,
           "ram_gb": 24.0,
           "ssd_gb": 512.0,
           "was_price": 26638
@@ -2352,7 +2367,8 @@
           "chip": "M4 Pro",
           "config": "Apple MacBook Pro 2024 M4 Apple M4 Pro 12 Core 48.0 GB 1000 GB 14.2 \" rymdsvart DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2024-m4-14/280526/"
+            "/p/apple-macbook-pro-2024-m4-14/280526/",
+            "/p/apple-macbook-pro-2024-m4-14/280657/"
           ],
           "matched": false,
           "name": "",
@@ -2370,7 +2386,8 @@
             "/p/apple-macbook-pro-2024-m4-14/280526/",
             "/p/apple-macbook-pro-2024-m4-14/280537/",
             "/p/apple-macbook-pro-2024-m4-14/280537b/",
-            "/p/apple-macbook-pro-2024-m4-14/280570/"
+            "/p/apple-macbook-pro-2024-m4-14/280570/",
+            "/p/apple-macbook-pro-2024-m4-14/280657/"
           ],
           "matched": false,
           "name": "",
@@ -3268,7 +3285,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-04T22:01:02Z",
+      "checked_at": "2026-09-04T22:15:57Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3803,7 +3820,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-04T22:01:12Z",
+      "checked_at": "2026-09-04T22:16:09Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
