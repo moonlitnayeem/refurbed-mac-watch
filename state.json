@@ -431,7 +431,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-05T02:41:23Z",
+      "checked_at": "2026-09-05T02:54:34Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -3038,6 +3038,7 @@
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
           "discovery_parent_paths": [
+            "/p/ipad-mini-6/14224c/",
             "/p/ipad-mini-6/14228c/",
             "/p/ipad-mini-6/14232c/"
           ],
@@ -3049,48 +3050,20 @@
           "was_price": null
         },
         "/p/ipad-mini-6/14224c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" rosa 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228c/",
-            "/p/ipad-mini-6/14232c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3455,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14228c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
-          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14224c/",
             "/p/ipad-mini-6/14228c/",
             "/p/ipad-mini-6/14232c/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 3255,
+          "price": 3455,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 6104
-        },
-        "/p/ipad-mini-6/14230c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 256 GB 8.3 \" lila 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3785,
-          "ram_gb": 256.0,
-          "ssd_gb": 4.0,
-          "was_price": null
         },
         "/p/ipad-pro-10-5-2017/2164c/": {
           "badge": "Bara ett fåtal kvar",
@@ -3250,7 +3223,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-05T02:30:57Z",
+      "checked_at": "2026-09-05T02:45:52Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3653,7 +3626,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-05T02:31:08Z",
+      "checked_at": "2026-09-05T02:46:03Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2024-m4-10core/276650aa/": {
