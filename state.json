@@ -431,7 +431,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-05T02:24:52Z",
+      "checked_at": "2026-09-05T02:41:23Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -2739,7 +2739,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2659,
+          "price": 2619,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -2802,58 +2802,59 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
+        "/p/ipad-air-2/1782c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2014) 32 GB 9.7 \" rymdgrå 2.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-2/50c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 1449,
+          "ram_gb": 32.0,
+          "ssd_gb": 2.0,
+          "was_price": null
+        },
         "/p/ipad-air-2/50/": {
-          "badge": "Bara ett fåtal kvar",
+          "badge": null,
           "chip": "",
           "config": "Apple iPad Air (2014) 64 GB 9.7 \" rymdgrå 2.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-2/50/"
+            "/p/ipad-air-2/50/",
+            "/p/ipad-air-2/50c/"
           ],
           "matched": false,
-          "name": "iPad Air (2014) | 9.7",
+          "name": "",
           "price": 4547,
           "ram_gb": 64.0,
           "ssd_gb": 2.0,
           "was_price": null
         },
-        "/p/ipad-air-2/51/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Air (2014) 64 GB 9.7 \" silver 2.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-2/50/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 1779,
-          "ram_gb": 64.0,
-          "ssd_gb": 2.0,
-          "was_price": null
-        },
-        "/p/ipad-air-2/52/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Air (2014) 64 GB 9.7 \" guld 2.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-2/50/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 1779,
-          "ram_gb": 64.0,
-          "ssd_gb": 2.0,
-          "was_price": null
-        },
-        "/p/ipad-air-2/53/": {
+        "/p/ipad-air-2/50b/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Air (2014) 64 GB 9.7 \" rymdgrå 2.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-2/50/"
+            "/p/ipad-air-2/50c/"
           ],
           "matched": false,
           "name": "",
-          "price": 2659,
+          "price": 1515,
+          "ram_gb": 64.0,
+          "ssd_gb": 2.0,
+          "was_price": null
+        },
+        "/p/ipad-air-2/50c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple iPad Air (2014) 64 GB 9.7 \" rymdgrå 2.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-2/50c/"
+          ],
+          "matched": false,
+          "name": "iPad Air (2014) | 9.7",
+          "price": 4547,
           "ram_gb": 64.0,
           "ssd_gb": 2.0,
           "was_price": null
@@ -3062,34 +3063,6 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/ipad-mini-6/14228/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5079,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14228b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3615,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
         "/p/ipad-mini-6/14228c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
@@ -3277,7 +3250,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-05T02:15:53Z",
+      "checked_at": "2026-09-05T02:30:57Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3680,7 +3653,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-05T02:16:03Z",
+      "checked_at": "2026-09-05T02:31:08Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2024-m4-10core/276650aa/": {
