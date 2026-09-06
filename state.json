@@ -431,7 +431,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-06T12:11:12Z",
+      "checked_at": "2026-09-06T12:25:29Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -2520,21 +2520,6 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/ipad-10-10-9-2022/56341/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad 10 (2022) 64 GB 10.9 \" silver 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-10-10-9-2022/56341b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5479,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "verification_unknown": true,
-          "was_price": null
-        },
         "/p/ipad-10-10-9-2022/56341b/": {
           "badge": null,
           "chip": "",
@@ -2881,36 +2866,7 @@
           "ssd_gb": 4.0,
           "was_price": 6103
         },
-        "/p/ipad-pro-10-5-2017/1312c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Pro (2017) 256 GB 10.5 \" rymdgrå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-pro-10-5-2017/2171c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3375,
-          "ram_gb": 256.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
         "/p/ipad-pro-10-5-2017/2164c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" rymdgrå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-pro-10-5-2017/2164c/",
-            "/p/ipad-pro-10-5-2017/2171c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 2395,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-pro-10-5-2017/2171c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad Pro (2017) 64 GB 10.5 \" rymdgrå 4.0 GB",
@@ -2920,10 +2876,38 @@
           ],
           "matched": false,
           "name": "iPad Pro (2017) | 10.5",
-          "price": 2225,
+          "price": 2395,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": 8327
+          "was_price": 7771
+        },
+        "/p/ipad-pro-10-5-2017/2165c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" silver 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/2164c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2905,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-10-5-2017/2167c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 256 GB 10.5 \" rymdgrå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/2164c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3999,
+          "ram_gb": 256.0,
+          "ssd_gb": 4.0,
+          "was_price": null
         },
         "/p/ipad-pro-11-0-2018/3656/": {
           "badge": "Bara ett fåtal kvar",
@@ -3154,7 +3138,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-06T12:01:01Z",
+      "checked_at": "2026-09-06T12:15:34Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3689,7 +3673,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-06T12:01:12Z",
+      "checked_at": "2026-09-06T12:15:46Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
