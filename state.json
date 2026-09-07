@@ -431,7 +431,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-07T07:25:05Z",
+      "checked_at": "2026-09-07T07:40:19Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -755,6 +755,7 @@
           "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 256 GB 15.3 \" mörkblå DE (Tysk)",
           "discovery_parent_paths": [
             "/p/apple-macbook-air-m3-2024-15/129480c/",
+            "/p/apple-macbook-air-m3-2024-15/129676c/",
             "/p/apple-macbook-air-m3-2024-15/129837b/",
             "/p/apple-macbook-air-m3-2024-15/129891b/",
             "/p/apple-macbook-air-m3-2024-15/129916b/"
@@ -766,19 +767,19 @@
           "ssd_gb": 256.0,
           "was_price": null
         },
-        "/p/apple-macbook-air-m3-2024-15/129916b/": {
+        "/p/apple-macbook-air-m3-2024-15/129676c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 1000 GB 15.3 \" mörkblå PT (Portugisisk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 2000 GB 15.3 \" Polstjärnan NL (Nederländsk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129916b/"
+            "/p/apple-macbook-air-m3-2024-15/129676c/"
           ],
           "matched": false,
           "name": "Apple MacBook Air 2024 | 15.3",
-          "price": 19789,
+          "price": 21905,
           "ram_gb": 24.0,
-          "ssd_gb": 1000.0,
-          "was_price": 28020
+          "ssd_gb": 2000.0,
+          "was_price": 33137
         },
         "/p/apple-macbook-air-m4-2025-15/308513aa/": {
           "badge": null,
@@ -996,21 +997,6 @@
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": null
-        },
-        "/p/apple-macbook-pro-2021-m1-14/154884b/": {
-          "badge": "Bästsäljare",
-          "chip": "M1 Max",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 2000 GB 14.2 \" rymdgrå CZ (Tjeckiska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2021-m1-14/73513b/",
-            "/p/apple-macbook-pro-2021-m1-14/74791b/"
-          ],
-          "matched": true,
-          "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 28535,
-          "ram_gb": 64.0,
-          "ssd_gb": 2000.0,
-          "was_price": 46596
         },
         "/p/apple-macbook-pro-2021-m1-14/19750c/": {
           "badge": null,
@@ -2631,7 +2617,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2975,
+          "price": 2965,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -2717,7 +2703,7 @@
           ],
           "matched": false,
           "name": "iPad Air (2020) | 10.9",
-          "price": 3859,
+          "price": 4025,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 7219
@@ -3028,7 +3014,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-07T07:15:38Z",
+      "checked_at": "2026-09-07T07:30:37Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3510,7 +3496,7 @@
           "config": "Apple iPad Pro (2025) 256 GB 13.0 \" rymdsvart 12.0 GB",
           "matched": false,
           "name": "iPad Pro (2025) | 13",
-          "price": 12135,
+          "price": 12145,
           "ram_gb": 256.0,
           "ssd_gb": 12.0,
           "was_price": 18342
@@ -3563,7 +3549,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-07T07:15:52Z",
+      "checked_at": "2026-09-07T07:30:57Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
@@ -3742,6 +3728,17 @@
           "ssd_gb": 256.0,
           "was_price": 55606
         },
+        "/p/apple-macbook-air-m3-2024-15/129467c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M3",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 2000 GB 15.3 \" Polstjärnan ES (Spansk)",
+          "matched": false,
+          "name": "Apple MacBook Air 2024 | 15.3",
+          "price": 23399,
+          "ram_gb": 24.0,
+          "ssd_gb": 2000.0,
+          "was_price": 33137
+        },
         "/p/apple-macbook-air-m4-2025-15/308514aa/": {
           "badge": null,
           "chip": "M4",
@@ -3753,16 +3750,16 @@
           "ssd_gb": 512.0,
           "was_price": 19455
         },
-        "/p/apple-macbook-pro-2021-m1-14/74790b/": {
+        "/p/apple-macbook-pro-2021-m1-14/98262/": {
           "badge": "Bästsäljare",
           "chip": "M1 Max",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 2000 GB 14.2 \" rymdgrå DK (Dansk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 32.0 GB 1000 GB 14.2 \" rymdgrå UK (UK-engelska)",
           "matched": false,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 28839,
-          "ram_gb": 64.0,
-          "ssd_gb": 2000.0,
-          "was_price": 46596
+          "price": 18585,
+          "ram_gb": 32.0,
+          "ssd_gb": 1000.0,
+          "was_price": 42369
         },
         "/p/apple-macbook-pro-2021-m1-16-2/145544c/": {
           "badge": "Bara ett fåtal kvar",
@@ -3807,17 +3804,6 @@
           "ram_gb": 36.0,
           "ssd_gb": 2000.0,
           "was_price": 56719
-        },
-        "/p/apple-macbook-pro-2026-m5-pro-15-16-14/420199aa/": {
-          "badge": null,
-          "chip": "M5 Pro",
-          "config": "Apple MacBook Pro 2026 M5 Pro 15-Core CPU Apple M5 Pro 15 Core 24.0 GB 2000 GB 14.2 \" rymdsvart DE (Tysk)",
-          "matched": false,
-          "name": "Apple MacBook Pro 2026 M5 Pro 15-Core CPU | 16-Core GPU | 14",
-          "price": 31615,
-          "ram_gb": 24.0,
-          "ssd_gb": 2000.0,
-          "was_price": 38365
         },
         "/p/apple-macbook-pro-2026-m5-pro-15-16-14/420221aa/": {
           "badge": null,
