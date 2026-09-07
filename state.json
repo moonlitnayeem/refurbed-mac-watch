@@ -468,7 +468,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-07T14:09:24Z",
+      "checked_at": "2026-09-07T14:24:13Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -1005,16 +1005,16 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2020-133-tb/22464c/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/apple-macbook-pro-2020-133-tb/26866c/": {
+          "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" rymdgrå FR (Fransk)",
+          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" silver FR (Fransk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/22464c/"
+            "/p/apple-macbook-pro-2020-133-tb/26866c/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2020 | 13.3",
-          "price": 4935,
+          "price": 5495,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": 24545
@@ -1024,7 +1024,8 @@
           "chip": "",
           "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 32.0 GB 512 GB 13.3 \" rymdgrå FR (Fransk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/22464c/"
+            "/p/apple-macbook-pro-2020-133-tb/22464c/",
+            "/p/apple-macbook-pro-2020-133-tb/26866c/"
           ],
           "matched": false,
           "name": "",
@@ -2732,34 +2733,19 @@
           "ssd_gb": 3.0,
           "was_price": 5011
         },
-        "/p/ipad-mini-6/14220/": {
+        "/p/ipad-mini-6/14225aa/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rosa 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5565,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14228/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14228/",
-            "/p/ipad-mini-6/14228b/"
+            "/p/ipad-mini-6/14225aa/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 4965,
+          "price": 5359,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": 6128
+          "was_price": 8025
         },
         "/p/ipad-pro-10-5-2017/2165/": {
           "badge": null,
@@ -2832,54 +2818,26 @@
           "ssd_gb": 4.0,
           "was_price": 12267
         },
-        "/p/iphone-11-pro-max/4811b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB guld Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4119,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": null
-        },
-        "/p/iphone-11-pro-max/4812b/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB silver Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812b/"
-          ],
-          "matched": false,
-          "name": "iPhone 11 Pro Max",
-          "price": 3215,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": 12602
-        },
-        "/p/iphone-11-pro-max/4813b/": {
+        "/p/iphone-11-pro-max/4813/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812b/"
+            "/p/iphone-11-pro-max/4813c/"
           ],
           "matched": false,
           "name": "",
-          "price": 3395,
+          "price": 3465,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/4814b/": {
+        "/p/iphone-11-pro-max/4813aa/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB grön Dual-SIM (eSIM, Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812b/"
+            "/p/iphone-11-pro-max/4813c/"
           ],
           "matched": false,
           "name": "",
@@ -2888,33 +2846,34 @@
           "ssd_gb": 64.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/4815b/": {
+        "/p/iphone-11-pro-max/4813b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 256 GB silver Dual-SIM (eSIM, Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812b/"
+            "/p/iphone-11-pro-max/4812b/",
+            "/p/iphone-11-pro-max/4813c/"
           ],
           "matched": false,
           "name": "",
-          "price": 4275,
-          "ram_gb": 256.0,
-          "ssd_gb": 256.0,
+          "price": 3395,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/4819b/": {
-          "badge": null,
+        "/p/iphone-11-pro-max/4813c/": {
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 512 GB silver Dual-SIM (eSIM, Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812b/"
+            "/p/iphone-11-pro-max/4813c/"
           ],
           "matched": false,
-          "name": "",
-          "price": 6709,
-          "ram_gb": 512.0,
-          "ssd_gb": 512.0,
-          "was_price": null
+          "name": "iPhone 11 Pro Max",
+          "price": 2179,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": 12602
         },
         "/p/macbook-pro-2019-133-tb/55209c/": {
           "badge": null,
@@ -2948,7 +2907,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-07T14:00:47Z",
+      "checked_at": "2026-09-07T14:15:33Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3194,12 +3153,12 @@
           "was_price": 40172
         },
         "/p/apple-macbook-pro-2019-16/27150c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple MacBook Pro 2019 Intel Core i7-9750H 32.0 GB 512 GB 16.0 \" rymdgrå UK (UK-engelska)",
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 16",
-          "price": 7729,
+          "price": 6685,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 35707
@@ -3392,12 +3351,12 @@
           "was_price": 4230
         },
         "/p/ipad-8-10-2/10362b/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad 8 (2020) 32 GB 10.2 \" rymdgrå 3.0 GB",
           "matched": false,
           "name": "iPad 8 (2020) | 10.2",
-          "price": 1635,
+          "price": 1505,
           "ram_gb": 32.0,
           "ssd_gb": 3.0,
           "was_price": 4007
@@ -3505,7 +3464,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-07T14:00:59Z",
+      "checked_at": "2026-09-07T14:15:44Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/152198b/": {
