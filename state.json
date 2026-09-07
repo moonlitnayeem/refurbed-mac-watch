@@ -468,7 +468,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-07T11:24:46Z",
+      "checked_at": "2026-09-07T11:40:22Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -580,7 +580,7 @@
           ],
           "matched": false,
           "name": "Apple iMac 5K 2017 | 27",
-          "price": 11645,
+          "price": 10479,
           "ram_gb": 8.0,
           "ssd_gb": 2000.0,
           "was_price": 37697
@@ -803,16 +803,16 @@
           "ssd_gb": 256.0,
           "was_price": null
         },
-        "/p/apple-macbook-air-m4-2025-15/308497b/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/apple-macbook-air-m4-2025-15/308513aa/": {
+          "badge": null,
           "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 15.3 \" himmelsblå DE (Tysk)",
+          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 512 GB 15.3 \" himmelsblå DE (Tysk)",
           "matched": false,
           "name": "Apple MacBook Air 2025 | 15.3",
-          "price": 11299,
+          "price": 17975,
           "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 16674
+          "ssd_gb": 512.0,
+          "was_price": 19455
         },
         "/p/apple-macbook-air-m4-2025/307968/": {
           "badge": "Bara ett fåtal kvar",
@@ -1716,20 +1716,6 @@
           "name": "",
           "price": 19629,
           "ram_gb": 16.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2023-m3-14/291341/": {
-          "badge": null,
-          "chip": "M3 Pro",
-          "config": "Apple MacBook Pro 2023 M3 Apple M3 Pro 11 Core 36.0 GB 1000 GB 14.2 \" rymdsvart FR (Fransk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m3-14/304218b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 28915,
-          "ram_gb": 36.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
@@ -2675,7 +2661,7 @@
           ],
           "matched": false,
           "name": "iPad 9 (2021) | 10.2",
-          "price": 1925,
+          "price": 2039,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 4772
@@ -2839,33 +2825,19 @@
           "ssd_gb": 8.0,
           "was_price": null
         },
-        "/p/ipad-mini-5/4455/": {
-          "badge": null,
+        "/p/ipad-mini-5/4452b/": {
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" silver 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3845,
-          "ram_gb": 64.0,
-          "ssd_gb": 3.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-5/4455b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455b/"
+            "/p/ipad-mini-5/4452b/"
           ],
           "matched": false,
           "name": "iPad mini (2019) | 7.9",
-          "price": 2309,
+          "price": 2295,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
-          "was_price": 6551
+          "was_price": 4994
         },
         "/p/ipad-mini-6/14228/": {
           "badge": null,
@@ -2965,6 +2937,7 @@
           "price": 3989,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
+          "verification_unknown": true,
           "was_price": null
         },
         "/p/ipad-pro-12-9-2017/2575b/": {
@@ -2979,6 +2952,7 @@
           "price": 3775,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
+          "verification_unknown": true,
           "was_price": null
         },
         "/p/ipad-pro-12-9-2017/2575c/": {
@@ -3169,7 +3143,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-07T11:15:42Z",
+      "checked_at": "2026-09-07T11:30:43Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3227,13 +3201,13 @@
           "ssd_gb": 3000.0,
           "was_price": 32803
         },
-        "/p/apple-imac-5k-2017-27/68504/": {
+        "/p/apple-imac-5k-2017-27/68507/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "iMac 5K 2017 27\" - Rekonditionerad Apple Dator",
           "matched": false,
           "name": "Apple iMac 5K 2017 | 27",
-          "price": 7129,
+          "price": 7095,
           "ram_gb": 8.0,
           "ssd_gb": 2000.0,
           "was_price": 37809
@@ -3255,7 +3229,7 @@
           "config": "iMac 5K 2019 27\" - Rekonditionerad Apple Dator",
           "matched": false,
           "name": "Apple iMac 5K 2019 | 27",
-          "price": 13495,
+          "price": 12155,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 35584
@@ -3266,7 +3240,18 @@
           "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
           "matched": false,
           "name": "Apple iMac 5K 2020 | 27",
-          "price": 12339,
+          "price": 11105,
+          "ram_gb": 32.0,
+          "ssd_gb": 256.0,
+          "was_price": 30801
+        },
+        "/p/apple-imac-5k-2020-27/181780/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple iMac 5K 2020 | 27",
+          "price": 11105,
           "ram_gb": 32.0,
           "ssd_gb": 256.0,
           "was_price": 30801
@@ -3591,12 +3576,12 @@
           "was_price": 4104
         },
         "/p/ipad-7-10-2/4827b/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad 7 (2019) 32 GB 10.2 \" rymdgrå 3.0 GB",
           "matched": false,
           "name": "iPad 7 (2019) | 10.2",
-          "price": 1269,
+          "price": 1229,
           "ram_gb": 32.0,
           "ssd_gb": 3.0,
           "was_price": 4215
@@ -3704,7 +3689,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-07T11:16:01Z",
+      "checked_at": "2026-09-07T11:30:55Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
@@ -3801,7 +3786,7 @@
           "config": "iMac 5K 2017 27\" - Rekonditionerad Apple Dator",
           "matched": false,
           "name": "Apple iMac 5K 2017 | 27",
-          "price": 11645,
+          "price": 10479,
           "ram_gb": 8.0,
           "ssd_gb": 2000.0,
           "was_price": 37697
@@ -3812,7 +3797,7 @@
           "config": "iMac 5K 2020 27\" - Rekonditionerad Apple Dator",
           "matched": false,
           "name": "Apple iMac 5K 2020 | 27",
-          "price": 15125,
+          "price": 13615,
           "ram_gb": 16.0,
           "ssd_gb": 1000.0,
           "was_price": 31913
