@@ -418,9 +418,18 @@
       "url": "https://www.refurbed.se/p/apple-macbook-pro-2024-m4-16/284971b/"
     },
     "apple-macbook-pro-2024-m4-16|M4 Max|64|1000": {
-      "price": 49455,
-      "seen_at": "2026-08-18T11:13:00Z",
-      "url": "https://www.refurbed.se/p/apple-macbook-pro-2024-m4-16/285533b/"
+      "price": 45059,
+      "proof_validation": {
+        "chip": "M4 Max",
+        "price": 45059,
+        "ram_gb": 64.0,
+        "sha256": "9be90e4f7fca6006fbcee33882542b662642227cdf73005bcabca6e770517868",
+        "ssd_gb": 1000.0,
+        "version": 1
+      },
+      "screenshot": "price-proofs/2026-09-08/45059kr-b98cfe7e05600424.png",
+      "seen_at": "2026-09-08T07:24:48Z",
+      "url": "https://www.refurbed.se/p/apple-macbook-pro-2024-m4-16/285526aa/"
     },
     "apple-macbook-pro-2024-m4-16|M4 Max|64|4000": {
       "price": 65415,
@@ -468,7 +477,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-08T07:11:12Z",
+      "checked_at": "2026-09-08T07:24:48Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -1052,6 +1061,7 @@
           "price": 15839,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
+          "verification_unknown": true,
           "was_price": 16721
         },
         "/p/apple-macbook-pro-2019-16/27565c/": {
@@ -2337,6 +2347,17 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
+        "/p/apple-macbook-pro-2024-m4-16/285526aa/": {
+          "badge": null,
+          "chip": "M4 Max",
+          "config": "Apple MacBook Pro 2024 M4 Apple M4 Max 16 Core 64.0 GB 1000 GB 16.2 \" silver US (US-engelska)",
+          "matched": true,
+          "name": "Apple MacBook Pro 2024 M4 | 16",
+          "price": 45059,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "was_price": 54983
+        },
         "/p/apple-macbook-pro-2024-m4-16/285662c/": {
           "badge": null,
           "chip": "M4 Max",
@@ -3004,7 +3025,7 @@
           ],
           "matched": false,
           "name": "iPad mini (2019) | 7.9",
-          "price": 2225,
+          "price": 2145,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 6570
@@ -3112,7 +3133,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-08T07:00:49Z",
+      "checked_at": "2026-09-08T07:15:35Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3445,6 +3466,17 @@
           "ssd_gb": 512.0,
           "was_price": 36131
         },
+        "/p/apple-macbook-pro-2023-m2-14/179566b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2 Pro",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 10 Core 32.0 GB 512 GB 14.2 \" rymdgrå SE (Svensk)",
+          "matched": true,
+          "name": "Apple MacBook Pro 2023 M2 | 14.2",
+          "price": 22695,
+          "ram_gb": 32.0,
+          "ssd_gb": 512.0,
+          "was_price": 31446
+        },
         "/p/apple-macbook-pro-2023-m2-14/179572b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2 Pro",
@@ -3455,17 +3487,6 @@
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 31446
-        },
-        "/p/apple-macbook-pro-2023-m2-14/329719c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M2 Pro",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 32.0 GB 512 GB 14.2 \" silver UK (UK-engelska)",
-          "matched": true,
-          "name": "Apple MacBook Pro 2023 M2 | 14.2",
-          "price": 21425,
-          "ram_gb": 32.0,
-          "ssd_gb": 512.0,
-          "was_price": 33231
         },
         "/p/apple-macbook-pro-2023-m2-16-2/277125b/": {
           "badge": "Bara ett fåtal kvar",
@@ -3658,7 +3679,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-08T07:01:01Z",
+      "checked_at": "2026-09-08T07:15:47Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
