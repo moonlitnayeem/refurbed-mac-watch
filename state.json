@@ -477,7 +477,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-08T08:25:24Z",
+      "checked_at": "2026-09-08T08:38:50Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -522,7 +522,7 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-imac-2024-m4-10core/274320aa/": {
+        "/p/apple-imac-2024-m4-10core/274343aa/": {
           "badge": null,
           "chip": "M4",
           "config": "Apple iMac 2024 M4 10 Core – Kraftfull stationär dator",
@@ -556,6 +556,17 @@
           "was_price": 20068
         },
         "/p/apple-imac-2024-m4-8core/278934aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 8 Core | 24",
+          "price": 16905,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 20068
+        },
+        "/p/apple-imac-2024-m4-8core/278978aa/": {
           "badge": null,
           "chip": "M4",
           "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
@@ -934,7 +945,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 16529,
+          "price": 17249,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -1334,7 +1345,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23159,
+          "price": 23125,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1404,7 +1415,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23125,
+          "price": 23159,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -2435,7 +2446,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 30135,
+          "price": 30869,
           "ram_gb": 24.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -2781,28 +2792,29 @@
           "chip": "",
           "config": "Apple iPad Air (2020) 64 GB 10.9 \" roségold 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9790b/"
-          ],
-          "matched": false,
-          "name": "iPad Air (2020) | 10.9",
-          "price": 4465,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": 7239
-        },
-        "/p/ipad-air-4/9791b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Air (2020) 64 GB 10.9 \" roségold 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-4/9790b/"
+            "/p/ipad-air-4/9790b/",
+            "/p/ipad-air-4/9790c/"
           ],
           "matched": false,
           "name": "",
-          "price": 6049,
+          "price": 4619,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
+        },
+        "/p/ipad-air-4/9790c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" roségold 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9790c/"
+          ],
+          "matched": false,
+          "name": "iPad Air (2020) | 10.9",
+          "price": 4365,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": 7239
         },
         "/p/ipad-air-5/21661/": {
           "badge": null,
@@ -2904,19 +2916,47 @@
           "ssd_gb": 3.0,
           "was_price": 6570
         },
-        "/p/ipad-mini-6/14225aa/": {
+        "/p/ipad-mini-6/14220b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rosa 4.0 GB",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14225aa/"
+            "/p/ipad-mini-6/14232b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5745,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14228b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14232b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5615,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14232b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" vit 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14232b/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 5355,
+          "price": 5065,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": 8020
+          "was_price": 6124
         },
         "/p/ipad-pro-10-5-2017/2165b/": {
           "badge": null,
@@ -3007,7 +3047,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-08T08:15:41Z",
+      "checked_at": "2026-09-08T08:30:33Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -3553,7 +3593,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-08T08:15:53Z",
+      "checked_at": "2026-09-08T08:30:44Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2021-m1-24/182387/": {
@@ -3760,7 +3800,7 @@
           "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 32.0 GB 1000 GB 14.2 \" rymdgrå UK (UK-engelska)",
           "matched": false,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 18689,
+          "price": 19459,
           "ram_gb": 32.0,
           "ssd_gb": 1000.0,
           "was_price": 42489
