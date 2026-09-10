@@ -519,7 +519,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-10T14:07:36Z",
+      "checked_at": "2026-09-10T14:23:54Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -574,17 +574,6 @@
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 22374
-        },
-        "/p/apple-imac-2024-m4-8core/278978aa/": {
-          "badge": null,
-          "chip": "M4",
-          "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
-          "matched": false,
-          "name": "Apple iMac 2024 M4 8 Core | 24",
-          "price": 15995,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 20136
         },
         "/p/apple-imac-2024-m4-8core/279038aa/": {
           "badge": null,
@@ -935,7 +924,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 19655,
+          "price": 19015,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -946,7 +935,7 @@
           "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 15.3 \" himmelsblå SE (Svensk)",
           "matched": false,
           "name": "Apple MacBook Air 2025 | 15.3",
-          "price": 16615,
+          "price": 15825,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 16778
@@ -1158,7 +1147,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23259,
+          "price": 22879,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1172,7 +1161,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22815,
+          "price": 23259,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1200,7 +1189,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22625,
+          "price": 23755,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -2143,51 +2132,117 @@
           "ssd_gb": 3.0,
           "was_price": 6144
         },
-        "/p/ipad-air-4/9793/": {
+        "/p/ipad-air-4/9791c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" roségold 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9793/",
-            "/p/ipad-air-4/9795/"
+            "/p/ipad-air-4/9799c/"
           ],
           "matched": false,
           "name": "",
-          "price": 5395,
+          "price": 4355,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/ipad-air-4/9795/": {
+        "/p/ipad-air-4/9792c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" silver 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9799c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4355,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-air-4/9793c/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9793/",
-            "/p/ipad-air-4/9795/",
-            "/p/ipad-air-4/9795c/",
-            "/p/ipad-air-4/9798/"
+            "/p/ipad-air-4/9799c/"
           ],
           "matched": false,
-          "name": "iPad Air (2020) | 10.9",
-          "price": 5395,
+          "name": "",
+          "price": 4309,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": 7264
+          "was_price": null
         },
-        "/p/ipad-air-4/9798/": {
+        "/p/ipad-air-4/9797c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" grön 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9799c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4355,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-air-4/9799/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Air (2020) 64 GB 10.9 \" blå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9795/"
+            "/p/ipad-air-4/9799c/"
           ],
           "matched": false,
           "name": "",
-          "price": 4509,
+          "price": 6145,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
+        },
+        "/p/ipad-air-4/9799aa/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" blå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9799c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4805,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-air-4/9799b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" blå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9799c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4545,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-air-4/9799c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" blå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9799c/"
+          ],
+          "matched": false,
+          "name": "iPad Air (2020) | 10.9",
+          "price": 4295,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": 8831
         },
         "/p/ipad-air-5/21661/": {
           "badge": null,
@@ -2330,7 +2385,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-10T14:01:14Z",
+      "checked_at": "2026-09-10T14:15:58Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -2722,7 +2777,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-10T14:01:22Z",
+      "checked_at": "2026-09-10T14:16:08Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-ultra/100810/": {
