@@ -519,7 +519,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-10T22:07:49Z",
+      "checked_at": "2026-09-10T22:22:40Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -575,7 +575,7 @@
           "ssd_gb": 256.0,
           "was_price": 22374
         },
-        "/p/apple-imac-2024-m4-8core/279038aa/": {
+        "/p/apple-imac-2024-m4-8core/278934aa/": {
           "badge": null,
           "chip": "M4",
           "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
@@ -881,7 +881,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 16229,
+          "price": 15465,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -965,7 +965,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 15565,
+          "price": 16699,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1040,33 +1040,47 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2020-133-tb/120806c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 32.0 GB 512 GB 13.3 \" rymdgrå PT (Portugisisk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/44125c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 6679,
-          "ram_gb": 32.0,
-          "ssd_gb": 512.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2020-133-tb/44125c/": {
+        "/p/apple-macbook-pro-2020-133-tb/10405c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" rymdgrå PT (Portugisisk)",
+          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" rymdgrå DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/44125c/"
+            "/p/apple-macbook-pro-2020-133-tb/10405c/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2020 | 13.3",
-          "price": 5725,
+          "price": 5665,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": 24613
+        },
+        "/p/apple-macbook-pro-2020-133-tb/14285c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2020 Intel Core i5-8257U 8.0 GB 512 GB 13.3 \" rymdgrå DE (Tysk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2020-133-tb/10405c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4869,
+          "ram_gb": 8.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2020-133-tb/93219c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 32.0 GB 512 GB 13.3 \" rymdgrå DE (Tysk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2020-133-tb/10405c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 6665,
+          "ram_gb": 32.0,
+          "ssd_gb": 512.0,
+          "was_price": null
         },
         "/p/apple-macbook-pro-2021-m1-14/111369b/": {
           "badge": "Bästsäljare",
@@ -2224,7 +2238,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-10T22:01:19Z",
+      "checked_at": "2026-09-10T22:16:05Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -2250,6 +2264,17 @@
           "was_price": 33679
         },
         "/p/apple-imac-5k-2017-27/59920c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "iMac 5K 2017 27\" - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple iMac 5K 2017 | 27",
+          "price": 6415,
+          "ram_gb": 32.0,
+          "ssd_gb": 1000.0,
+          "was_price": 32224
+        },
+        "/p/apple-imac-5k-2017-27/59921c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "iMac 5K 2017 27\" - Rekonditionerad Apple Dator",
@@ -2726,7 +2751,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-10T22:01:28Z",
+      "checked_at": "2026-09-10T22:16:14Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-ultra/100810/": {
