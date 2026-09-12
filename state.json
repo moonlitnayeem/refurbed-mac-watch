@@ -519,7 +519,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-12T14:38:56Z",
+      "checked_at": "2026-09-12T14:52:26Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -575,7 +575,7 @@
           "ssd_gb": 256.0,
           "was_price": 22488
         },
-        "/p/apple-imac-2024-m4-8core/278934aa/": {
+        "/p/apple-imac-2024-m4-8core/279038aa/": {
           "badge": null,
           "chip": "M4",
           "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
@@ -802,20 +802,6 @@
           "ssd_gb": 1000.0,
           "was_price": 26313
         },
-        "/p/apple-macbook-air-m3-2024-15/129260b/": {
-          "badge": null,
-          "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 1000 GB 15.3 \" mörkblå SE (Svensk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129330b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 16489,
-          "ram_gb": 8.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
         "/p/apple-macbook-air-m3-2024-15/129330b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M3",
@@ -829,6 +815,20 @@
           "ram_gb": 24.0,
           "ssd_gb": 512.0,
           "was_price": 25750
+        },
+        "/p/apple-macbook-air-m3-2024-15/129485b/": {
+          "badge": null,
+          "chip": "M3",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 1000 GB 15.3 \" Polstjärnan SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-air-m3-2024-15/129330b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 17565,
+          "ram_gb": 8.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
         },
         "/p/apple-macbook-air-m3-2024-15/129582/": {
           "badge": null,
@@ -2394,7 +2394,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-12T14:31:42Z",
+      "checked_at": "2026-09-12T14:46:30Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152219/": {
@@ -2874,7 +2874,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-12T14:31:51Z",
+      "checked_at": "2026-09-12T14:46:37Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-ultra/100810/": {
