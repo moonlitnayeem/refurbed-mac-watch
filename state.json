@@ -173,6 +173,20 @@
       "seen_at": "2026-08-26T11:29:51Z",
       "url": "https://www.refurbed.se/p/apple-macbook-pro-2021-m1-14/98281b/"
     },
+    "apple-macbook-pro-2021-m1-14|M1 Pro|32|1000": {
+      "price": 16845,
+      "proof_validation": {
+        "chip": "M1 Pro",
+        "price": 16845,
+        "ram_gb": 32.0,
+        "sha256": "7622ecfc8bd71a40e8d01678709b9c17ffd5e1ed069e02bf1d8651ad55116b6f",
+        "ssd_gb": 1000.0,
+        "version": 1
+      },
+      "screenshot": "price-proofs/2026-09-14/16845kr-ce7b653b98247e86.png",
+      "seen_at": "2026-09-14T20:24:42Z",
+      "url": "https://www.refurbed.se/p/apple-macbook-pro-2021-m1-14/68618c/"
+    },
     "apple-macbook-pro-2021-m1-14|M1 Pro|32|512": {
       "price": 8419,
       "proof_validation": {
@@ -561,7 +575,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-14T20:08:41Z",
+      "checked_at": "2026-09-14T20:24:42Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -572,11 +586,11 @@
             "/p/apple-imac-2023-m3-8core/465201aa/"
           ],
           "matched": false,
-          "name": "",
+          "name": "Apple iMac 2023 M3 8 Core | 24",
           "price": 13315,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
-          "was_price": null
+          "was_price": 17250
         },
         "/p/apple-imac-2023-m3-8core/465201aa/": {
           "badge": "Bara ett fåtal kvar",
@@ -606,16 +620,38 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-imac-2024-m4-10core/274271aa/": {
+        "/p/apple-imac-2024-m4-10core/274343aa/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M4",
+          "config": "Apple iMac 2024 M4 10 Core – Kraftfull stationär dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 10 Core | 24",
+          "price": 17015,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 22553
+        },
+        "/p/apple-imac-2024-m4-10core/276578aa/": {
           "badge": null,
           "chip": "M4",
           "config": "Apple iMac 2024 M4 10 Core – Kraftfull stationär dator",
           "matched": false,
           "name": "Apple iMac 2024 M4 10 Core | 24",
-          "price": 16685,
+          "price": 21755,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
-          "was_price": 22553
+          "was_price": 25035
+        },
+        "/p/apple-imac-2024-m4-8core/278844aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 8 Core | 24",
+          "price": 16029,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 20296
         },
         "/p/apple-imac-2024-m4-8core/278934aa/": {
           "badge": null,
@@ -671,18 +707,18 @@
           "was_price": null
         },
         "/p/apple-imac-5k-2017-27/102068c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "iMac 5K 2017 27\" - Rekonditionerad Apple Dator",
           "discovery_parent_paths": [
             "/p/apple-imac-5k-2017-27/102065c/"
           ],
           "matched": false,
-          "name": "",
+          "name": "Apple iMac 5K 2017 | 27",
           "price": 7169,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
-          "was_price": null
+          "was_price": 29322
         },
         "/p/apple-imac-5k-2017-27/102069c/": {
           "badge": null,
@@ -755,6 +791,67 @@
           "ssd_gb": 256.0,
           "was_price": null
         },
+        "/p/apple-mac-mini-2018/9725b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple Mac Mini 2018 - Rekonditionerad Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2018",
+          "price": 3075,
+          "ram_gb": 8.0,
+          "ssd_gb": 128.0,
+          "was_price": 11270
+        },
+        "/p/apple-mac-mini-2020-m1/11609/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Mac Mini 2020 M1 - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2020 M1",
+          "price": 8979,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 11609
+        },
+        "/p/apple-mac-mini-2023-m2-pro/76176b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2 Pro",
+          "config": "Mac Mini 2023 M2 Pro - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2023 M2 Pro",
+          "price": 12599,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": 17137
+        },
+        "/p/apple-mac-mini-2023-m2/154346b/": {
+          "badge": null,
+          "chip": "M2",
+          "config": "Mac Mini 2023 M2 - Rekonditionerad Apple Dator",
+          "discovery_parent_paths": [
+            "/p/apple-mac-mini-2023-m2/95809b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 11109,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/apple-mac-mini-2023-m2/95809b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2",
+          "config": "Mac Mini 2023 M2 - Rekonditionerad Apple Dator",
+          "discovery_parent_paths": [
+            "/p/apple-mac-mini-2023-m2/95809b/"
+          ],
+          "matched": false,
+          "name": "Apple Mac Mini 2023 M2",
+          "price": 8309,
+          "ram_gb": 8.0,
+          "ssd_gb": 512.0,
+          "was_price": 10481
+        },
         "/p/apple-mac-mini-2024-m4-pro/273551aa/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M4",
@@ -777,12 +874,62 @@
           "ssd_gb": 256.0,
           "was_price": 10706
         },
-        "/p/apple-macbook-air-m2-2022/186508b/": {
+        "/p/apple-mac-mini-2024-m4/273548aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "Mac Mini 2024 M4 - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2024 M4",
+          "price": 11955,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": 13188
+        },
+        "/p/apple-mac-pro-2019/169260c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Mac Pro (2019) - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Pro (2019)",
+          "price": 40755,
+          "ram_gb": 96.0,
+          "ssd_gb": 2000.0,
+          "was_price": 121498
+        },
+        "/p/apple-mac-pro-rack-2019/478655/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple Mac Pro Rack (2019) | Xeon W-3245 | 48 GB | 1 TB SSD | Radeon Pro 580X | 22 555 kr | Nu med en 30 dagars provperiod",
+          "discovery_parent_paths": [
+            "/p/apple-mac-pro-rack-2019/478659/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 22555,
+          "ram_gb": 48.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-mac-pro-rack-2019/478659/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple Mac Pro Rack (2019) | Xeon W-3223 | 32 GB | 1 TB SSD | Radeon Pro 580X | 20 865 kr | Nu med en 30 dagars provperiod",
+          "discovery_parent_paths": [
+            "/p/apple-mac-pro-rack-2019/478659/"
+          ],
+          "matched": false,
+          "name": "Apple Mac Pro Rack (2019)",
+          "price": 20865,
+          "ram_gb": 32.0,
+          "ssd_gb": 1000.0,
+          "was_price": 56400
+        },
+        "/p/apple-macbook-air-m2-2022/139243b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2",
-          "config": "Apple MacBook Air 2022 Apple M2 24.0 GB 1000 GB 13.6 \" mörkblå FR (Fransk)",
+          "config": "Apple MacBook Air 2022 Apple M2 24.0 GB 1000 GB 13.6 \" mörkblå PT (Portugisisk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m2-2022/186508b/"
+            "/p/apple-macbook-air-m2-2022/139243b/"
           ],
           "matched": false,
           "name": "Apple MacBook Air 2022 | 13.6",
@@ -791,30 +938,30 @@
           "ssd_gb": 1000.0,
           "was_price": 30450
         },
-        "/p/apple-macbook-air-m2-2022/277235b/": {
+        "/p/apple-macbook-air-m2-2022/66323b/": {
           "badge": null,
           "chip": "M2",
-          "config": "Apple MacBook Air 2022 Apple M2 8.0 GB 256 GB 13.6 \" mörkblå FR (Fransk)",
+          "config": "Apple MacBook Air 2022 Apple M2 8.0 GB 512 GB 13.6 \" mörkblå DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m2-2022/186508b/"
+            "/p/apple-macbook-air-m2-2022/139243b/"
           ],
           "matched": false,
           "name": "",
-          "price": 13245,
+          "price": 12985,
           "ram_gb": 8.0,
-          "ssd_gb": 256.0,
+          "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-air-m2-2022/75712b/": {
+        "/p/apple-macbook-air-m2-2022/75723b/": {
           "badge": null,
           "chip": "M2",
-          "config": "Apple MacBook Air 2022 Apple M2 16.0 GB 256 GB 13.6 \" mörkblå FR (Fransk)",
+          "config": "Apple MacBook Air 2022 Apple M2 16.0 GB 256 GB 13.6 \" mörkblå PT (Portugisisk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m2-2022/186508b/"
+            "/p/apple-macbook-air-m2-2022/139243b/"
           ],
           "matched": false,
           "name": "",
-          "price": 16049,
+          "price": 15025,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -828,7 +975,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 15025,
+          "price": 15779,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -861,12 +1008,12 @@
           "ssd_gb": 1000.0,
           "was_price": 28420
         },
-        "/p/apple-macbook-air-m3-2024-15/129406/": {
+        "/p/apple-macbook-air-m3-2024-15/129460/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 512 GB 15.3 \" rymdgrå IT (Italiensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 512 GB 15.3 \" rymdgrå NL (Nederländsk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129406/"
+            "/p/apple-macbook-air-m3-2024-15/129460/"
           ],
           "matched": false,
           "name": "Apple MacBook Air 2024 | 15.3",
@@ -875,12 +1022,12 @@
           "ssd_gb": 512.0,
           "was_price": 25825
         },
-        "/p/apple-macbook-air-m3-2024-15/129571/": {
+        "/p/apple-macbook-air-m3-2024-15/129554/": {
           "badge": null,
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 256 GB 15.3 \" rymdgrå IT (Italiensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 256 GB 15.3 \" rymdgrå NL (Nederländsk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129406/"
+            "/p/apple-macbook-air-m3-2024-15/129460/"
           ],
           "matched": false,
           "name": "",
@@ -898,7 +1045,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Air 2025 | 15.3",
-          "price": 21115,
+          "price": 22175,
           "ram_gb": 24.0,
           "ssd_gb": 512.0,
           "was_price": 22553
@@ -1142,12 +1289,23 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2021-m1-16-2/100037c/": {
+        "/p/apple-macbook-pro-2021-m1-14/74795c/": {
+          "badge": "Bästsäljare",
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 2000 GB 14.2 \" rymdgrå PT (Portugisisk)",
+          "matched": true,
+          "name": "Apple MacBook Pro 2021 M1 | 14.2",
+          "price": 24655,
+          "ram_gb": 64.0,
+          "ssd_gb": 2000.0,
+          "was_price": 47261
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/100036c/": {
           "badge": null,
           "chip": "M1 Max",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 32.0 GB 512 GB 16.2 \" rymdgrå IT (Italiensk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 32.0 GB 512 GB 16.2 \" rymdgrå PT (Portugisisk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2021-m1-16-2/179586c/"
+            "/p/apple-macbook-pro-2021-m1-16-2/179591c/"
           ],
           "matched": false,
           "name": "",
@@ -1156,26 +1314,37 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2021-m1-16-2/102089c/": {
+        "/p/apple-macbook-pro-2021-m1-16-2/102088c/": {
           "badge": null,
           "chip": "M1 Max",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå IT (Italiensk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå PT (Portugisisk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2021-m1-16-2/179586c/"
+            "/p/apple-macbook-pro-2021-m1-16-2/179591c/"
           ],
           "matched": true,
           "name": "",
-          "price": 23009,
+          "price": 22069,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2021-m1-16-2/116048c/": {
+        "/p/apple-macbook-pro-2021-m1-16-2/116040c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 32.0 GB 2000 GB 16.2 \" rymdgrå US (US-engelska)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2021 M1 | 16.2",
+          "price": 19849,
+          "ram_gb": 32.0,
+          "ssd_gb": 2000.0,
+          "was_price": 43651
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/116053c/": {
           "badge": null,
           "chip": "M1 Max",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 4000 GB 16.2 \" rymdgrå IT (Italiensk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 4000 GB 16.2 \" rymdgrå PT (Portugisisk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2021-m1-16-2/179586c/"
+            "/p/apple-macbook-pro-2021-m1-16-2/179591c/"
           ],
           "matched": true,
           "name": "",
@@ -1243,7 +1412,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 21965,
+          "price": 22829,
           "ram_gb": 64.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1291,7 +1460,7 @@
           "was_price": null
         },
         "/p/apple-macbook-pro-2021-m1-16-2/179586c/": {
-          "badge": "Bara ett fåtal kvar",
+          "badge": null,
           "chip": "M1 Max",
           "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 512 GB 16.2 \" rymdgrå IT (Italiensk)",
           "discovery_parent_paths": [
@@ -1305,11 +1474,11 @@
             "/p/apple-macbook-pro-2021-m1-16-2/179594c/"
           ],
           "matched": true,
-          "name": "Apple MacBook Pro 2021 M1 | 16.2",
+          "name": "",
           "price": 20465,
           "ram_gb": 64.0,
           "ssd_gb": 512.0,
-          "was_price": 39702
+          "was_price": null
         },
         "/p/apple-macbook-pro-2021-m1-16-2/179588c/": {
           "badge": null,
@@ -1375,7 +1544,7 @@
           "was_price": null
         },
         "/p/apple-macbook-pro-2021-m1-16-2/179591c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "M1 Max",
           "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 512 GB 16.2 \" rymdgrå PT (Portugisisk)",
           "discovery_parent_paths": [
@@ -1389,11 +1558,11 @@
             "/p/apple-macbook-pro-2021-m1-16-2/179594c/"
           ],
           "matched": true,
-          "name": "",
+          "name": "Apple MacBook Pro 2021 M1 | 16.2",
           "price": 20465,
           "ram_gb": 64.0,
           "ssd_gb": 512.0,
-          "was_price": null
+          "was_price": 39702
         },
         "/p/apple-macbook-pro-2021-m1-16-2/179594c/": {
           "badge": null,
@@ -1411,7 +1580,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 21239,
+          "price": 20465,
           "ram_gb": 64.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1442,7 +1611,8 @@
           "chip": "M1 Pro",
           "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 16.0 GB 512 GB 16.2 \" rymdgrå UK (UK-engelska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2021-m1-16-2/179586c/"
+            "/p/apple-macbook-pro-2021-m1-16-2/179586c/",
+            "/p/apple-macbook-pro-2021-m1-16-2/179591c/"
           ],
           "matched": false,
           "name": "",
@@ -2068,6 +2238,17 @@
           "ssd_gb": 1000.0,
           "was_price": 55610
         },
+        "/p/apple-macbook-pro-2026-m5-max-18-32-16/422891aa/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M5 Max",
+          "config": "Apple MacBook Pro 2026 M5 Max 18-Core CPU Apple M5 Max 18 Core 36.0 GB 2000 GB 16.2 \" rymdsvart DE (Tysk)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2026 M5 Max 18-Core CPU | 32-Core GPU | 16",
+          "price": 44379,
+          "ram_gb": 36.0,
+          "ssd_gb": 2000.0,
+          "was_price": 57528
+        },
         "/p/apple-macbook-pro-2026-m5-pro-15-16-14/420143aa/": {
           "badge": null,
           "chip": "M5 Pro",
@@ -2275,55 +2456,13 @@
           "ssd_gb": 4.0,
           "was_price": 8901
         },
-        "/p/ipad-air-5/21650b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21650b/"
-          ],
-          "matched": false,
-          "name": "iPad Air (2022) | 10.9",
-          "price": 7255,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": 8676
-        },
-        "/p/ipad-air-5/21654b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 256 GB 10.9 \" rymdgrå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21650b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 6275,
-          "ram_gb": 256.0,
-          "ssd_gb": 8.0,
-          "verification_unknown": true,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21656b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rosa 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21650b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 7255,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
         "/p/ipad-air-5/21665b/": {
           "badge": null,
           "chip": "M1",
           "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-5/21650b/"
+            "/p/ipad-air-5/21650b/",
+            "/p/ipad-air-5/21667b/"
           ],
           "matched": false,
           "name": "",
@@ -2331,6 +2470,34 @@
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
+        },
+        "/p/ipad-air-5/21667/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21667b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 11285,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": null
+        },
+        "/p/ipad-air-5/21667b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21667b/"
+          ],
+          "matched": false,
+          "name": "iPad Air (2022) | 10.9",
+          "price": 5125,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": 10932
         },
         "/p/ipad-mini-5/4455/": {
           "badge": null,
@@ -2415,6 +2582,76 @@
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 11835
+        },
+        "/p/ipad-pro-12-9-2017/2573c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 12.9 \" rymdgrå",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-12-9-2017/2576c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3735,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-12-9-2017/2575c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 12.9 \" silver",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-12-9-2017/2576c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3675,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-12-9-2017/2576b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 12.9 \" rymdgrå",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-12-9-2017/2576c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3849,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
+        "/p/ipad-pro-12-9-2017/2576c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 12.9 \" rymdgrå",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-12-9-2017/2576c/"
+          ],
+          "matched": false,
+          "name": "iPad Pro (2017) | 12.9",
+          "price": 2925,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": 11270
+        },
+        "/p/ipad-pro-12-9-2017/921c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 512 GB 12.9 \" rymdgrå",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-12-9-2017/2576c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4015,
+          "ram_gb": 512.0,
+          "ssd_gb": 512.0,
+          "was_price": null
         },
         "/p/ipad-pro-12-9-2018/3428/": {
           "badge": "Bara ett fåtal kvar",
@@ -2574,7 +2811,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-14T20:01:46Z",
+      "checked_at": "2026-09-14T20:16:31Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/182393/": {
@@ -2786,17 +3023,6 @@
           "ssd_gb": 1000.0,
           "was_price": 56400
         },
-        "/p/apple-mac-studio-2022-m1-ultra/100810/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M1 Ultra",
-          "config": "Mac Studio 2022 M1 Ultra - Rekonditionerad Stationär Dator",
-          "matched": true,
-          "name": "Apple Mac Studio 2022 M1 Ultra",
-          "price": 38199,
-          "ram_gb": 64.0,
-          "ssd_gb": 1000.0,
-          "was_price": 51887
-        },
         "/p/apple-macbook-air-m2-2022/277225c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2",
@@ -2852,16 +3078,27 @@
           "ssd_gb": 512.0,
           "was_price": 24809
         },
-        "/p/apple-macbook-pro-2021-m1-14/180000b/": {
+        "/p/apple-macbook-pro-2021-m1-14/187866/": {
           "badge": "Bästsäljare",
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 32.0 GB 512 GB 14.2 \" silver US (US-engelska)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 32.0 GB 512 GB 14.2 \" silver SE (Svensk)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 15069,
+          "price": 15075,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 28307
+        },
+        "/p/apple-macbook-pro-2021-m1-14/68618c/": {
+          "badge": "Bästsäljare",
+          "chip": "M1 Pro",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 32.0 GB 1000 GB 14.2 \" rymdgrå NL (Nederländsk)",
+          "matched": true,
+          "name": "Apple MacBook Pro 2021 M1 | 14.2",
+          "price": 16845,
+          "ram_gb": 32.0,
+          "ssd_gb": 1000.0,
+          "was_price": 39251
         },
         "/p/apple-macbook-pro-2021-m1-16-2/131257c/": {
           "badge": null,
@@ -2886,7 +3123,7 @@
           "was_price": 36543
         },
         "/p/apple-macbook-pro-2023-m2-14/179572b/": {
-          "badge": "Bästsäljare",
+          "badge": "Bara ett fåtal kvar",
           "chip": "M2 Pro",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 10 Core 32.0 GB 512 GB 14.2 \" rymdgrå NL (Nederländsk)",
           "matched": true,
@@ -3087,19 +3324,261 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-14T20:01:54Z",
+      "checked_at": "2026-09-14T20:17:40Z",
       "label": "Mac Studio",
       "offers": {
-        "/p/apple-mac-studio-2022-m1-ultra/100810/": {
+        "/p/apple-imac-2021-m1-24/182387/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "iMac 2021 M1 24\" - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple iMac 2021 M1 | 24",
+          "price": 12045,
+          "ram_gb": 8.0,
+          "ssd_gb": 512.0,
+          "was_price": 21425
+        },
+        "/p/apple-imac-2023-m3-8core/295703aa/": {
+          "badge": null,
+          "chip": "M3",
+          "config": "iMac 2023 M3 8 Core - 24\\\" - Rekonditionerad Dator",
+          "matched": false,
+          "name": "Apple iMac 2023 M3 8 Core | 24",
+          "price": 13315,
+          "ram_gb": 8.0,
+          "ssd_gb": 256.0,
+          "was_price": 17250
+        },
+        "/p/apple-imac-2024-m4-10core/274257aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "Apple iMac 2024 M4 10 Core – Kraftfull stationär dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 10 Core | 24",
+          "price": 16675,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 22553
+        },
+        "/p/apple-imac-2024-m4-10core/274292aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "Apple iMac 2024 M4 10 Core – Kraftfull stationär dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 10 Core | 24",
+          "price": 16675,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 22553
+        },
+        "/p/apple-imac-2024-m4-8core/278015aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 8 Core | 24",
+          "price": 16109,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 20296
+        },
+        "/p/apple-imac-2024-m4-8core/278904aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 8 Core | 24",
+          "price": 16109,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 20296
+        },
+        "/p/apple-imac-pro-2017-27/180936b/": {
           "badge": "Bara ett fåtal kvar",
-          "chip": "M1 Ultra",
-          "config": "Mac Studio 2022 M1 Ultra - Rekonditionerad Stationär Dator",
-          "matched": true,
-          "name": "Apple Mac Studio 2022 M1 Ultra",
-          "price": 38199,
-          "ram_gb": 64.0,
+          "chip": "",
+          "config": "iMac Pro 2017 27\" - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple iMac Pro 2017 | 27",
+          "price": 17095,
+          "ram_gb": 128.0,
           "ssd_gb": 1000.0,
-          "was_price": 51887
+          "was_price": 68810
+        },
+        "/p/apple-mac-mini-2018/9722b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple Mac Mini 2018 - Rekonditionerad Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2018",
+          "price": 5129,
+          "ram_gb": 8.0,
+          "ssd_gb": 256.0,
+          "was_price": 14655
+        },
+        "/p/apple-mac-mini-2018/9725b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple Mac Mini 2018 - Rekonditionerad Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2018",
+          "price": 3075,
+          "ram_gb": 8.0,
+          "ssd_gb": 128.0,
+          "was_price": 11270
+        },
+        "/p/apple-mac-mini-2020-m1/11609/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Mac Mini 2020 M1 - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2020 M1",
+          "price": 8979,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 11609
+        },
+        "/p/apple-mac-mini-2023-m2-pro/76176b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2 Pro",
+          "config": "Mac Mini 2023 M2 Pro - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2023 M2 Pro",
+          "price": 12599,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": 17137
+        },
+        "/p/apple-mac-mini-2023-m2/100045/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2",
+          "config": "Mac Mini 2023 M2 - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2023 M2",
+          "price": 7339,
+          "ram_gb": 8.0,
+          "ssd_gb": 256.0,
+          "was_price": 9578
+        },
+        "/p/apple-mac-mini-2023-m2/95809b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2",
+          "config": "Mac Mini 2023 M2 - Rekonditionerad Apple Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2023 M2",
+          "price": 8309,
+          "ram_gb": 8.0,
+          "ssd_gb": 512.0,
+          "was_price": 10481
+        },
+        "/p/apple-mac-mini-2024-m4-pro/273551aa/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M4",
+          "config": "Mac Mini 2024 M4 Pro - Apple Stationär Dator med 10 Kärnor",
+          "matched": false,
+          "name": "Apple Mac Mini 2024 M4 Pro",
+          "price": 20865,
+          "ram_gb": 24.0,
+          "ssd_gb": 512.0,
+          "was_price": 21425
+        },
+        "/p/apple-mac-mini-2024-m4/273542aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "Mac Mini 2024 M4 - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2024 M4",
+          "price": 10535,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 10706
+        },
+        "/p/apple-mac-pro-2019/169260c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Mac Pro (2019) - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Pro (2019)",
+          "price": 40755,
+          "ram_gb": 96.0,
+          "ssd_gb": 2000.0,
+          "was_price": 121498
+        },
+        "/p/apple-mac-pro-rack-2019/478651/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple Mac Pro Rack (2019) | Xeon W-3245 | 48 GB | 256 GB SSD | Radeon Pro 580X | 19 735 kr | Nu med en 30 dagars provperiod",
+          "matched": false,
+          "name": "Apple Mac Pro Rack (2019)",
+          "price": 19735,
+          "ram_gb": 48.0,
+          "ssd_gb": 256.0,
+          "was_price": 56400
+        },
+        "/p/apple-macbook-air-m2-2022/88423/": {
+          "badge": "Bästsäljare",
+          "chip": "M2",
+          "config": "Apple MacBook Air 2022 Apple M2 24.0 GB 1000 GB 13.6 \" rymdgrå SE (Svensk)",
+          "matched": false,
+          "name": "Apple MacBook Air 2022 | 13.6",
+          "price": 23909,
+          "ram_gb": 24.0,
+          "ssd_gb": 1000.0,
+          "was_price": 26389
+        },
+        "/p/apple-macbook-air-m4-2025/308285/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "Apple MacBook Air 2025 Apple M4 24.0 GB 1000 GB 13.6 \" Midnatt DE (Tysk)",
+          "matched": false,
+          "name": "Apple MacBook Air 2025 | 13.6",
+          "price": 18185,
+          "ram_gb": 24.0,
+          "ssd_gb": 1000.0,
+          "was_price": 21989
+        },
+        "/p/apple-macbook-pro-2025-m5-14/368552aa/": {
+          "badge": "Bästsäljare",
+          "chip": "M5",
+          "config": "Apple MacBook Pro 2025 M5 Apple M5 10 Core 16.0 GB 1000 GB 14.2 \" rymdsvart DE (Tysk)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2025 M5 | 14",
+          "price": 23045,
+          "ram_gb": 16.0,
+          "ssd_gb": 1000.0,
+          "was_price": 26671
+        },
+        "/p/apple-macbook-pro-2026-m5-max-18-32-16/422891aa/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M5 Max",
+          "config": "Apple MacBook Pro 2026 M5 Max 18-Core CPU Apple M5 Max 18 Core 36.0 GB 2000 GB 16.2 \" rymdsvart DE (Tysk)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2026 M5 Max 18-Core CPU | 32-Core GPU | 16",
+          "price": 44379,
+          "ram_gb": 36.0,
+          "ssd_gb": 2000.0,
+          "was_price": 57528
+        },
+        "/p/apple-macbook-pro-2026-m5-pro-15-16-14/420221aa/": {
+          "badge": null,
+          "chip": "M5 Pro",
+          "config": "Apple MacBook Pro 2026 M5 Pro 15-Core CPU Apple M5 Pro 15 Core 24.0 GB 2000 GB 14.2 \" silver DE (Tysk)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2026 M5 Pro 15-Core CPU | 16-Core GPU | 14",
+          "price": 34255,
+          "ram_gb": 24.0,
+          "ssd_gb": 2000.0,
+          "was_price": 38912
+        },
+        "/p/apple-macbook-pro-2026-m5-pro-18-20-16/422221aa/": {
+          "badge": null,
+          "chip": "M5 Pro",
+          "config": "Apple MacBook Pro 2026 M5 Pro 18-Core CPU Apple M5 Pro 18 Core 24.0 GB 1000 GB 16.2 \" rymdsvart DE (Tysk)",
+          "matched": false,
+          "name": "Apple MacBook Pro 2026 M5 Pro 18-Core CPU | 20-Core GPU | 16",
+          "price": 34179,
+          "ram_gb": 24.0,
+          "ssd_gb": 1000.0,
+          "was_price": 38348
         }
       },
       "query": "Mac Studio"
