@@ -607,7 +607,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-17T11:38:27Z",
+      "checked_at": "2026-09-17T11:52:17Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/295703aa/": {
@@ -652,18 +652,18 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-imac-2024-m4-10core/274320aa/": {
+        "/p/apple-imac-2024-m4-10core/274271aa/": {
           "badge": null,
           "chip": "M4",
           "config": "Apple iMac 2024 M4 10 Core – Kraftfull stationär dator",
           "matched": false,
           "name": "Apple iMac 2024 M4 10 Core | 24",
-          "price": 17105,
+          "price": 16525,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 22594
         },
-        "/p/apple-imac-2024-m4-8core/278934aa/": {
+        "/p/apple-imac-2024-m4-8core/279249aa/": {
           "badge": null,
           "chip": "M4",
           "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
@@ -834,7 +834,7 @@
           ],
           "matched": false,
           "name": "Apple Mac Mini 2024 M4",
-          "price": 10075,
+          "price": 10329,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 10726
@@ -863,7 +863,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 18169,
+          "price": 17319,
           "ram_gb": 32.0,
           "ssd_gb": 2000.0,
           "was_price": null
@@ -893,33 +893,47 @@
           "ssd_gb": 512.0,
           "was_price": 33896
         },
-        "/p/apple-macbook-air-2015-13-3/158492c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple MacBook Air 2015 Intel Core i5-5250U 4.0 GB 128 GB 13.3 \" silver BE (Belgisk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-2015-13-3/158492c/"
-          ],
-          "matched": false,
-          "name": "Apple MacBook Air 2015 | 13.3",
-          "price": 2419,
-          "ram_gb": 4.0,
-          "ssd_gb": 128.0,
-          "was_price": 11291
-        },
-        "/p/apple-macbook-air-2015-13-3/3198c/": {
+        "/p/apple-macbook-air-m2-2022/102509/": {
           "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Air 2015 Intel Core i5-5250U 8.0 GB 128 GB 13.3 \" silver US (US-engelska)",
+          "chip": "M2",
+          "config": "Apple MacBook Air 2022 Apple M2 16.0 GB 1000 GB 13.6 \" rymdgrå SE (Svensk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-2015-13-3/158492c/"
+            "/p/apple-macbook-air-m2-2022/88423/"
           ],
           "matched": false,
           "name": "",
-          "price": 2485,
-          "ram_gb": 8.0,
-          "ssd_gb": 128.0,
+          "price": 18229,
+          "ram_gb": 16.0,
+          "ssd_gb": 1000.0,
           "was_price": null
+        },
+        "/p/apple-macbook-air-m2-2022/278321/": {
+          "badge": null,
+          "chip": "M2",
+          "config": "Apple MacBook Air 2022 Apple M2 8.0 GB 1000 GB 13.6 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-air-m2-2022/88423/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 14805,
+          "ram_gb": 8.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-air-m2-2022/88423/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2",
+          "config": "Apple MacBook Air 2022 Apple M2 24.0 GB 1000 GB 13.6 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-air-m2-2022/88423/"
+          ],
+          "matched": false,
+          "name": "Apple MacBook Air 2022 | 13.6",
+          "price": 23955,
+          "ram_gb": 24.0,
+          "ssd_gb": 1000.0,
+          "was_price": 26436
         },
         "/p/apple-macbook-air-m2-2023-15/111615b/": {
           "badge": null,
@@ -930,7 +944,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 15875,
+          "price": 15839,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -958,7 +972,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 16459,
+          "price": 16965,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -972,7 +986,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 17875,
+          "price": 17225,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1997,7 +2011,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 20375,
+          "price": 19959,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -2098,7 +2112,7 @@
           "was_price": 55710
         },
         "/p/apple-macbook-pro-2025-m5-14/368303/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "M5",
           "config": "Apple MacBook Pro 2025 M5 Apple M5 10 Core 24.0 GB 1000 GB 14.2 \" silver SE (Svensk)",
           "discovery_parent_paths": [
@@ -2652,7 +2666,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-17T11:30:39Z",
+      "checked_at": "2026-09-17T11:45:47Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -2776,13 +2790,13 @@
           "ssd_gb": 2000.0,
           "was_price": 23159
         },
-        "/p/apple-mac-pro-2019/35389/": {
+        "/p/apple-mac-pro-2019/35390/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Mac Pro (2019) - Rekonditionerad Stationär Dator",
           "matched": false,
           "name": "Apple Mac Pro (2019)",
-          "price": 17235,
+          "price": 17319,
           "ram_gb": 32.0,
           "ssd_gb": 2000.0,
           "was_price": 74586
@@ -3077,7 +3091,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-17T11:30:48Z",
+      "checked_at": "2026-09-17T11:45:55Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2023-m2-max/170159/": {
