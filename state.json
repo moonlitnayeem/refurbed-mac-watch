@@ -639,7 +639,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-21T11:54:49Z",
+      "checked_at": "2026-09-21T12:08:29Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/310963aa/": {
@@ -858,21 +858,6 @@
           "ssd_gb": 128.0,
           "was_price": null
         },
-        "/p/apple-macbook-air-m3-2024-15/129267/": {
-          "badge": null,
-          "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 2000 GB 15.3 \" mörkblå FR (Fransk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129330/",
-            "/p/apple-macbook-air-m3-2024-15/129398/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 19969,
-          "ram_gb": 8.0,
-          "ssd_gb": 2000.0,
-          "was_price": null
-        },
         "/p/apple-macbook-air-m3-2024-15/129398/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M3",
@@ -899,6 +884,20 @@
           "name": "",
           "price": 18465,
           "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-air-m3-2024-15/129591/": {
+          "badge": null,
+          "chip": "M3",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 512 GB 15.3 \" silver UK (UK-engelska)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-air-m3-2024-15/129398/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 12995,
+          "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
         },
@@ -2103,48 +2102,6 @@
           "ssd_gb": 1000.0,
           "was_price": 43351
         },
-        "/p/ipad-10-10-9-2022/56341/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad 10 (2022) 64 GB 10.9 \" silver 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-10-10-9-2022/56341c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5965,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-10-10-9-2022/56341aa/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad 10 (2022) 64 GB 10.9 \" silver 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-10-10-9-2022/56341c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5135,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-10-10-9-2022/56341b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad 10 (2022) 64 GB 10.9 \" silver 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-10-10-9-2022/56341c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5385,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
         "/p/ipad-10-10-9-2022/56341c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
@@ -2399,7 +2356,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 8179,
+          "price": 8199,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -2441,7 +2398,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 7255,
+          "price": 7425,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -2487,20 +2444,6 @@
           "matched": false,
           "name": "",
           "price": 5079,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14232aa/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" vit 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14232b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 6179,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2621,7 +2564,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-21T11:48:12Z",
+      "checked_at": "2026-09-21T12:01:36Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -2690,24 +2633,13 @@
           "ssd_gb": 2000.0,
           "was_price": 21218
         },
-        "/p/apple-mac-mini-2023-m2-pro/89066/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M2 Pro",
-          "config": "Mac Mini 2023 M2 Pro - Rekonditionerad Stationär Dator",
-          "matched": false,
-          "name": "Apple Mac Mini 2023 M2 Pro",
-          "price": 14999,
-          "ram_gb": 16.0,
-          "ssd_gb": 1000.0,
-          "was_price": 18734
-        },
         "/p/apple-mac-mini-2023-m2/100045b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2",
           "config": "Mac Mini 2023 M2 - Rekonditionerad Apple Dator",
           "matched": false,
           "name": "Apple Mac Mini 2023 M2",
-          "price": 6735,
+          "price": 7935,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": 9587
@@ -2888,6 +2820,17 @@
           "ssd_gb": 512.0,
           "was_price": 38383
         },
+        "/p/apple-macbook-pro-2023-m3-14/329787c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M3 Pro",
+          "config": "Apple MacBook Pro 2023 M3 Apple M3 Pro 12 Core 36.0 GB 2000 GB 14.2 \" rymdsvart SE (Svensk)",
+          "matched": true,
+          "name": "Apple MacBook Pro 2023 M3 | 14.2",
+          "price": 32555,
+          "ram_gb": 36.0,
+          "ssd_gb": 2000.0,
+          "was_price": 41545
+        },
         "/p/apple-macbook-pro-2023-m3-16-2/304053c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M3 Pro",
@@ -2976,6 +2919,17 @@
           "ssd_gb": 1000.0,
           "was_price": 47530
         },
+        "/p/ipad-6-2018/2139b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad 6 (2018) 32 GB 9.7 \" grå 2.0 GB",
+          "matched": false,
+          "name": "iPad 6 (2018) | 9.7",
+          "price": 1129,
+          "ram_gb": 32.0,
+          "ssd_gb": 2.0,
+          "was_price": 4166
+        },
         "/p/ipad-7-10-2/4827c/": {
           "badge": null,
           "chip": "",
@@ -3035,7 +2989,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-21T11:48:20Z",
+      "checked_at": "2026-09-21T12:01:44Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2023-m2-max/170159/": {
