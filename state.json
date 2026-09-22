@@ -639,7 +639,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-22T22:06:58Z",
+      "checked_at": "2026-09-22T22:22:55Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/310963aa/": {
@@ -876,7 +876,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 16169,
+          "price": 16665,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -890,17 +890,31 @@
           ],
           "matched": false,
           "name": "",
-          "price": 15899,
+          "price": 15405,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-air-m3-2024-15/129398/": {
+        "/p/apple-macbook-air-m3-2024-15/129213/": {
+          "badge": null,
+          "chip": "M3",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 256 GB 15.3 \" mörkblå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-air-m3-2024-15/129878/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 14175,
+          "ram_gb": 8.0,
+          "ssd_gb": 256.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-air-m3-2024-15/129878/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 512 GB 15.3 \" Polstjärnan SE (Svensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 512 GB 15.3 \" mörkblå SE (Svensk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129398/"
+            "/p/apple-macbook-air-m3-2024-15/129878/"
           ],
           "matched": false,
           "name": "Apple MacBook Air 2024 | 15.3",
@@ -909,32 +923,18 @@
           "ssd_gb": 512.0,
           "was_price": 25738
         },
-        "/p/apple-macbook-air-m3-2024-15/129586/": {
+        "/p/apple-macbook-air-m3-2024-15/129918/": {
           "badge": null,
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 512 GB 15.3 \" Polstjärnan SE (Svensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 256 GB 15.3 \" mörkblå SE (Svensk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129398/"
+            "/p/apple-macbook-air-m3-2024-15/129878/"
           ],
           "matched": false,
           "name": "",
-          "price": 17155,
+          "price": 16725,
           "ram_gb": 16.0,
-          "ssd_gb": 512.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-air-m3-2024-15/129761/": {
-          "badge": null,
-          "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 512 GB 15.3 \" silver SE (Svensk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129398/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 15629,
-          "ram_gb": 8.0,
-          "ssd_gb": 512.0,
+          "ssd_gb": 256.0,
           "was_price": null
         },
         "/p/apple-macbook-air-m3-2024/128659/": {
@@ -1142,7 +1142,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 11235,
+          "price": 11985,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -1391,20 +1391,6 @@
           "ssd_gb": 1000.0,
           "was_price": 51824
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/88847c/": {
-          "badge": null,
-          "chip": "M2 Pro",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 16.0 GB 1000 GB 16.2 \" silver US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/484501c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 18715,
-          "ram_gb": 16.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
         "/p/apple-macbook-pro-2023-m2-16-2/92650c/": {
           "badge": null,
           "chip": "M2 Max",
@@ -1416,6 +1402,20 @@
           "name": "",
           "price": 22645,
           "ram_gb": 32.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2023-m2-16-2/92667c/": {
+          "badge": null,
+          "chip": "M2 Pro",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 16.0 GB 1000 GB 16.2 \" rymdgrå US (US-engelska)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2023-m2-16-2/484501c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 17589,
+          "ram_gb": 16.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
@@ -1554,7 +1554,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 21639,
+          "price": 21539,
           "ram_gb": 18.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -2346,30 +2346,30 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/macbook-pro-2019-133-tb/55322c/": {
+        "/p/macbook-pro-2019-133-tb/20320c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 256 GB 13.3 \" rymdgrå ES (Spansk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 256 GB 13.3 \" rymdgrå IT (Italiensk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/55322c/"
+            "/p/macbook-pro-2019-133-tb/20320c/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 4869,
+          "price": 4865,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": 22477
         },
-        "/p/macbook-pro-2019-133-tb/68886c/": {
+        "/p/macbook-pro-2019-133-tb/68887c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" rymdgrå ES (Spansk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" rymdgrå IT (Italiensk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/55322c/"
+            "/p/macbook-pro-2019-133-tb/20320c/"
           ],
           "matched": false,
           "name": "",
-          "price": 5739,
+          "price": 5745,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -2378,7 +2378,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-22T22:01:13Z",
+      "checked_at": "2026-09-22T22:16:06Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -2814,7 +2814,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-22T22:01:20Z",
+      "checked_at": "2026-09-22T22:16:15Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-ultra/100810/": {
