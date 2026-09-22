@@ -639,7 +639,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-22T13:08:08Z",
+      "checked_at": "2026-09-22T13:23:24Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2023-m3-8core/310963aa/": {
@@ -798,7 +798,7 @@
           ],
           "matched": false,
           "name": "Apple Mac Pro (2019)",
-          "price": 41799,
+          "price": 39849,
           "ram_gb": 48.0,
           "ssd_gb": 4000.0,
           "was_price": 89942
@@ -879,7 +879,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 15899,
+          "price": 15405,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -966,67 +966,68 @@
           "ssd_gb": 256.0,
           "was_price": 13481
         },
-        "/p/apple-macbook-pro-2019-16/23205c/": {
+        "/p/apple-macbook-pro-2019-16/126565b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i9-9880H 32.0 GB 1000 GB 16.0 \" rymdgrå FR (Fransk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i9-9980HK 64.0 GB 1000 GB 16.0 \" silver US (US-engelska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2019-16/69052c/"
+            "/p/apple-macbook-pro-2019-16/126565b/"
+          ],
+          "matched": false,
+          "name": "Apple MacBook Pro 2019 | 16",
+          "price": 9205,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "was_price": 47214
+        },
+        "/p/apple-macbook-pro-2019-16/60032b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2019 Intel Core i9-9980HK 16.0 GB 512 GB 16.0 \" rymdgrå US (US-engelska)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2019-16/126565b/"
           ],
           "matched": false,
           "name": "",
-          "price": 7295,
+          "price": 6845,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2019-16/62273b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2019 Intel Core i9-9880H 32.0 GB 1000 GB 16.0 \" rymdgrå DK (Dansk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2019-16/126565b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 6775,
           "ram_gb": 32.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2019-16/48273c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i9-9880H 64.0 GB 1000 GB 16.0 \" rymdgrå US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2019-16/69052c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 12979,
-          "ram_gb": 64.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2019-16/69052c/": {
+        "/p/apple-macbook-pro-2020-133-tb/127564c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i9-9880H 64.0 GB 1000 GB 16.0 \" silver US (US-engelska)",
+          "config": "Apple MacBook Pro 2020 Intel Core i7-1068NG7 16.0 GB 512 GB 13.3 \" rymdgrå SE (Svensk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2019-16/69052c/"
-          ],
-          "matched": false,
-          "name": "Apple MacBook Pro 2019 | 16",
-          "price": 9095,
-          "ram_gb": 64.0,
-          "ssd_gb": 1000.0,
-          "was_price": 56210
-        },
-        "/p/apple-macbook-pro-2020-133-tb/21612c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" rymdgrå SE (Svensk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2020-133-tb/21612c/"
+            "/p/apple-macbook-pro-2020-133-tb/127564c/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2020 | 13.3",
-          "price": 6619,
+          "price": 6299,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
-          "was_price": 24726
+          "was_price": 26975
         },
         "/p/apple-macbook-pro-2020-133-tb/72574c/": {
           "badge": null,
           "chip": "",
           "config": "Apple MacBook Pro 2020 Intel Core i7-1068NG7 32.0 GB 512 GB 13.3 \" rymdgrå SE (Svensk)",
           "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2020-133-tb/127564c/",
             "/p/apple-macbook-pro-2020-133-tb/21612c/"
           ],
           "matched": false,
@@ -1036,18 +1037,18 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2021-m1-14/72345b/": {
+        "/p/apple-macbook-pro-2021-m1-14/64063b/": {
           "badge": null,
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 16.0 GB 1000 GB 14.2 \" silver US (US-engelska)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 16.0 GB 512 GB 14.2 \" silver US (US-engelska)",
           "discovery_parent_paths": [
             "/p/apple-macbook-pro-2021-m1-14/75703b/"
           ],
           "matched": false,
           "name": "",
-          "price": 15515,
+          "price": 25288,
           "ram_gb": 16.0,
-          "ssd_gb": 1000.0,
+          "ssd_gb": 512.0,
           "was_price": null
         },
         "/p/apple-macbook-pro-2021-m1-14/75698b/": {
@@ -1078,16 +1079,132 @@
           "ssd_gb": 512.0,
           "was_price": 36307
         },
-        "/p/apple-macbook-pro-2021-m1-16-2/64185b/": {
+        "/p/apple-macbook-pro-2021-m1-16-2/145544b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå FI (finska)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/163085b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå BE (Belgisk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/41903b/": {
+          "badge": null,
+          "chip": "M1 Pro",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 16.0 GB 1000 GB 16.2 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 14765,
+          "ram_gb": 16.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64170b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå FR (Fransk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64173b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå IT (Italiensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64174b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå ES (Spansk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64176b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå DK (Dansk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64178b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M1 Max",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå US (US-engelska)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå SE (Svensk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2021-m1-16-2/64185b/"
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
           ],
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 16.2",
-          "price": 17039,
+          "price": 17025,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "telegram_alert_rules": [
@@ -1095,18 +1212,73 @@
           ],
           "was_price": 47327
         },
-        "/p/apple-macbook-pro-2021-m1-16-2/74777b/": {
+        "/p/apple-macbook-pro-2021-m1-16-2/64180b/": {
           "badge": null,
-          "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 16.0 GB 512 GB 16.2 \" rymdgrå US (US-engelska)",
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå PT (Portugisisk)",
           "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64181b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå NL (Nederländsk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64185b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå US (US-engelska)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/",
             "/p/apple-macbook-pro-2021-m1-16-2/64185b/"
           ],
-          "matched": false,
+          "matched": true,
           "name": "",
-          "price": 13495,
-          "ram_gb": 16.0,
-          "ssd_gb": 512.0,
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2021-m1-16-2/64189b/": {
+          "badge": null,
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 64.0 GB 1000 GB 16.2 \" rymdgrå DE (Tysk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2021-m1-16-2/64178b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 16465,
+          "ram_gb": 64.0,
+          "ssd_gb": 1000.0,
+          "telegram_alert_rules": [
+            "m-series-max-macbook-pro-64gb-plus-under-18000"
+          ],
           "was_price": null
         },
         "/p/apple-macbook-pro-2022-m2-13-tb/179791b/": {
@@ -1137,86 +1309,129 @@
           "ssd_gb": 256.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/293617c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/109520b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M2 Max",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 64.0 GB 2000 GB 16.2 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2023-m2-16-2/109520b/"
+          ],
+          "matched": true,
+          "name": "Apple MacBook Pro 2023 M2 | 16.2",
+          "price": 32555,
+          "ram_gb": 64.0,
+          "ssd_gb": 2000.0,
+          "was_price": 53399
+        },
+        "/p/apple-macbook-pro-2023-m2-16-2/119092b/": {
+          "badge": null,
+          "chip": "M2 Pro",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 16.0 GB 1000 GB 16.2 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2023-m2-16-2/109520b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 19755,
+          "ram_gb": 16.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2023-m2-16-2/293617b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/293618c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/293618b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver ES (Spansk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/293619c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/293619b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver FR (Fransk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/293620c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/293620b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver IT (Italiensk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/293621c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/293621b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver NL (Nederländsk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/293622c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/293622b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver PT (Portugisisk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
+          "ram_gb": 96.0,
+          "ssd_gb": 1000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2023-m2-16-2/293623b/": {
+          "badge": null,
+          "chip": "M2 Max",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2023-m2-16-2/109520b/",
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 41855,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1236,86 +1451,100 @@
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/371312c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/302412b/": {
+          "badge": null,
+          "chip": "M2 Max",
+          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 64.0 GB 4000 GB 16.2 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2023-m2-16-2/109520b/"
+          ],
+          "matched": true,
+          "name": "",
+          "price": 38299,
+          "ram_gb": 64.0,
+          "ssd_gb": 4000.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2023-m2-16-2/371312b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver CZ (Tjeckiska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41115,
+          "price": 41575,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/371313c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/371313b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver FI (finska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/371314c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/371314b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver DK (Dansk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41215,
+          "price": 41745,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/371315c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/371315b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver BE (Belgisk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/371316c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/371316b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver RU (ryska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2023-m2-16-2/371317c/": {
+        "/p/apple-macbook-pro-2023-m2-16-2/371317b/": {
           "badge": null,
           "chip": "M2 Max",
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver AR (arabiska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
+            "/p/apple-macbook-pro-2023-m2-16-2/293623b/"
           ],
           "matched": true,
           "name": "",
-          "price": 41035,
+          "price": 41595,
           "ram_gb": 96.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1335,77 +1564,6 @@
           "name": "",
           "price": 41595,
           "ram_gb": 96.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2023-m2-16-2/371318c/": {
-          "badge": null,
-          "chip": "M2 Max",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 1000 GB 16.2 \" silver US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/",
-            "/p/apple-macbook-pro-2023-m2-16-2/484501c/"
-          ],
-          "matched": true,
-          "name": "",
-          "price": 41035,
-          "ram_gb": 96.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2023-m2-16-2/373961c/": {
-          "badge": null,
-          "chip": "M2 Max",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 96.0 GB 2000 GB 16.2 \" silver US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/371318c/"
-          ],
-          "matched": true,
-          "name": "",
-          "price": 41035,
-          "ram_gb": 96.0,
-          "ssd_gb": 2000.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2023-m2-16-2/484501c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M2 Max",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 64.0 GB 1000 GB 16.2 \" silver US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/484501c/"
-          ],
-          "matched": true,
-          "name": "Apple MacBook Pro 2023 M2 | 16.2",
-          "price": 25829,
-          "ram_gb": 64.0,
-          "ssd_gb": 1000.0,
-          "was_price": 51824
-        },
-        "/p/apple-macbook-pro-2023-m2-16-2/88847c/": {
-          "badge": null,
-          "chip": "M2 Pro",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 16.0 GB 1000 GB 16.2 \" silver US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/484501c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 18715,
-          "ram_gb": 16.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-pro-2023-m2-16-2/92650c/": {
-          "badge": null,
-          "chip": "M2 Max",
-          "config": "Apple MacBook Pro 2023 M2 Apple M2 Max 12 Core 32.0 GB 1000 GB 16.2 \" rymdgrå US (US-engelska)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-pro-2023-m2-16-2/484501c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 22715,
-          "ram_gb": 32.0,
           "ssd_gb": 1000.0,
           "was_price": null
         },
@@ -2053,75 +2211,48 @@
           "ssd_gb": 4.0,
           "was_price": 8871
         },
-        "/p/ipad-air-5/21650b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21665b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 7395,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21656b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rosa 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21665b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 7395,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21661b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" lila 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21665b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5645,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
         "/p/ipad-air-5/21665/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21665b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5245,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21665b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M1",
           "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
           "discovery_parent_paths": [
+            "/p/ipad-air-5/21665/",
             "/p/ipad-air-5/21665b/"
           ],
           "matched": false,
           "name": "iPad Air (2022) | 10.9",
-          "price": 5029,
+          "price": 5245,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": 8646
+        },
+        "/p/ipad-air-5/21667/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21665/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 11245,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": null
+        },
+        "/p/ipad-air-5/21669/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 256 GB 10.9 \" blå 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21665/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 6745,
+          "ram_gb": 256.0,
+          "ssd_gb": 8.0,
+          "was_price": null
         },
         "/p/ipad-mini-5/4456b/": {
           "badge": null,
@@ -2150,6 +2281,20 @@
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 6622
+        },
+        "/p/ipad-mini-5/4457c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" guld 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-5/4456c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2719,
+          "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": null
         },
         "/p/ipad-mini-5/4462c/": {
           "badge": null,
@@ -2222,7 +2367,7 @@
           "was_price": 6173
         },
         "/p/ipad-pro-11-0-2018/3641c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad Pro (2018) 64 GB 11.0 \" rymdgrå 4.0 GB",
           "discovery_parent_paths": [
@@ -2381,7 +2526,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-22T13:01:28Z",
+      "checked_at": "2026-09-22T13:16:14Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -2560,16 +2705,16 @@
           "ssd_gb": 256.0,
           "was_price": 35408
         },
-        "/p/apple-macbook-pro-2019-16/27151c/": {
-          "badge": "Bara ett fåtal kvar",
+        "/p/apple-macbook-pro-2019-16/89005b/": {
+          "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i7-9750H 32.0 GB 512 GB 16.0 \" rymdgrå IT (Italiensk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i9-9880H 32.0 GB 512 GB 16.0 \" rymdgrå SE (Svensk)",
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 16",
-          "price": 8569,
+          "price": 6919,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
-          "was_price": 35970
+          "was_price": 34733
         },
         "/p/apple-macbook-pro-2020-133-tb/97271c/": {
           "badge": "Bara ett fåtal kvar",
@@ -2582,13 +2727,13 @@
           "ssd_gb": 512.0,
           "was_price": 28099
         },
-        "/p/apple-macbook-pro-2021-m1-14/219382/": {
+        "/p/apple-macbook-pro-2021-m1-14/75157c/": {
           "badge": "Bästsäljare",
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 32.0 GB 512 GB 14.2 \" silver FI (finska)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 32.0 GB 512 GB 14.2 \" rymdgrå SE (Svensk)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 12675,
+          "price": 12499,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 30460
@@ -2643,7 +2788,7 @@
           "config": "Apple MacBook Pro 2023 M2 Apple M2 Pro 12 Core 32.0 GB 512 GB 16.2 \" silver SE (Svensk)",
           "matched": true,
           "name": "Apple MacBook Pro 2023 M2 | 16.2",
-          "price": 22659,
+          "price": 22755,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 38219
@@ -2759,7 +2904,7 @@
           "was_price": 18316
         },
         "/p/ipad-7-10-2/4827b/": {
-          "badge": "Bara ett fåtal kvar",
+          "badge": null,
           "chip": "",
           "config": "Apple iPad 7 (2019) 32 GB 10.2 \" rymdgrå 3.0 GB",
           "matched": false,
@@ -2817,7 +2962,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-22T13:01:37Z",
+      "checked_at": "2026-09-22T13:16:23Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2023-m2-max/170159/": {
