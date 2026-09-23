@@ -639,7 +639,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-23T22:52:14Z",
+      "checked_at": "2026-09-23T23:08:17Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274271aa/": {
@@ -848,7 +848,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 17939,
+          "price": 17155,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -954,7 +954,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 6445,
+          "price": 6765,
           "ram_gb": 16.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1001,10 +1001,10 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-pro-2021-m1-14/64063b/": {
+        "/p/apple-macbook-pro-2021-m1-14/66454b/": {
           "badge": null,
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 16.0 GB 512 GB 14.2 \" silver US (US-engelska)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 16.0 GB 512 GB 14.2 \" silver SE (Svensk)",
           "discovery_parent_paths": [
             "/p/apple-macbook-pro-2021-m1-14/75703b/"
           ],
@@ -1066,7 +1066,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 18775,
+          "price": 18959,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1108,7 +1108,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22745,
+          "price": 22819,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1136,7 +1136,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22745,
+          "price": 22819,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1164,7 +1164,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22745,
+          "price": 22819,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1192,7 +1192,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23525,
+          "price": 23879,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1206,7 +1206,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22819,
+          "price": 22745,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1220,7 +1220,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22819,
+          "price": 22745,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1346,7 +1346,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 32035,
+          "price": 32799,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1360,7 +1360,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 32799,
+          "price": 32035,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1759,7 +1759,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 21539,
+          "price": 22305,
           "ram_gb": 18.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -2237,34 +2237,6 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-air-4/9787c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Air (2020) 256 GB 10.9 \" grå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-4/9793c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5269,
-          "ram_gb": 256.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-air-4/9793/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-4/9793c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4639,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
         "/p/ipad-air-4/9793b/": {
           "badge": null,
           "chip": "",
@@ -2280,30 +2252,44 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/ipad-air-4/9793c/": {
+        "/p/ipad-air-4/9795/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9795b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 6055,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-air-4/9795b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad Air (2020) 64 GB 10.9 \" grå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9793c/"
+            "/p/ipad-air-4/9795b/"
           ],
           "matched": false,
           "name": "iPad Air (2020) | 10.9",
-          "price": 4325,
+          "price": 4289,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": 8889
+          "was_price": 7312
         },
-        "/p/ipad-air-4/9799c/": {
+        "/p/ipad-air-4/9798b/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Air (2020) 64 GB 10.9 \" blå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9793c/"
+            "/p/ipad-air-4/9795b/"
           ],
           "matched": false,
           "name": "",
-          "price": 4475,
+          "price": 5019,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2359,7 +2345,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 7205,
+          "price": 7239,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -2582,7 +2568,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-23T22:46:01Z",
+      "checked_at": "2026-09-23T23:01:10Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -2756,7 +2742,7 @@
           "config": "Apple MacBook Pro 2019 Intel Core i7-9750H 32.0 GB 512 GB 16.0 \" rymdgrå SE (Svensk)",
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 16",
-          "price": 6659,
+          "price": 6665,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 36042
@@ -2772,16 +2758,16 @@
           "ssd_gb": 512.0,
           "was_price": 28155
         },
-        "/p/apple-macbook-pro-2021-m1-14/36723b/": {
+        "/p/apple-macbook-pro-2021-m1-14/180000b/": {
           "badge": "Bästsäljare",
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 32.0 GB 512 GB 14.2 \" silver DE (Tysk)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 32.0 GB 512 GB 14.2 \" silver US (US-engelska)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 14799,
+          "price": 14805,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
-          "was_price": 30521
+          "was_price": 28268
         },
         "/p/apple-macbook-pro-2021-m1-16-2/131257b/": {
           "badge": "Bara ett fåtal kvar",
@@ -3007,7 +2993,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-23T22:46:08Z",
+      "checked_at": "2026-09-23T23:01:19Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-ultra/100810/": {
