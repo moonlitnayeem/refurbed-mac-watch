@@ -648,7 +648,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-24T15:39:01Z",
+      "checked_at": "2026-09-24T15:53:41Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274271aa/": {
@@ -727,6 +727,20 @@
           "ssd_gb": 512.0,
           "was_price": 21388
         },
+        "/p/apple-mac-mini-2024-m4/273529/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "Mac Mini 2024 M4 - Rekonditionerad Stationär Dator",
+          "discovery_parent_paths": [
+            "/p/apple-mac-mini-2024-m4/273542/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 16999,
+          "ram_gb": 24.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
         "/p/apple-mac-mini-2024-m4/273542/": {
           "badge": null,
           "chip": "M4",
@@ -790,7 +804,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Air 2022 | 13.6",
-          "price": 17809,
+          "price": 17485,
           "ram_gb": 24.0,
           "ssd_gb": 512.0,
           "was_price": 25218
@@ -804,7 +818,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 14885,
+          "price": 15345,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -818,7 +832,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 15399,
+          "price": 15895,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -846,7 +860,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 17095,
+          "price": 16935,
           "ram_gb": 16.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -879,16 +893,16 @@
           "ssd_gb": 512.0,
           "was_price": 25781
         },
-        "/p/apple-macbook-air-m3-2024-15/129586/": {
+        "/p/apple-macbook-air-m3-2024-15/129582/": {
           "badge": null,
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 512 GB 15.3 \" Polstjärnan SE (Svensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 512 GB 15.3 \" rymdgrå SE (Svensk)",
           "discovery_parent_paths": [
             "/p/apple-macbook-air-m3-2024-15/129330/"
           ],
           "matched": false,
           "name": "",
-          "price": 17145,
+          "price": 17935,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1417,7 +1431,7 @@
           ],
           "matched": true,
           "name": "Apple MacBook Pro 2023 M2 | 16.2",
-          "price": 32159,
+          "price": 32025,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": 51911
@@ -2168,7 +2182,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2685,
+          "price": 2679,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -2196,7 +2210,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2469,
+          "price": 2509,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -2453,6 +2467,34 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
+        "/p/ipad-pro-10-5-2017/2164c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 64 GB 10.5 \" rymdgrå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/2164c/"
+          ],
+          "matched": false,
+          "name": "iPad Pro (2017) | 10.5",
+          "price": 2975,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": 7872
+        },
+        "/p/ipad-pro-10-5-2017/2167c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Pro (2017) 256 GB 10.5 \" rymdgrå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-pro-10-5-2017/2164c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4059,
+          "ram_gb": 256.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
         "/p/ipad-pro-11-0-2018/3645b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
@@ -2614,7 +2656,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-24T15:31:23Z",
+      "checked_at": "2026-09-24T15:46:08Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -2682,6 +2724,17 @@
           "ram_gb": 64.0,
           "ssd_gb": 2000.0,
           "was_price": 21163
+        },
+        "/p/apple-mac-mini-2023-m2-pro/76176b/": {
+          "badge": null,
+          "chip": "M2 Pro",
+          "config": "Mac Mini 2023 M2 Pro - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple Mac Mini 2023 M2 Pro",
+          "price": 9495,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": 17108
         },
         "/p/apple-mac-mini-2023-m2/100045b/": {
           "badge": "Bara ett fåtal kvar",
@@ -2969,17 +3022,6 @@
           "ssd_gb": 1000.0,
           "was_price": 18347
         },
-        "/p/ipad-6-2018/2139b/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad 6 (2018) 32 GB 9.7 \" grå 2.0 GB",
-          "matched": false,
-          "name": "iPad 6 (2018) | 9.7",
-          "price": 4156,
-          "ram_gb": 32.0,
-          "ssd_gb": 2.0,
-          "was_price": null
-        },
         "/p/ipad-7-10-2/4827c/": {
           "badge": null,
           "chip": "",
@@ -3039,7 +3081,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-24T15:31:32Z",
+      "checked_at": "2026-09-24T15:46:17Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2023-m2-max/170159/": {
