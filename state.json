@@ -685,7 +685,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-26T11:24:27Z",
+      "checked_at": "2026-09-26T11:39:10Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274320aa/": {
@@ -706,6 +706,17 @@
           "matched": false,
           "name": "Apple iMac 2024 M4 8 Core | 24",
           "price": 15955,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": 20325
+        },
+        "/p/apple-imac-2024-m4-8core/278978aa/": {
+          "badge": null,
+          "chip": "M4",
+          "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
+          "matched": false,
+          "name": "Apple iMac 2024 M4 8 Core | 24",
+          "price": 18629,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 20325
@@ -930,44 +941,16 @@
           "ssd_gb": 512.0,
           "was_price": 22472
         },
-        "/p/apple-macbook-air-m4-2025-15/308516b/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 15.3 \" Midnatt DE (Tysk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m4-2025-15/308516b/"
-          ],
-          "matched": false,
-          "name": "Apple MacBook Air 2025 | 15.3",
-          "price": 11685,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 16936
-        },
-        "/p/apple-macbook-air-m4-2025-15/308855b/": {
+        "/p/apple-macbook-air-m4-2025/308000c/": {
           "badge": null,
           "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 32.0 GB 1000 GB 15.3 \" himmelsblå DE (Tysk)",
+          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 13.6 \" himmelsblå US (US-engelska)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m4-2025-15/308516b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 22599,
-          "ram_gb": 32.0,
-          "ssd_gb": 1000.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-air-m4-2025/307984/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 13.6 \" Midnatt DE (Tysk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m4-2025/307984/"
+            "/p/apple-macbook-air-m4-2025/308000c/"
           ],
           "matched": false,
           "name": "Apple MacBook Air 2025 | 13.6",
-          "price": 11479,
+          "price": 13379,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 13546
@@ -977,7 +960,8 @@
           "chip": "M4",
           "config": "Apple MacBook Air 2025 Apple M4 32.0 GB 1000 GB 13.6 \" himmelsblå DE (Tysk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m4-2025/307984/"
+            "/p/apple-macbook-air-m4-2025/307984/",
+            "/p/apple-macbook-air-m4-2025/308000c/"
           ],
           "matched": false,
           "name": "",
@@ -1024,6 +1008,34 @@
           "matched": false,
           "name": "",
           "price": 6955,
+          "ram_gb": 32.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-pro-2020-133-tb/21612c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple MacBook Pro 2020 Intel Core i5-1038NG7 16.0 GB 512 GB 13.3 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2020-133-tb/21612c/"
+          ],
+          "matched": false,
+          "name": "Apple MacBook Pro 2020 | 13.3",
+          "price": 6585,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": 24845
+        },
+        "/p/apple-macbook-pro-2020-133-tb/72574c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple MacBook Pro 2020 Intel Core i7-1068NG7 32.0 GB 512 GB 13.3 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2020-133-tb/21612c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 8345,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1135,7 +1147,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23149,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1163,7 +1175,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23149,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1191,7 +1203,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23149,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1233,7 +1245,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22775,
+          "price": 23149,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1275,7 +1287,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22775,
+          "price": 23149,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1884,7 +1896,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 21565,
+          "price": 21949,
           "ram_gb": 18.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -2767,7 +2779,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-26T11:16:34Z",
+      "checked_at": "2026-09-26T11:31:37Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -3192,7 +3204,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-26T11:16:46Z",
+      "checked_at": "2026-09-26T11:31:48Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
