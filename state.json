@@ -685,7 +685,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-26T14:08:19Z",
+      "checked_at": "2026-09-26T14:24:30Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274320aa/": {
@@ -846,18 +846,18 @@
           "ssd_gb": 512.0,
           "was_price": 22471
         },
-        "/p/apple-macbook-air-m2-2022/66314b/": {
+        "/p/apple-macbook-air-m2-2022/66322b/": {
           "badge": null,
           "chip": "M2",
-          "config": "Apple MacBook Air 2022 Apple M2 8.0 GB 256 GB 13.6 \" mörkblå SE (Svensk)",
+          "config": "Apple MacBook Air 2022 Apple M2 8.0 GB 512 GB 13.6 \" mörkblå SE (Svensk)",
           "discovery_parent_paths": [
             "/p/apple-macbook-air-m2-2022/277394b/"
           ],
           "matched": false,
           "name": "",
-          "price": 12705,
+          "price": 13029,
           "ram_gb": 8.0,
-          "ssd_gb": 256.0,
+          "ssd_gb": 512.0,
           "was_price": null
         },
         "/p/apple-macbook-air-m2-2022/75708b/": {
@@ -883,7 +883,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 14189,
+          "price": 14535,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -911,7 +911,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 14779,
+          "price": 15115,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1107,7 +1107,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23779,
+          "price": 24545,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1149,7 +1149,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22775,
+          "price": 23555,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1177,7 +1177,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23555,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1191,7 +1191,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23555,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1205,7 +1205,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22775,
+          "price": 23555,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1233,7 +1233,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23149,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1247,7 +1247,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23915,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1275,7 +1275,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23555,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1317,7 +1317,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 10715,
+          "price": 11019,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -2369,14 +2369,40 @@
           "ssd_gb": 4.0,
           "was_price": 8913
         },
-        "/p/ipad-air-5/21650b/": {
+        "/p/ipad-air-5/21650c/": {
           "badge": null,
           "chip": "M1",
           "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-5/21650b/",
-            "/p/ipad-air-5/21650c/",
-            "/p/ipad-air-5/21653b/"
+            "/p/ipad-air-5/21665c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 7125,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": null
+        },
+        "/p/ipad-air-5/21661c/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" lila 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21665c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 7125,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": null
+        },
+        "/p/ipad-air-5/21665b/": {
+          "badge": null,
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21665c/"
           ],
           "matched": false,
           "name": "",
@@ -2385,76 +2411,19 @@
           "ssd_gb": 8.0,
           "was_price": null
         },
-        "/p/ipad-air-5/21653/": {
-          "badge": null,
+        "/p/ipad-air-5/21665c/": {
+          "badge": "Bara ett fåtal kvar",
           "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" blå 8.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-5/21653b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5865,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21653aa/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21653b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 6205,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21653b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21650b/",
-            "/p/ipad-air-5/21653b/"
+            "/p/ipad-air-5/21665c/"
           ],
           "matched": false,
           "name": "iPad Air (2022) | 10.9",
-          "price": 5085,
+          "price": 4035,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
-          "was_price": 10947
-        },
-        "/p/ipad-air-5/21658b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rosa 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21653b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5565,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
-        "/p/ipad-air-5/21673b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" vit 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21653b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5635,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
+          "was_price": 8688
         },
         "/p/ipad-mini-5/4455/": {
           "badge": null,
@@ -2683,7 +2652,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-26T14:01:38Z",
+      "checked_at": "2026-09-26T14:16:33Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -3108,7 +3077,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-26T14:01:48Z",
+      "checked_at": "2026-09-26T14:16:45Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
