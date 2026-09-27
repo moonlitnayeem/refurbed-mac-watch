@@ -685,7 +685,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-27T03:22:48Z",
+      "checked_at": "2026-09-27T03:39:05Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274320aa/": {
@@ -832,6 +832,20 @@
           "ssd_gb": 512.0,
           "was_price": 33882
         },
+        "/p/apple-macbook-air-m2-2022/277294b/": {
+          "badge": null,
+          "chip": "M2",
+          "config": "Apple MacBook Air 2022 Apple M2 16.0 GB 512 GB 13.6 \" rymdgrå SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-air-m2-2022/277394b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 14205,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
         "/p/apple-macbook-air-m2-2022/277394b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M2",
@@ -858,20 +872,6 @@
           "price": 13005,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-air-m2-2022/75708b/": {
-          "badge": null,
-          "chip": "M2",
-          "config": "Apple MacBook Air 2022 Apple M2 16.0 GB 256 GB 13.6 \" mörkblå SE (Svensk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m2-2022/277394b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 14129,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
           "was_price": null
         },
         "/p/apple-macbook-air-m3-2024-15/129398/": {
@@ -911,7 +911,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 17345,
+          "price": 17585,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -1121,7 +1121,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 24969,
+          "price": 24125,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1219,7 +1219,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22775,
+          "price": 23555,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1247,7 +1247,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22775,
+          "price": 23555,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1261,7 +1261,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23555,
+          "price": 22775,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1275,7 +1275,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22775,
+          "price": 23555,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -2597,7 +2597,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-27T03:16:25Z",
+      "checked_at": "2026-09-27T03:31:39Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -3044,7 +3044,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-27T03:16:36Z",
+      "checked_at": "2026-09-27T03:31:50Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
