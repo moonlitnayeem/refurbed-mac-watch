@@ -699,7 +699,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-09-28T05:09:39Z",
+      "checked_at": "2026-09-28T05:23:28Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274320aa/": {
@@ -944,16 +944,16 @@
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/apple-macbook-air-m3-2024-15/129918/": {
+        "/p/apple-macbook-air-m3-2024-15/129647/": {
           "badge": null,
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 256 GB 15.3 \" mörkblå SE (Svensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 256 GB 15.3 \" rymdgrå SE (Svensk)",
           "discovery_parent_paths": [
             "/p/apple-macbook-air-m3-2024-15/129398/"
           ],
           "matched": false,
           "name": "",
-          "price": 17009,
+          "price": 16745,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -967,7 +967,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 15095,
+          "price": 14789,
           "ram_gb": 8.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1149,7 +1149,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23555,
+          "price": 23865,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1191,7 +1191,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 23865,
+          "price": 23555,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1359,7 +1359,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 11289,
+          "price": 10755,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -1429,7 +1429,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 32845,
+          "price": 33679,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1457,7 +1457,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 32209,
+          "price": 32075,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1485,7 +1485,7 @@
           ],
           "matched": true,
           "name": "Apple MacBook Pro 2023 M2 | 16.2",
-          "price": 32209,
+          "price": 32075,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": 52098
@@ -2707,22 +2707,39 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/macbook-pro-2019-133-tb/68886c/": {
+        "/p/macbook-pro-2019-133-tb/27016c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" rymdgrå ES (Spansk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 512 GB 13.3 \" rymdgrå DE (Tysk)",
+          "discovery_parent_paths": [
+            "/p/macbook-pro-2019-133-tb/348081c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5929,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
+        "/p/macbook-pro-2019-133-tb/348081c/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "",
+          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 512 GB 13.3 \" rymdgrå CH (Schweizisk)",
+          "discovery_parent_paths": [
+            "/p/macbook-pro-2019-133-tb/348081c/"
+          ],
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 5049,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 18074
+          "price": 4985,
+          "ram_gb": 8.0,
+          "ssd_gb": 512.0,
+          "was_price": 19204
         }
       },
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-09-28T05:01:40Z",
+      "checked_at": "2026-09-28T05:16:32Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2019-215/152137b/": {
@@ -3147,16 +3164,16 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-09-28T05:01:53Z",
+      "checked_at": "2026-09-28T05:16:45Z",
       "label": "Mac Studio",
       "offers": {
-        "/p/apple-imac-2024-m4-10core/274284aa/": {
+        "/p/apple-imac-2024-m4-10core/274284/": {
           "badge": null,
           "chip": "M4",
           "config": "Apple iMac 2024 M4 10 Core – Kraftfull stationär dator",
           "matched": false,
           "name": "Apple iMac 2024 M4 10 Core | 24",
-          "price": 17105,
+          "price": 19875,
           "ram_gb": 16.0,
           "ssd_gb": 256.0,
           "was_price": 22595
