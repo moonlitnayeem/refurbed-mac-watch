@@ -778,7 +778,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-04T07:26:34Z",
+      "checked_at": "2026-10-04T07:40:55Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274320aa/": {
@@ -1062,7 +1062,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 17175,
+          "price": 17965,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
@@ -1203,7 +1203,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22705,
+          "price": 22445,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1245,7 +1245,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22705,
+          "price": 22445,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1259,7 +1259,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22705,
+          "price": 22445,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1316,7 +1316,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22445,
+          "price": 22705,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1344,7 +1344,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 22705,
+          "price": 22445,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1484,7 +1484,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 12329,
+          "price": 11815,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -1778,7 +1778,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 30969,
+          "price": 31025,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1806,7 +1806,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 32519,
+          "price": 30969,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1820,7 +1820,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 30969,
+          "price": 31025,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1835,7 +1835,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 32519,
+          "price": 30969,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -1849,7 +1849,7 @@
           ],
           "matched": true,
           "name": "Apple MacBook Pro 2023 M2 | 16.2",
-          "price": 32519,
+          "price": 30969,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": 46553
@@ -1877,7 +1877,7 @@
           ],
           "matched": true,
           "name": "",
-          "price": 32519,
+          "price": 30969,
           "ram_gb": 64.0,
           "ssd_gb": 1000.0,
           "was_price": null
@@ -3123,7 +3123,7 @@
           "was_price": null
         },
         "/p/ipad-9-2021/14236b/": {
-          "badge": "Bästsäljare",
+          "badge": null,
           "chip": "",
           "config": "Apple iPad 9 (2021) 64 GB 10.2 \" rymdgrå 3.0 GB",
           "discovery_parent_paths": [
@@ -3132,36 +3132,50 @@
             "/p/ipad-9-2021/14240b/"
           ],
           "matched": false,
-          "name": "iPad 9 (2021) | 10.2",
+          "name": "",
           "price": 2209,
+          "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": null
+        },
+        "/p/ipad-9-2021/14236c/": {
+          "badge": "Bästsäljare",
+          "chip": "",
+          "config": "Apple iPad 9 (2021) 64 GB 10.2 \" rymdgrå 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-9-2021/14236c/"
+          ],
+          "matched": false,
+          "name": "iPad 9 (2021) | 10.2",
+          "price": 2295,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 4848
         },
-        "/p/ipad-9-2021/14237b/": {
+        "/p/ipad-9-2021/14237c/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad 9 (2021) 256 GB 10.2 \" rymdgrå 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-9-2021/14236b/"
+            "/p/ipad-9-2021/14236c/"
           ],
           "matched": false,
           "name": "",
-          "price": 4199,
+          "price": 4189,
           "ram_gb": 256.0,
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-9-2021/14240b/": {
+        "/p/ipad-9-2021/14240c/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad 9 (2021) 64 GB 10.2 \" silver 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-9-2021/14236b/"
+            "/p/ipad-9-2021/14236c/"
           ],
           "matched": false,
           "name": "",
-          "price": 3415,
+          "price": 2635,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -3402,10 +3416,38 @@
           ],
           "matched": false,
           "name": "iPad mini (2019) | 7.9",
-          "price": 2049,
+          "price": 2665,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 6656
+        },
+        "/p/ipad-mini-5/4456b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" silver 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-5/4456/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2189,
+          "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-5/4456c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" silver 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-5/4456/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2189,
+          "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": null
         },
         "/p/ipad-mini-5/4462/": {
           "badge": null,
@@ -3458,7 +3500,7 @@
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 4219,
+          "price": 4155,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 8126
@@ -3590,39 +3632,39 @@
           "ssd_gb": 4.0,
           "was_price": 12421
         },
-        "/p/macbook-pro-2019-133-tb/13031c/": {
+        "/p/macbook-pro-2019-133-tb/111629c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 8.0 GB 512 GB 13.3 \" rymdgrå US (US-engelska)",
+          "config": "Apple MacBook Pro 2019 Intel Core i7-8569U 16.0 GB 512 GB 13.3 \" rymdgrå ES (Spansk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/55345c/"
+            "/p/macbook-pro-2019-133-tb/47888c/"
           ],
           "matched": false,
           "name": "",
-          "price": 5865,
-          "ram_gb": 8.0,
+          "price": 5665,
+          "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": null
         },
-        "/p/macbook-pro-2019-133-tb/55345c/": {
+        "/p/macbook-pro-2019-133-tb/47888c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple MacBook Pro 2019 Intel Core i5-8279U 16.0 GB 256 GB 13.3 \" silver FR (Fransk)",
+          "config": "Apple MacBook Pro 2019 Intel Core i7-8569U 8.0 GB 512 GB 13.3 \" rymdgrå ES (Spansk)",
           "discovery_parent_paths": [
-            "/p/macbook-pro-2019-133-tb/55345c/"
+            "/p/macbook-pro-2019-133-tb/47888c/"
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 5095,
-          "ram_gb": 16.0,
-          "ssd_gb": 256.0,
-          "was_price": 32764
+          "price": 5229,
+          "ram_gb": 8.0,
+          "ssd_gb": 512.0,
+          "was_price": 24853
         }
       },
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-04T07:16:24Z",
+      "checked_at": "2026-10-04T07:31:16Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -4025,7 +4067,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-04T07:16:33Z",
+      "checked_at": "2026-10-04T07:31:24Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274284aa/": {
