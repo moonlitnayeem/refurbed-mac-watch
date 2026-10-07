@@ -820,7 +820,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-07T19:11:49Z",
+      "checked_at": "2026-10-07T19:26:21Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274281/": {
@@ -834,7 +834,7 @@
           "ssd_gb": 256.0,
           "was_price": 22432
         },
-        "/p/apple-imac-2024-m4-8core/278978aa/": {
+        "/p/apple-imac-2024-m4-8core/278934aa/": {
           "badge": null,
           "chip": "M4",
           "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
@@ -942,7 +942,7 @@
           "was_price": null
         },
         "/p/apple-mac-mini-2024-m4/273542/": {
-          "badge": "Bara ett fåtal kvar",
+          "badge": null,
           "chip": "M4",
           "config": "Mac Mini 2024 M4 - Rekonditionerad Stationär Dator",
           "discovery_parent_paths": [
@@ -2763,7 +2763,7 @@
           "was_price": null
         },
         "/p/ipad-10-10-9-2022/58268b/": {
-          "badge": "Bara ett fåtal kvar",
+          "badge": null,
           "chip": "",
           "config": "Apple iPad 10 (2022) 64 GB 10.9 \" blå 4.0 GB",
           "discovery_parent_paths": [
@@ -2772,7 +2772,7 @@
           ],
           "matched": false,
           "name": "iPad 10 (2022) | 10.9",
-          "price": 4155,
+          "price": 4055,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 4814
@@ -3037,26 +3037,13 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-mini-6/14221/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4665,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
         "/p/ipad-mini-6/14221b/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
+            "/p/ipad-mini-6/14221c/",
+            "/p/ipad-mini-6/14229b/"
           ],
           "matched": false,
           "name": "",
@@ -3065,44 +3052,72 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/ipad-mini-6/14221c/": {
+        "/p/ipad-mini-6/14225b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rosa 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14229b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5005,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14229/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14229b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4749,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14229aa/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14229b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5269,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14229b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
+            "/p/ipad-mini-6/14229b/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 4129,
+          "price": 4185,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 8068
         },
-        "/p/ipad-mini-6/14223c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 256 GB 8.3 \" rymdgrå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5345,
-          "ram_gb": 256.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14233c/": {
+        "/p/ipad-mini-6/14233b/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" vit 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
+            "/p/ipad-mini-6/14229b/"
           ],
           "matched": false,
           "name": "",
-          "price": 4345,
+          "price": 4349,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -3196,6 +3211,20 @@
           "ssd_gb": 4.0,
           "was_price": 12332
         },
+        "/p/iphone-11-pro-max/4811/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 64 GB guld Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4811c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3195,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
         "/p/iphone-11-pro-max/4811aa/": {
           "badge": null,
           "chip": "",
@@ -3212,46 +3241,102 @@
           "ssd_gb": 64.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/4813aa/": {
+        "/p/iphone-11-pro-max/4811b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 64 GB guld Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4814aa/"
+            "/p/iphone-11-pro-max/4811c/"
           ],
           "matched": false,
           "name": "",
-          "price": 3159,
+          "price": 4179,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
           "was_price": null
         },
-        "/p/iphone-11-pro-max/4814aa/": {
+        "/p/iphone-11-pro-max/4811c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB grön Dual-SIM (eSIM, Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 64 GB guld Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4814aa/"
+            "/p/iphone-11-pro-max/4811c/"
           ],
           "matched": false,
           "name": "iPhone 11 Pro Max",
-          "price": 2525,
+          "price": 2605,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
           "was_price": 12669
         },
-        "/p/iphone-11-pro-max/4818aa/": {
+        "/p/iphone-11-pro-max/4812c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPhone 11 Pro Max 256 GB grön Dual-SIM (eSIM, Nano-SIM)",
+          "config": "Apple iPhone 11 Pro Max 64 GB silver Dual-SIM (eSIM, Nano-SIM)",
           "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4814aa/"
+            "/p/iphone-11-pro-max/4811c/"
           ],
           "matched": false,
           "name": "",
-          "price": 4415,
+          "price": 2609,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
+        "/p/iphone-11-pro-max/4813c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4811c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3089,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
+        "/p/iphone-11-pro-max/4814c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 64 GB grön Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4811c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3215,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
+        "/p/iphone-11-pro-max/4816c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 256 GB guld Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4811c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 2725,
           "ram_gb": 256.0,
           "ssd_gb": 256.0,
+          "was_price": null
+        },
+        "/p/iphone-11-pro-max/4822c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 512 GB guld Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4811c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 4655,
+          "ram_gb": 512.0,
+          "ssd_gb": 512.0,
           "was_price": null
         },
         "/p/macbook-pro-2019-133-tb/20319c/": {
@@ -3286,7 +3371,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-07T19:02:13Z",
+      "checked_at": "2026-10-07T19:16:38Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -3700,7 +3785,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-07T19:02:23Z",
+      "checked_at": "2026-10-07T19:16:46Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-max/72461/": {
