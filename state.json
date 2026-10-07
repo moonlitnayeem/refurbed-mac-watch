@@ -820,7 +820,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-07T14:11:05Z",
+      "checked_at": "2026-10-07T14:24:00Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274281/": {
@@ -1253,7 +1253,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2020 | 13.3",
-          "price": 5535,
+          "price": 5765,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": 24676
@@ -2828,40 +2828,13 @@
           "ssd_gb": 8.0,
           "was_price": null
         },
-        "/p/ipad-mini-5/4455/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3149,
-          "ram_gb": 64.0,
-          "ssd_gb": 3.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-5/4455aa/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3975,
-          "ram_gb": 64.0,
-          "ssd_gb": 3.0,
-          "was_price": null
-        },
         "/p/ipad-mini-5/4455b/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455c/"
+            "/p/ipad-mini-5/4455c/",
+            "/p/ipad-mini-5/4456b/"
           ],
           "matched": false,
           "name": "",
@@ -2870,44 +2843,44 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-mini-5/4455c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad mini (2019) 64 GB 7.9 \" rymdgrå 3.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455c/"
-          ],
-          "matched": false,
-          "name": "iPad mini (2019) | 7.9",
-          "price": 1769,
-          "ram_gb": 64.0,
-          "ssd_gb": 3.0,
-          "was_price": 6609
-        },
-        "/p/ipad-mini-5/4456c/": {
+        "/p/ipad-mini-5/4456/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad mini (2019) 64 GB 7.9 \" silver 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455c/"
+            "/p/ipad-mini-5/4456b/"
           ],
           "matched": false,
           "name": "",
-          "price": 2109,
+          "price": 2329,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-mini-5/4461c/": {
+        "/p/ipad-mini-5/4456b/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad mini (2019) 256 GB 7.9 \" rymdgrå 3.0 GB",
+          "config": "Apple iPad mini (2019) 64 GB 7.9 \" silver 3.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-5/4455c/"
+            "/p/ipad-mini-5/4456b/"
+          ],
+          "matched": false,
+          "name": "iPad mini (2019) | 7.9",
+          "price": 2055,
+          "ram_gb": 64.0,
+          "ssd_gb": 3.0,
+          "was_price": 6609
+        },
+        "/p/ipad-mini-5/4462b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2019) 256 GB 7.9 \" silver 3.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-5/4456b/"
           ],
           "matched": false,
           "name": "",
-          "price": 3425,
+          "price": 4395,
           "ram_gb": 256.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -3021,7 +2994,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5105,
+          "price": 3695,
           "ram_gb": 256.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -3257,7 +3230,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-07T14:01:59Z",
+      "checked_at": "2026-10-07T14:16:30Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -3660,7 +3633,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-07T14:02:08Z",
+      "checked_at": "2026-10-07T14:16:37Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-max/72461/": {
