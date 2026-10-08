@@ -834,7 +834,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-08T19:39:44Z",
+      "checked_at": "2026-10-08T19:53:42Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274285/": {
@@ -3025,6 +3025,20 @@
           "ssd_gb": 4.0,
           "was_price": 12301
         },
+        "/p/iphone-11-pro-max/4811c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 64 GB guld Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4813c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3059,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
+        },
         "/p/iphone-11-pro-max/4812c/": {
           "badge": null,
           "chip": "",
@@ -3092,10 +3106,24 @@
           ],
           "matched": false,
           "name": "iPhone 11 Pro Max",
-          "price": 2955,
+          "price": 2635,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
           "was_price": 12636
+        },
+        "/p/iphone-11-pro-max/4814c/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPhone 11 Pro Max 64 GB grön Dual-SIM (eSIM, Nano-SIM)",
+          "discovery_parent_paths": [
+            "/p/iphone-11-pro-max/4813c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 3225,
+          "ram_gb": 64.0,
+          "ssd_gb": 64.0,
+          "was_price": null
         },
         "/p/iphone-11-pro-max/4817c/": {
           "badge": null,
@@ -3143,7 +3171,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-08T19:31:33Z",
+      "checked_at": "2026-10-08T19:46:21Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -3367,7 +3395,7 @@
           "was_price": 35806
         },
         "/p/apple-macbook-pro-2022-m2-13-tb/144444c/": {
-          "badge": null,
+          "badge": "Bara ett fåtal kvar",
           "chip": "M2",
           "config": "Apple MacBook Pro 2022 M2 Apple M2 8 Core 8.0 GB 256 GB 13.3 \" silver FI (finska)",
           "matched": false,
@@ -3568,7 +3596,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-08T19:31:41Z",
+      "checked_at": "2026-10-08T19:46:28Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-max/72461b/": {
