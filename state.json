@@ -834,7 +834,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-08T15:54:43Z",
+      "checked_at": "2026-10-08T16:10:20Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274285/": {
@@ -1127,7 +1127,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Air 2024 | 15.3",
-          "price": 25620,
+          "price": 15739,
           "ram_gb": 24.0,
           "ssd_gb": 512.0,
           "was_price": 25620
@@ -1141,7 +1141,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 14069,
+          "price": 14095,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": null
@@ -2656,7 +2656,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 4139,
+          "price": 3819,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2686,7 +2686,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 2559,
+          "price": 2615,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": null
@@ -2730,7 +2730,7 @@
           ],
           "matched": false,
           "name": "iPad 9 (2021) | 10.2",
-          "price": 2115,
+          "price": 2125,
           "ram_gb": 64.0,
           "ssd_gb": 3.0,
           "was_price": 4801
@@ -2787,7 +2787,7 @@
           ],
           "matched": false,
           "name": "iPad Air (2020) | 10.9",
-          "price": 4389,
+          "price": 4415,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": 8831
@@ -2807,47 +2807,18 @@
           "ssd_gb": 4.0,
           "was_price": null
         },
-        "/p/ipad-air-5/21650b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21650b/",
-            "/p/ipad-air-5/21653b/",
-            "/p/ipad-air-5/21665b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5819,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": null
-        },
         "/p/ipad-air-5/21653b/": {
           "badge": null,
           "chip": "M1",
           "config": "Apple iPad Air (2022) 64 GB 10.9 \" rymdgrå 8.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-5/21653b/"
-          ],
-          "matched": false,
-          "name": "iPad Air (2022) | 10.9",
-          "price": 5305,
-          "ram_gb": 64.0,
-          "ssd_gb": 8.0,
-          "was_price": 10845
-        },
-        "/p/ipad-air-5/21655b/": {
-          "badge": null,
-          "chip": "M1",
-          "config": "Apple iPad Air (2022) 256 GB 10.9 \" rymdgrå 8.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-5/21653b/"
+            "/p/ipad-air-5/21653b/",
+            "/p/ipad-air-5/21673b/"
           ],
           "matched": false,
           "name": "",
-          "price": 4885,
-          "ram_gb": 256.0,
+          "price": 5305,
+          "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
         },
@@ -2856,7 +2827,8 @@
           "chip": "M1",
           "config": "Apple iPad Air (2022) 64 GB 10.9 \" rosa 8.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-5/21653b/"
+            "/p/ipad-air-5/21653b/",
+            "/p/ipad-air-5/21673b/"
           ],
           "matched": false,
           "name": "",
@@ -2864,6 +2836,20 @@
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
+        },
+        "/p/ipad-air-5/21673b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M1",
+          "config": "Apple iPad Air (2022) 64 GB 10.9 \" vit 8.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-5/21673b/"
+          ],
+          "matched": false,
+          "name": "iPad Air (2022) | 10.9",
+          "price": 3975,
+          "ram_gb": 64.0,
+          "ssd_gb": 8.0,
+          "was_price": 10845
         },
         "/p/ipad-mini-6/14221/": {
           "badge": null,
@@ -3008,7 +2994,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 3055,
+          "price": 3059,
           "ram_gb": 64.0,
           "ssd_gb": 64.0,
           "was_price": null
@@ -3146,7 +3132,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-08T15:46:35Z",
+      "checked_at": "2026-10-08T16:01:42Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -3358,13 +3344,13 @@
           "ssd_gb": 512.0,
           "was_price": 35806
         },
-        "/p/apple-macbook-pro-2022-m2-13-tb/92626c/": {
+        "/p/apple-macbook-pro-2022-m2-13-tb/92628c/": {
           "badge": null,
           "chip": "M2",
-          "config": "Apple MacBook Pro 2022 M2 Apple M2 8 Core 8.0 GB 256 GB 13.3 \" silver ES (Spansk)",
+          "config": "Apple MacBook Pro 2022 M2 Apple M2 8 Core 8.0 GB 256 GB 13.3 \" silver IT (Italiensk)",
           "matched": false,
           "name": "Apple MacBook Pro 2022 M2 | 13.3",
-          "price": 8209,
+          "price": 8175,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
           "was_price": 18233
@@ -3496,7 +3482,7 @@
           "config": "Apple iPad 7 (2019) 32 GB 10.2 \" silver 3.0 GB",
           "matched": false,
           "name": "iPad 7 (2019) | 10.2",
-          "price": 1275,
+          "price": 1269,
           "ram_gb": 32.0,
           "ssd_gb": 3.0,
           "was_price": 4242
@@ -3507,7 +3493,7 @@
           "config": "Apple iPad 8 (2020) 32 GB 10.2 \" silver 3.0 GB",
           "matched": false,
           "name": "iPad 8 (2020) | 10.2",
-          "price": 1635,
+          "price": 1629,
           "ram_gb": 32.0,
           "ssd_gb": 3.0,
           "was_price": 4018
@@ -3518,7 +3504,7 @@
           "config": "Apple MacBook Pro 2019 Intel Core i5-8257U 8.0 GB 128 GB 13.3 \" silver FR (Fransk)",
           "matched": false,
           "name": "Apple MacBook Pro 2019 | 13.3",
-          "price": 4315,
+          "price": 4175,
           "ram_gb": 8.0,
           "ssd_gb": 128.0,
           "was_price": 15658
@@ -3549,7 +3535,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-08T15:46:44Z",
+      "checked_at": "2026-10-08T16:01:51Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-max/72461b/": {
