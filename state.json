@@ -834,7 +834,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-09T08:10:17Z",
+      "checked_at": "2026-10-09T08:24:35Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274305/": {
@@ -1094,12 +1094,12 @@
           "ssd_gb": 256.0,
           "was_price": null
         },
-        "/p/apple-macbook-air-m3-2024-15/129362b/": {
+        "/p/apple-macbook-air-m3-2024-15/129307b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 512 GB 15.3 \" rymdgrå SE (Svensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 24.0 GB 512 GB 15.3 \" rymdgrå FR (Fransk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129362b/"
+            "/p/apple-macbook-air-m3-2024-15/129307b/"
           ],
           "matched": false,
           "name": "Apple MacBook Air 2024 | 15.3",
@@ -1108,32 +1108,32 @@
           "ssd_gb": 512.0,
           "was_price": 25585
         },
-        "/p/apple-macbook-air-m3-2024-15/129528b/": {
+        "/p/apple-macbook-air-m3-2024-15/129516b/": {
           "badge": null,
           "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 256 GB 15.3 \" rymdgrå SE (Svensk)",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 256 GB 15.3 \" rymdgrå FR (Fransk)",
           "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129362b/"
+            "/p/apple-macbook-air-m3-2024-15/129307b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 16055,
+          "ram_gb": 16.0,
+          "ssd_gb": 256.0,
+          "was_price": null
+        },
+        "/p/apple-macbook-air-m3-2024-15/129649b/": {
+          "badge": null,
+          "chip": "M3",
+          "config": "Apple MacBook Air 2024 Apple M3 8 Core 8.0 GB 256 GB 15.3 \" rymdgrå FR (Fransk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-air-m3-2024-15/129307b/"
           ],
           "matched": false,
           "name": "",
           "price": 14079,
           "ram_gb": 8.0,
           "ssd_gb": 256.0,
-          "was_price": null
-        },
-        "/p/apple-macbook-air-m3-2024-15/129582b/": {
-          "badge": null,
-          "chip": "M3",
-          "config": "Apple MacBook Air 2024 Apple M3 8 Core 16.0 GB 512 GB 15.3 \" rymdgrå SE (Svensk)",
-          "discovery_parent_paths": [
-            "/p/apple-macbook-air-m3-2024-15/129362b/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 16175,
-          "ram_gb": 16.0,
-          "ssd_gb": 512.0,
           "was_price": null
         },
         "/p/apple-macbook-air-m3-2024/128687/": {
@@ -1178,16 +1178,16 @@
           "ssd_gb": 512.0,
           "was_price": 22232
         },
-        "/p/apple-macbook-air-m4-2025-15/308633b/": {
+        "/p/apple-macbook-air-m4-2025-15/308516b/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M4",
-          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 512 GB 15.3 \" Midnatt SE (Svensk)",
+          "config": "Apple MacBook Air 2025 Apple M4 16.0 GB 256 GB 15.3 \" Midnatt DE (Tysk)",
           "matched": false,
           "name": "Apple MacBook Air 2025 | 15.3",
-          "price": 17299,
+          "price": 13515,
           "ram_gb": 16.0,
-          "ssd_gb": 512.0,
-          "was_price": 19549
+          "ssd_gb": 256.0,
+          "was_price": 16755
         },
         "/p/apple-macbook-air-m4-2025/308005b/": {
           "badge": "Bara ett fåtal kvar",
@@ -1296,7 +1296,7 @@
           ],
           "matched": false,
           "name": "Apple MacBook Pro 2020 | 13.3",
-          "price": 6599,
+          "price": 6265,
           "ram_gb": 16.0,
           "ssd_gb": 512.0,
           "was_price": 24579
@@ -2668,31 +2668,30 @@
           "ssd_gb": 3.0,
           "was_price": 7701
         },
-        "/p/ipad-air-4/9792c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPad Air (2020) 64 GB 10.9 \" silver 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-air-4/9792c/"
-          ],
-          "matched": false,
-          "name": "iPad Air (2020) | 10.9",
-          "price": 4405,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": 8819
-        },
-        "/p/ipad-air-4/9794c/": {
+        "/p/ipad-air-4/9792/": {
           "badge": null,
           "chip": "",
           "config": "Apple iPad Air (2020) 64 GB 10.9 \" silver 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-air-4/9792c/",
-            "/p/ipad-air-4/9798c/"
+            "/p/ipad-air-4/9792/"
+          ],
+          "matched": false,
+          "name": "iPad Air (2020) | 10.9",
+          "price": 4515,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": 8819
+        },
+        "/p/ipad-air-4/9797/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad Air (2020) 64 GB 10.9 \" grön 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-air-4/9792/"
           ],
           "matched": false,
           "name": "",
-          "price": 6245,
+          "price": 6309,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -3036,7 +3035,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-09T08:01:36Z",
+      "checked_at": "2026-10-09T08:16:24Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -3149,13 +3148,13 @@
           "ssd_gb": 1000.0,
           "was_price": 55876
         },
-        "/p/apple-mac-studio-2022-m1-max/72461b/": {
+        "/p/apple-mac-studio-2022-m1-max/72461/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M1 Max",
           "config": "Mac Studio 2022 M1 Max - Rekonditionerad Stationär Dator",
           "matched": true,
           "name": "Apple Mac Studio 2022 M1 Max",
-          "price": 14305,
+          "price": 15755,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 25697
@@ -3450,16 +3449,16 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-09T08:01:44Z",
+      "checked_at": "2026-10-09T08:16:35Z",
       "label": "Mac Studio",
       "offers": {
-        "/p/apple-mac-studio-2022-m1-max/72461b/": {
+        "/p/apple-mac-studio-2022-m1-max/72461/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M1 Max",
           "config": "Mac Studio 2022 M1 Max - Rekonditionerad Stationär Dator",
           "matched": true,
           "name": "Apple Mac Studio 2022 M1 Max",
-          "price": 14305,
+          "price": 15755,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
           "was_price": 25697
