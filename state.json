@@ -834,7 +834,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-09T09:24:49Z",
+      "checked_at": "2026-10-09T09:39:33Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274305/": {
@@ -848,7 +848,7 @@
           "ssd_gb": 256.0,
           "was_price": 22344
         },
-        "/p/apple-imac-2024-m4-8core/279249aa/": {
+        "/p/apple-imac-2024-m4-8core/278934aa/": {
           "badge": null,
           "chip": "M4",
           "config": "iMac 2024 M4 8 Core - Rekonditionerad Stationär Dator",
@@ -2370,6 +2370,34 @@
           "ssd_gb": 4000.0,
           "was_price": null
         },
+        "/p/apple-macbook-pro-2025-m5-14/368224b/": {
+          "badge": "Bara ett fåtal kvar",
+          "chip": "M5",
+          "config": "Apple MacBook Pro 2025 M5 Apple M5 10 Core 24.0 GB 512 GB 14.2 \" rymdsvart SE (Svensk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2025-m5-14/368224b/"
+          ],
+          "matched": false,
+          "name": "Apple MacBook Pro 2025 M5 | 14",
+          "price": 22099,
+          "ram_gb": 24.0,
+          "ssd_gb": 512.0,
+          "was_price": 22902
+        },
+        "/p/apple-macbook-pro-2025-m5-14/368446aa/": {
+          "badge": null,
+          "chip": "M5",
+          "config": "Apple MacBook Pro 2025 M5 Apple M5 10 Core 16.0 GB 512 GB 14.2 \" rymdsvart DE (Tysk)",
+          "discovery_parent_paths": [
+            "/p/apple-macbook-pro-2025-m5-14/368224b/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 20279,
+          "ram_gb": 16.0,
+          "ssd_gb": 512.0,
+          "was_price": null
+        },
         "/p/apple-macbook-pro-2026-m5-pro-15-16-14/420143aa/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "M5 Pro",
@@ -2672,7 +2700,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 6005,
+          "price": 6245,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2689,6 +2717,7 @@
           "price": 4655,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
+          "verification_unknown": true,
           "was_price": null
         },
         "/p/ipad-air-5/21650c/": {
@@ -2845,20 +2874,6 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-mini-6/14221/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 4799,
-          "ram_gb": 64.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
         "/p/ipad-mini-6/14221b/": {
           "badge": null,
           "chip": "",
@@ -2910,7 +2925,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 4359,
+          "price": 5189,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2974,96 +2989,6 @@
           "ssd_gb": 4.0,
           "was_price": 12284
         },
-        "/p/iphone-11-pro-max/4811c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB guld Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812c/",
-            "/p/iphone-11-pro-max/4813c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3055,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": null
-        },
-        "/p/iphone-11-pro-max/4812b/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB silver Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3479,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": null
-        },
-        "/p/iphone-11-pro-max/4812c/": {
-          "badge": "Bara ett fåtal kvar",
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB silver Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4811c/",
-            "/p/iphone-11-pro-max/4812c/",
-            "/p/iphone-11-pro-max/4813c/"
-          ],
-          "matched": false,
-          "name": "iPhone 11 Pro Max",
-          "price": 2719,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": 12619
-        },
-        "/p/iphone-11-pro-max/4813c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB rymdgrå Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4811c/",
-            "/p/iphone-11-pro-max/4812c/",
-            "/p/iphone-11-pro-max/4813c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 2949,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": null
-        },
-        "/p/iphone-11-pro-max/4814c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 64 GB grön Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812c/",
-            "/p/iphone-11-pro-max/4813c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3219,
-          "ram_gb": 64.0,
-          "ssd_gb": 64.0,
-          "was_price": null
-        },
-        "/p/iphone-11-pro-max/4815c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPhone 11 Pro Max 256 GB silver Dual-SIM (eSIM, Nano-SIM)",
-          "discovery_parent_paths": [
-            "/p/iphone-11-pro-max/4812c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 3335,
-          "ram_gb": 256.0,
-          "ssd_gb": 256.0,
-          "was_price": null
-        },
         "/p/macbook-pro-2019-133-tb/20321c/": {
           "badge": null,
           "chip": "",
@@ -3096,7 +3021,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-09T09:16:33Z",
+      "checked_at": "2026-10-09T09:31:31Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -3275,16 +3200,27 @@
           "ssd_gb": 512.0,
           "was_price": 27932
         },
-        "/p/apple-macbook-pro-2021-m1-14/30360c/": {
+        "/p/apple-macbook-pro-2021-m1-14/75158b/": {
           "badge": "Bästsäljare",
           "chip": "M1 Pro",
-          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 10 Core 32.0 GB 512 GB 14.2 \" silver US (US-engelska)",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Pro 8 Core 32.0 GB 512 GB 14.2 \" silver FR (Fransk)",
           "matched": true,
           "name": "Apple MacBook Pro 2021 M1 | 14.2",
-          "price": 11065,
+          "price": 15349,
           "ram_gb": 32.0,
           "ssd_gb": 512.0,
-          "was_price": 28044
+          "was_price": 30280
+        },
+        "/p/apple-macbook-pro-2021-m1-14/75691b/": {
+          "badge": "Bästsäljare",
+          "chip": "M1 Max",
+          "config": "Apple MacBook Pro 2021 M1 Apple M1 Max 10 Core 32.0 GB 512 GB 14.2 \" rymdgrå DE (Tysk)",
+          "matched": true,
+          "name": "Apple MacBook Pro 2021 M1 | 14.2",
+          "price": 13365,
+          "ram_gb": 32.0,
+          "ssd_gb": 512.0,
+          "was_price": 36092
         },
         "/p/apple-macbook-pro-2021-m1-16-2/129219b/": {
           "badge": null,
@@ -3510,7 +3446,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-09T09:16:41Z",
+      "checked_at": "2026-10-09T09:31:41Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-max/72461/": {
