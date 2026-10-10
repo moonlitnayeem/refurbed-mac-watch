@@ -848,7 +848,7 @@
   "version": 2,
   "watches": {
     "apple-silicon-64-plus": {
-      "checked_at": "2026-10-10T18:40:07Z",
+      "checked_at": "2026-10-10T18:54:31Z",
       "label": "Apple silicon Macs · 64 GB+",
       "offers": {
         "/p/apple-imac-2024-m4-10core/274305/": {
@@ -2556,7 +2556,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 4715,
+          "price": 4815,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -2802,7 +2802,7 @@
           ],
           "matched": false,
           "name": "",
-          "price": 5345,
+          "price": 5405,
           "ram_gb": 64.0,
           "ssd_gb": 8.0,
           "was_price": null
@@ -2877,44 +2877,58 @@
           "ssd_gb": 3.0,
           "was_price": null
         },
-        "/p/ipad-mini-6/14221c/": {
+        "/p/ipad-mini-6/14220/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14220c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5389,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14220b/": {
+          "badge": null,
+          "chip": "",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
+          "discovery_parent_paths": [
+            "/p/ipad-mini-6/14220c/"
+          ],
+          "matched": false,
+          "name": "",
+          "price": 5945,
+          "ram_gb": 64.0,
+          "ssd_gb": 4.0,
+          "was_price": null
+        },
+        "/p/ipad-mini-6/14220c/": {
           "badge": "Bara ett fåtal kvar",
           "chip": "",
           "config": "Apple iPad mini (2021) 64 GB 8.3 \" rymdgrå 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
+            "/p/ipad-mini-6/14220c/"
           ],
           "matched": false,
           "name": "iPad mini (2021) | 8.3",
-          "price": 4439,
+          "price": 4499,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
-          "was_price": 8054
+          "was_price": 6149
         },
-        "/p/ipad-mini-6/14223c/": {
+        "/p/ipad-mini-6/14228c/": {
           "badge": null,
           "chip": "",
-          "config": "Apple iPad mini (2021) 256 GB 8.3 \" rymdgrå 4.0 GB",
+          "config": "Apple iPad mini (2021) 64 GB 8.3 \" lila 4.0 GB",
           "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
+            "/p/ipad-mini-6/14220c/"
           ],
           "matched": false,
           "name": "",
-          "price": 5675,
-          "ram_gb": 256.0,
-          "ssd_gb": 4.0,
-          "was_price": null
-        },
-        "/p/ipad-mini-6/14233c/": {
-          "badge": null,
-          "chip": "",
-          "config": "Apple iPad mini (2021) 64 GB 8.3 \" vit 4.0 GB",
-          "discovery_parent_paths": [
-            "/p/ipad-mini-6/14221c/"
-          ],
-          "matched": false,
-          "name": "",
-          "price": 5155,
+          "price": 5345,
           "ram_gb": 64.0,
           "ssd_gb": 4.0,
           "was_price": null
@@ -3107,7 +3121,7 @@
       "query": "Apple Mac 64 GB"
     },
     "best-value-macs": {
-      "checked_at": "2026-10-10T18:31:46Z",
+      "checked_at": "2026-10-10T18:46:36Z",
       "label": "Best-value Macs · Apple silicon · 32 GB+",
       "offers": {
         "/p/apple-imac-2021-m1-24/95401b/": {
@@ -3543,7 +3557,7 @@
       "query": "Apple Mac 32 GB"
     },
     "mac-studio": {
-      "checked_at": "2026-10-10T18:31:55Z",
+      "checked_at": "2026-10-10T18:46:44Z",
       "label": "Mac Studio",
       "offers": {
         "/p/apple-mac-studio-2022-m1-max/72461/": {
